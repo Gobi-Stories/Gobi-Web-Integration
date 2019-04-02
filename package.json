@@ -1,0 +1,40 @@
+{
+  "name": "gobi-web-integration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/gobi-integration-player.js",
+  "scripts": {
+    "serve": "webpack-dev-server",
+    "build": "NODE_ENV=production webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gobitech AS",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-transform-object-assign": "^7.2.0",
+    "@babel/preset-env": "^7.3.4",
+    "autoprefixer": "^9.4.9",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^2.0.1",
+    "css-loader": "^2.1.0",
+    "cssnano": "^4.1.10",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "typescript": "^3.3.3333",
+    "uglifyjs-webpack-plugin": "^2.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "promise-polyfill": "8.1.0"
+  }
+}
