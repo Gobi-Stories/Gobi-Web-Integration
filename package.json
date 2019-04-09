@@ -10,6 +10,10 @@
   },
   "author": "Gobitech AS",
   "license": "Apache-2.0",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Gobitech/Gobi-Web-Integration.git"
+  },
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/plugin-transform-object-assign": "^7.2.0",
