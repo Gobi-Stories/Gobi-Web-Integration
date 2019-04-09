@@ -4,9 +4,8 @@ The Gobi Web Integration API allows you to interact with and customize an embedd
 
 ## Installation
 
-You can install the Vimeo Player API through either npm: **(NEED TO ADD PACKAGE TO NPM)**
+You can install the Gobi Player API through  npm: https://www.npmjs.com/package/@gobistories/gobi-web-integration
 
-Alternatively, you can reference an up‐to‐date version on our CDN: **(NEED TO ADD PACKAGE TO NPM or ANOTHER CDN)**
 
 ```html
 <link href="...css/gobi-integration-player.css" rel="stylesheet">
