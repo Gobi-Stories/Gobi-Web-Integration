@@ -4,13 +4,13 @@ The Gobi Web Integration API allows you to interact with and customize an embedd
 
 ## Installation
 
-You can install the Vimeo Player API through either npm: **(NEED TO ADD PACKAGE TO NPM)**
+You can install the Gobi Web Integration through either npm: **npm install --save @gobistories/gobi-web-integration**
 
-Alternatively, you can reference an up‐to‐date version on our CDN: **(NEED TO ADD PACKAGE TO NPM or ANOTHER CDN)**
+Alternatively, you can reference an up‐to‐date version on npm CDN: 
 
 ```html
-<link href="...css/gobi-integration-player.css" rel="stylesheet">
-<script src="...javascript/gobi-integration-player.js"></script>
+<link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
+<script src="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.js"></script>
 ```
 
 ## Browser Support
@@ -57,8 +57,8 @@ Function wich create module layout with already embedded player. Getting options
 ## Create
 ```html
 <head>
-  <script src="...javascript/gobi-integration-player.js"></script>
-  <link href="...css/gobi-integration-player.css" rel="stylesheet">
+  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.js"></script>
 </head>
 <body>
   <div id="container"></div>
@@ -100,8 +100,8 @@ Function which create and return interface for managing and listening to events 
 ## Create
 ```html
 <head>
-  <script src="...javascript/gobi-integration-player.js"></script>
-  <link href="...css/gobi-integration-player.css" rel="stylesheet">
+  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.js"></script>
 </head>
 <body>
   <div id="player-container"></div>
