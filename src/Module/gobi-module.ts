@@ -76,7 +76,7 @@ export default class Module {
     private _getModule(moduleId:string):Promise<Array<ResponseModuleStory>> {
         return new Promise(function(resolve, reject) {
             const xhr = new XMLHttpRequest();
-            const url = 'http://gobi-projector.scrij.com/projector/player/storyModules/' + moduleId;
+            const url = 'https://live.gobiapp.com/projector/player/storyModules/' + moduleId;
             xhr.open('GET', url, true);
             xhr.send();
             xhr.onload = function() {
@@ -109,18 +109,12 @@ export default class Module {
     }
 
     private _decorateResponseStories(responseStories:ResponseModuleStory[]):Array<StoryComingOptions> {
-        const fakeIds = ['d9ed7b5cf21e72e5786dc73852e3a37e08870621',
-                         '08944deda46161c42cb64353c8f24fc00f857fd1',
-                         '31d05fc3878489daa1dec03530137e816f667c8a',
-                         'f4fbbd96c759c5bca459d848430707e45da588ac',
-                         '730bcf64a61dc34b11dcd6839aa22f7583bb40f8',
-                         '3020a9af7b0c7de75f924108714ae0a506c6f570'];
         return responseStories.map((responseStory, index):StoryComingOptions => {
             return {
                 title: responseStory.title,
                 avatarSrc: responseStory.thumbnail,
                 description: responseStory.description,
-                name: fakeIds[index] || responseStory.story_id
+                name: responseStory.story_id
             };
         })
     }
