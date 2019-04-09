@@ -1,6 +1,6 @@
 {
   "name": "@gobistories/gobi-web-integration",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "dist/gobi-web-integration.js",
   "scripts": {
@@ -11,8 +11,8 @@
   "author": "Gobitech AS",
   "license": "Apache-2.0",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/Gobitech/Gobi-Web-Integration.git"
+    "type": "git",
+    "url": "https://github.com/Gobitech/Gobi-Web-Integration.git"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
