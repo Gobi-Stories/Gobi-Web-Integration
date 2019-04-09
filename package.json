@@ -1,8 +1,8 @@
 {
-  "name": "gobi-web-integration",
+  "name": "@gobistories/gobi-web-integration",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/gobi-integration-player.js",
+  "main": "dist/gobi-web-integration.js",
   "scripts": {
     "serve": "webpack-dev-server",
     "build": "NODE_ENV=production webpack",
