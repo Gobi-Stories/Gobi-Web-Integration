@@ -30,10 +30,6 @@ new Module({
     container: document.getElementById('container'),
     moduleId: 'module-id'
 });
-
-player.on('play', function() {
-    console.log('played the video!');
-});
 ```
 
 ```js
@@ -52,7 +48,7 @@ player.on('play', function() {
 
 # Module Constructor
 
-Function wich create module layout with already embedded player. Getting options which allow to customize layout. Doesn't return any interface. 
+Function which create module layout with already embedded player. Getting options which allow to customize layout. Doesn't return any interface. 
 
 ## Create
 ```html

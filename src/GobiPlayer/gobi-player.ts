@@ -22,7 +22,7 @@ export default class Player {
     el: HTMLIFrameElement;
 
     get storyURL() {
-        return `https://live.gobiapp.com/story/id/${this._options.storyName}?autoStart=${this._options.autoStart}&addLooping=${this._options.loop}&hideOverlay=${this._options.hideOverlay}&roundedCorners=${this._options.roundedCorners}`;
+        return `https://live.gobiapp.com/next/story/id/${this._options.storyName}?autoStart=${this._options.autoStart}&addLooping=${this._options.loop}&hideOverlay=${this._options.hideOverlay}&roundedCorners=${this._options.roundedCorners}`;
     }
 
     constructor(options: PlayerComingOptions) {
