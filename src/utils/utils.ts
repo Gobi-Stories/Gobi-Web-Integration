@@ -21,7 +21,7 @@ export function addPrefixToClassName(list:ArrayLike<HTMLElement>, prefix:string)
 export function getModule(moduleId:string):Promise<Array<ResponseModuleStory>> {
   return new Promise(function (resolve, reject) {
     const xhr = new XMLHttpRequest();
-    const url = 'http://gobi-projector.scrij.com/projector/player/storyModules/' + moduleId;
+    const url = 'https://live.gobiapp.com/projector/player/storyModules/' + moduleId;
     xhr.open('GET', url, true);
     xhr.send();
     xhr.onload = function () {
