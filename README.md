@@ -10,7 +10,7 @@ Alternatively, you can reference an up‐to‐date version on npm CDN:
 
 ```html
 <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
-<script src="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.js"></script>
+<script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
 ```
 
 ## Browser Support
@@ -54,7 +54,7 @@ Function which create module layout with already embedded player. Getting option
 ```html
 <head>
   <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
-  <script src="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.js"></script>
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
 </head>
 <body>
   <div id="container"></div>
@@ -97,7 +97,7 @@ Function which create **mobile** module layout with already embedded player. Get
 ```html
 <head>
   <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
-  <script src="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.js"></script>
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
 </head>
 <body>
   <div id="container"></div>
@@ -135,7 +135,7 @@ Function which create and return interface for managing and listening to events 
 ```html
 <head>
   <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
-  <script src="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.js"></script>
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
 </head>
 <body>
   <div id="player-container"></div>
