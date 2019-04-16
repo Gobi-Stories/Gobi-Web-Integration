@@ -1,3 +1,5 @@
+
+
 export interface ModuleOptions {
     moduleId: string,
     container: HTMLElement,
@@ -11,6 +13,22 @@ export interface ModuleOptions {
         descriptionSize?: string,
         avatarSize?: string,
     }
+}
+export interface GobiMobileModuleOptions {
+    moduleId: string,
+    container: HTMLElement,
+    title: string,
+    color: string,
+    stories: ModuleStoriesOptionsObj,
+    playerOptions?: ModulePlayerOptions,
+}
+export interface GobiMobileModuleComingOptions {
+    moduleId: string,
+    container: HTMLElement,
+    title?: string,
+    color?: string,
+    playerOptions?: ModulePlayerOptions,
+    stories?: ModuleStoriesOptionsObj,
 }
 
 export interface ModuleComingOptions {
@@ -43,8 +61,8 @@ export interface ModuleStoriesOptions {
     avatarSrc?: string,
     title?: string,
     description?: string,
-    titleColor: string,
-    descriptionColor:string,
+    titleColor?: string,
+    descriptionColor?:string,
 }
 
 export interface ResponseModuleStory {

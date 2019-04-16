@@ -1,13 +1,12 @@
 import {
     ModuleComingOptions,
     ModuleOptions,
-    ModuleStoriesOptionsObj,
     ResponseModuleStory
 } from "@/Module/gobi-module.types";
-import Promise from 'promise-polyfill';
 import DesktopModule from "@/Module/DesktopModule/desktop-module";
 import {StoryComingOptions} from "@/Story/story.types";
 import MobileModule from "@/Module/MobileModule/mobile-module";
+import {decorateResponseStories, getModule, mergeStoriesOptions} from "@/utils/utils";
 
 export default class Module {
     private static readonly _defaultOptions = {
@@ -24,11 +23,11 @@ export default class Module {
 
 
     load(options:ModuleComingOptions) {
-        this._getModule(options.moduleId).then((stories:ResponseModuleStory[]) => {
+        getModule(options.moduleId).then((stories:ResponseModuleStory[]) => {
             const _options:ModuleOptions = Object.assign({}, Module._defaultOptions, options);
             const container = _options.container;
-            const responseStoryOptions = this._decorateResponseStories(stories);
-            const storiesOptions = this._mergeStoriesOptions(responseStoryOptions, _options.stories);
+            const responseStoryOptions = decorateResponseStories(stories);
+            const storiesOptions = mergeStoriesOptions(responseStoryOptions, _options.stories);
             let isMobileView = window.innerWidth < 768;
             const module = this._initModules(_options, storiesOptions);
             if (window.innerWidth < 768) {
@@ -53,7 +52,7 @@ export default class Module {
     }
 
     private _initModules(options:ModuleOptions,
-                         storiesOptions:StoryComingOptions[]):{ desktop:DesktopModule, mobile:MobileModule }{
+                         storiesOptions:StoryComingOptions[]):{ desktop:DesktopModule, mobile:MobileModule } {
         return {
             desktop: new DesktopModule({
                 title: options.title,
@@ -72,51 +71,6 @@ export default class Module {
                 playerOptions: options.playerOptions,
             })
         };
-    }
-    private _getModule(moduleId:string):Promise<Array<ResponseModuleStory>> {
-        return new Promise(function(resolve, reject) {
-            const xhr = new XMLHttpRequest();
-            const url = 'https://live.gobiapp.com/projector/player/storyModules/' + moduleId;
-            xhr.open('GET', url, true);
-            xhr.send();
-            xhr.onload = function() {
-                if (this.status < 400) {
-                    resolve(JSON.parse(this.responseText));
-                } else {
-                    reject(Error('Module didn\'t load successfully; error code:' + xhr.statusText));
-                }
-            };
-            xhr.onerror = function() {
-                reject(Error('There was a network error.'));
-            };
-        })
-    }
-
-    private _mergeStoriesOptions(responseStoryOptions:StoryComingOptions[],
-                                 comingStoryOptions:ModuleStoriesOptionsObj):StoryComingOptions[] {
-        const mergedOptions:StoryComingOptions[] = [];
-        for (const key in responseStoryOptions) {
-            const responseOption = responseStoryOptions[key];
-            if (comingStoryOptions[key]) {
-                const comingOptions = comingStoryOptions[key];
-                mergedOptions.push(Object.assign(responseOption, comingOptions))
-            }
-            else {
-                mergedOptions.push(responseOption);
-            }
-        }
-        return mergedOptions;
-    }
-
-    private _decorateResponseStories(responseStories:ResponseModuleStory[]):Array<StoryComingOptions> {
-        return responseStories.map((responseStory, index):StoryComingOptions => {
-            return {
-                title: responseStory.title,
-                avatarSrc: responseStory.thumbnail,
-                description: responseStory.description,
-                name: responseStory.story_id
-            };
-        })
     }
 
 }

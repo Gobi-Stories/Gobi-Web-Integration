@@ -89,6 +89,44 @@ stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific st
 stories[0...n].titleColor         |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story title text.
 stories[0...n].descriptionColor   |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story description text.
 
+# MobileModule Constructor
+
+Function which create **mobile** module layout with already embedded player. Getting options which allow to customize layout. Doesn't return any interface. 
+
+## Create
+```html
+<head>
+  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.js"></script>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+        new gobi.MobileModule({
+          moduleId: 'some-modul-id',
+          container: document.getElementById('container'),
+        });
+  </script>
+</body>
+```
+## Options
+
+option                            | default  | description
+----------------------------------| -------- | -----------
+moduleId                          |          | **Required.** String. The id of the module.
+container                         |          | **Required.** HTMLElement. Container where the module will be embed.
+title                             |    ``    | String. Module title.
+color                             |`#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of story circle.
+**playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
+playerOptions.roundedCorners      |  `true`  | Boolean. Remove or add rounded corners to player element.
+playerOptions.shadow              |  `true`  | Boolean. Remove or add shadow to player element.
+**stories**                       |   `{}`   | Object. Allow to change content of each stroy circle.
+stories[0...n].title              |    ``    | String. Change title text of specific story.
+stories[0...n].description        |    ``    | String. Change description text of specific story.
+stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific story.
+stories[0...n].titleColor         |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story title text.
+stories[0...n].descriptionColor   |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story description text.
+
 # Player Constructor
 
 Function which create and return interface for managing and listening to events of Player.
