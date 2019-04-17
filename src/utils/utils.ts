@@ -72,6 +72,7 @@ export function addListener(object:Window | Document | HTMLElement,
 export const scrollDisabler = {
   scrollTop: 0,
   bodyOverflow: '' as string | null,
+  htmlOverflow: '' as string | null,
   disable: function() {
     this.isIOS ? this.IOSDisable() : this.classicDisable();
   },
@@ -80,9 +81,12 @@ export const scrollDisabler = {
   },
   classicDisable: function() {
     this.bodyOverflow = document.body.style.overflow;
+    this.htmlOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
   },
   classicEnable: function() {
+    document.documentElement.style.overflow = this.htmlOverflow;
     document.body.style.overflow = this.bodyOverflow;
   },
   IOSEnable: function() {
