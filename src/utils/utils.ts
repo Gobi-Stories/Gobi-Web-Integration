@@ -69,6 +69,19 @@ export function addListener(object:Window | Document | HTMLElement,
   return () => object.removeEventListener(eventName, callback);
 }
 
+export function returnHighestZIndex() {
+  const elems = document.body.querySelectorAll('*');
+  let maxZIndex = 1;
+  let currentZIndex = 0;
+  for (let i = elems.length; i--;) {
+    currentZIndex = Number(window.getComputedStyle(elems[i]).zIndex);
+    if (maxZIndex < currentZIndex) {
+      maxZIndex = currentZIndex;
+    }
+  }
+  return maxZIndex;
+}
+
 export const scrollDisabler = {
   scrollTop: 0,
   bodyOverflow: '' as string | null,

@@ -1,4 +1,4 @@
-import {addListener, scrollDisabler} from "@/utils/utils";
+import {addListener, scrollDisabler, returnHighestZIndex} from "@/utils/utils";
 import SimpleEventEmitter from "@/utils/event-emitter.ts";
 import {GobiPopupOptions, GobiPopupComingOptions} from "@/GobiPopup/gobi-popup.types";
 import Player from "@/GobiPlayer/gobi-player";
@@ -40,12 +40,14 @@ export default class GobiPopup {
 
     open() {
         scrollDisabler.disable();
+        this.el.style.zIndex = (returnHighestZIndex() + 1).toString();
         this.el.classList.add('gobi-popup--active');
         this._listeners.push(addListener(window, 'keyup', this._onKeyUpClose.bind(this)));
         this._isOpen = true;
         this._eventEmitter.emit('open', this, this);
     }
     close() {
+        this.el.style.zIndex = '';
         this.el.classList.remove('gobi-popup--active');
         this.el.style.padding = '';
         scrollDisabler.enable();
