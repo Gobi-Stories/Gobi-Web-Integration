@@ -6,6 +6,7 @@ export interface MobileModuleOptions {
     color: string,
     stories: StoryComingOptions[],
     playerOptions: ModulePlayerOptions,
+    verticalOrientation?: boolean
 }
 
 export interface MobileModuleComingOptions{
@@ -13,4 +14,5 @@ export interface MobileModuleComingOptions{
     color?: string,
     stories: StoryComingOptions[],
     playerOptions?: ModulePlayerOptions,
+    verticalOrientation?: boolean
 }

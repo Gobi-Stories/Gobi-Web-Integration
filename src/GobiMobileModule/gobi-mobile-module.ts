@@ -20,6 +20,7 @@ export default class GobiMobileModule {
             const responseStoryOptions = decorateResponseStories(stories);
             const storiesOptions = mergeStoriesOptions(responseStoryOptions, _options.stories);
             new MobileModule({
+                verticalOrientation: _options.verticalOrientation,
                 title:  options.title,
                 color: options.color,
                 stories: storiesOptions,

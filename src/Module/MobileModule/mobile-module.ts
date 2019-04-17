@@ -10,7 +10,7 @@ export default class MobileModule {
     private static readonly _defaultMobileModuleOptions = {
         title: '',
         color: '',
-        playerOptions: {}
+        playerOptions: {},
     };
 
     private _currentStory:MobileStory;
@@ -44,7 +44,7 @@ export default class MobileModule {
 
     constructor(options:MobileModuleComingOptions) {
         const _options:MobileModuleOptions = Object.assign({}, MobileModule._defaultMobileModuleOptions, options);
-        this.el = this._createTemplate();
+        this.el = this._createTemplate(_options.verticalOrientation);
         this._title = _options.title;
         this.title = _options.title;
         this._color = _options.color;
@@ -95,12 +95,19 @@ export default class MobileModule {
         this.popup.open();
     }
 
-    private _createTemplate():HTMLElement {
+    private _createTemplate(isVertical:boolean = false):HTMLElement {
         const container = document.createElement('div');
         const classPrefix = 'gobi-popup-module';
         container.classList.add(classPrefix);
         container.innerHTML = MobileModule._HTML;
         addPrefixToClassName(container.querySelectorAll('*'), classPrefix + '__');
+        const storiesContainerEl = container.lastElementChild as HTMLElement;
+        if (isVertical) {
+            storiesContainerEl.classList.add(classPrefix + '__stories--vertical');
+        }
+        else {
+            storiesContainerEl.classList.add(classPrefix + '__stories--horizontal');
+        }
         return container;
     }
 

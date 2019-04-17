@@ -19,6 +19,7 @@ export interface GobiMobileModuleOptions {
     container: HTMLElement,
     title: string,
     color: string,
+    verticalOrientation?: boolean,
     stories: ModuleStoriesOptionsObj,
     playerOptions?: ModulePlayerOptions,
 }
@@ -27,6 +28,7 @@ export interface GobiMobileModuleComingOptions {
     container: HTMLElement,
     title?: string,
     color?: string,
+    verticalOrientation?: boolean
     playerOptions?: ModulePlayerOptions,
     stories?: ModuleStoriesOptionsObj,
 }

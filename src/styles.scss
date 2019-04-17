@@ -29,10 +29,16 @@ body {
     overflow-x: auto;
     padding: 0 60px 60px;
     white-space: nowrap;
-    & > * {
+    &--horizontal > * {
       display: inline-block;
       vertical-align: top;
       margin: 10px 5px;
+    }
+    &--vertical > * {
+      margin: 10px 5px 80px;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }
@@ -84,7 +90,7 @@ body {
     $font-size: 12px;
     position: absolute;
     left: 50%;
-    top: 30px;
+    top: 20px;
     width: 250px;
     white-space: normal;
     color: #858585;
