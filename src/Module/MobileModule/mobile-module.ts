@@ -26,10 +26,11 @@ export default class MobileModule {
         return this._title;
     }
     set title(title:string) {
-        const titleEl = this.el.querySelector('[data-title]');
+        const titleEl = this.el.querySelector('[data-title]') as HTMLElement;
         if (titleEl) {
-            this._title = title;
-            titleEl.textContent = title;
+            this._title = title || '';
+            titleEl.textContent = this._title;
+            titleEl.style.display = this._title ? '' : 'none';
         }
     }
     get currentStory():MobileStory {

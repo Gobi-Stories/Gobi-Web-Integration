@@ -1,7 +1,6 @@
 .gobi-popup {
   &--active {
     height: 100%;
-    overflow: auto;
     opacity: 1;
   }
   &--active & {
