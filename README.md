@@ -1,26 +1,146 @@
 # Gobi Web Integration
 
-The Gobi Web Integration API allows you to interact with and customize an embedded Stories Layout and Gobi Player
+Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site.
 
-## Installation
+Below follow
 
-You can install the Gobi Web Integration through either npm: **npm install --save @gobistories/gobi-web-integration**
+- What it will look like (screenshots)
+- Requirements & prerequisites
+- Functionality breakdown
+- Implementation steps
+- Advanced configuration (eg. vertically oriented layout)
+- Troubleshooting
+- Browser Support
 
-Alternatively, you can reference an up‐to‐date version on npm CDN: 
+## What it will look like (demo)
+
+See a demo of this library in action at
+[https://gobiapp.com/external/example-module](https://gobiapp.com/external/example-module)
+
+## What it will look like (screenshots)
+
+### Bubbles (initially)
+
+![Bubbles](https://eu1media.gobitech.no/bubbles-initial.png "Optional Title")
+
+### Bubbles (while hovering)
+
+![Bubbles (while hovering)](https://eu1media.gobitech.no/bubbles-hover.png "Optional Title")
+
+### Player opened after clicking bubble
+
+![Player opened after clicking bubble](https://eu1media.gobitech.no/click-player.png "Optional Title")
+
+
+
+
+## Requirements & prerequisites
+
+For this library to work for you, you need to have 
+- an account with Gobi
+- stories already made (or make them as you go)
+- be a paying customer
+- access to editing the source of your own webpage (and ample technical insight)
+
+### Making an account
+
+An account with Gobi can be made easily and for free by anyone. Install the Gobi app on your phone. [iOS](https://itunes.apple.com/us/app/gobi-send-snaps-in-groups/id1025344825?utm_source=gobiapp.com&utm_medium=website), [Android](https://play.google.com/store/apps/details?id=no.gobiapp.gobi&utm_source=gobiapp.com&utm_medium=website)
+  Follow the instructions in the app to make an account.
+
+### Making stories
+
+Once inside the app and logged in with your user, you can
+- create a story and give it a name,
+- record a series of videos and photos, and add these to your story. Your story will then contain all of your content, and will play them in succession to anyone who views the story.
+
+### Be a paying customer
+
+For the time being you will also need to be a paying customer in order to have permission to publish your stories on the Web – contact us at [Gobitech](http://gobistories.co) for a tailored offer.
+
+
+### Access to your webpage's source
+
+You will need access to edit the source HTML and the ability to add script and link tags, in your own webpage or the webpage where you want the Gobi stories to show up.
+
+## Functionality breakdown
+
+An outline of what this library does:
+- exports to the global (window) scope on the browser, functions which find a placeholder element and trigger creation of story bubbles
+- the bubbles contain thumbnails for each story, which are automatically generated
+- the appearance of the ring around bubbles and other visual elements can be configured in your Javascript
+- the title of each story (soon-to-be equal to the story name) will appear under each respective bubble
+- the story bubbles, when clicked, will cause a player to load, and play the selected story
+- the story video player will appear either side-by-side with the bubbles, or fullscreen, depending on your configuration choices and on the device screen size
+- the player contains buttons for
+  - navigating back and forth in the story (skipping),
+  - pausing playback,
+  - closing the player,
+  - muting the sound
+
+## Implementation steps
+
+
+Steps:
+- Add placeholder element
+– link to script and CSS
+- write your inline script
+
+Details:
+- Add a placeholder element to your HTML. Put it where you want the Gobi story bubbles to appear.
+  eg. ```<div id="container"></div>```
+  This placeholder is any simple div, and can have a class name instead of an ID. The important thing is that you are able to refer to it in your script code (below).
+- Include the library Javascript and the library CSS in your HTML page. This can be done in two ways:
+  - by downloading ( for instance using ```npm``` (advanced)) and serving the files yourself.  To install using npm, do ```npm install --save @gobistories/gobi-web-integration```.
+  - by reference the up‐to‐date version on npm CDN, as in the example below.
+
+  If you don't know what this means, just follow the example below. 
+- Implement your custom code which should at least call the `gobi.Module` function or a related function, to get the placeholder replaced and the behavior started.
+  ```html
+    <script>
+        new gobi.Module({
+          moduleId: 'some-module-id',
+          container: document.getElementById('container'),
+        });
+    </script>
+  ```
+
+
+Full example:
 
 ```html
-<link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
-<script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
+<html>
+<head>
+  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css"
+        rel="stylesheet">
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+    new gobi.Module({
+      moduleId: 'some-module-id',
+      container: document.getElementById('container'),
+    });
+  </script>
+</body>
+</html>
 ```
 
-## Browser Support
 
-The library is supported in IE 11+, Chrome, Firefox, Safari, and
-Opera.
+If you want to reference a specific version, replace
+```html
+<script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
+```
+with
+```html
+<script src="https://unpkg.com/@gobistories/gobi-web-integration@1.2.2"></script>
+```
+where 1.2.2 is the version you require.
 
-## Using with a module bundler
 
-If you’re using a module bundler like [webpack](https://webpack.js.org), the exported object will be the Player and Module
+## Using with a bundler
+
+If you’re using a bundler like [webpack](https://webpack.js.org), the exported object will be the Player and Module
 constructor (unlike the browser where it is attached to `window.gobi`):
 
 ```js
@@ -46,11 +166,33 @@ player.on('play', function() {
 });
 ```
 
-# Module Constructor
+----
+
+
+## Troubleshooting
+
+- No bubbles show
+
+  See the console. Can you spot any errors? Try to understand them. If there seems to be a bug in the library, please email us.
+
+
+
+
+## Browser Support
+
+The library will work in IE 11+, Chrome, Firefox, Safari, and Opera.
+
+
+----
+
+# Technical documentation
+
+## Module Constructor
 
 Function which create module layout with already embedded player. Getting options which allow to customize layout. Doesn't return any interface. 
 
-## Create
+### Create
+
 ```html
 <head>
   <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
@@ -60,13 +202,14 @@ Function which create module layout with already embedded player. Getting option
   <div id="container"></div>
   <script>
         new gobi.Module({
-          moduleId: 'some-modul-id',
+          moduleId: 'some-module-id',
           container: document.getElementById('container'),
         });
   </script>
 </body>
 ```
-## Options
+
+### Options
 
 option                            | default  | description
 ----------------------------------| -------- | -----------
@@ -89,11 +232,11 @@ stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific st
 stories[0...n].titleColor         |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story title text.
 stories[0...n].descriptionColor   |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story description text.
 
-# MobileModule Constructor
+## MobileModule Constructor
 
 Function which create **mobile** module layout with already embedded player. Getting options which allow to customize layout. Doesn't return any interface. 
 
-## Create
+### Create
 ```html
 <head>
   <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
@@ -103,13 +246,13 @@ Function which create **mobile** module layout with already embedded player. Get
   <div id="container"></div>
   <script>
         new gobi.MobileModule({
-          moduleId: 'some-modul-id',
+          moduleId: 'some-module-id',
           container: document.getElementById('container'),
         });
   </script>
 </body>
 ```
-## Options
+### Options
 
 option                            | default  | description
 ----------------------------------| -------- | -----------
@@ -128,11 +271,11 @@ stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific st
 stories[0...n].titleColor         |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story title text.
 stories[0...n].descriptionColor   |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story description text.
 
-# Player Constructor
+## Player Constructor
 
 Function which create and return interface for managing and listening to events of Player.
 
-## Create
+### Create
 ```html
 <head>
   <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
@@ -152,7 +295,7 @@ Function which create and return interface for managing and listening to events 
 </body>
 ```
 
-## Options
+### Options
 option             | default | description
 -------------------| ------- | -----------
 storyName          |         | **Required.** String. The id of the story.
@@ -166,7 +309,7 @@ width              |  `612`  | Number. Set player width. If height option is not
 height             |  `1088`  | Number. Set player height. If width option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 checkViewPort      | `true`  | Boolean. Enable functionality which pause player if it outside of screen view area.
 
-## Methods
+### Methods
 You can call methods on the player by calling the function on the Player object:
 ```js
 player.play();
@@ -211,7 +354,7 @@ var onPlay = function(data) {
 };
 player.on('play', onPlay);
 ```
-### off(event?:string, callback?:() => void): void
+#### off(event?:string, callback?:() => void): void
 Remove an event listener for the specified event. Will remove all listeners for that event if a `callback` isn’t passed or only that specific callback if it is passed or all listeners from all events if any of params aren't passed.
 ```js
 var onPlay = function(data) {
@@ -225,7 +368,7 @@ player.off('play');
 // remove all listeners from all events.
 player.off();
 ```
-## Events
+### Events
 You can listen for events in the player by attaching a callback using .on():
 ```js
 player.on('eventName', function(data) {
@@ -300,7 +443,7 @@ undefined
 
 ## Examples
 
-#### Response palyer 
+### Responsive player 
 Provides a class to resize the player according it parent element.
 ```html
 <body>
