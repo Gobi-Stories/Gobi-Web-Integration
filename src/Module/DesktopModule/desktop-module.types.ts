@@ -1,11 +1,11 @@
-import {StoryComingOptions} from "@/Story/story.types";
+import {StoryOptions} from "@/Story/story.types";
 import {ModulePlayerOptions} from "@/Module/gobi-module.types";
 
 export interface DesktopModuleOptions {
     title:string,
     color: string,
     activeColor: string,
-    stories: StoryComingOptions[],
+    stories: StoryOptions[],
     playerOptions: ModulePlayerOptions,
     titleSize?: string,
     descriptionSize?: string,
@@ -17,7 +17,7 @@ export interface DesktopModuleComingOptions{
     color?: string,
     activeColor?: string,
     playerOptions?: ModulePlayerOptions,
-    stories: StoryComingOptions[],
+    stories: StoryOptions[],
     titleSize?: string,
     descriptionSize?: string,
     avatarSize?: string,

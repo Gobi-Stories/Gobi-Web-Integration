@@ -4,9 +4,9 @@ import {
     ResponseModuleStory
 } from "@/Module/gobi-module.types";
 import DesktopModule from "@/Module/DesktopModule/desktop-module";
-import {StoryComingOptions} from "@/Story/story.types";
-import MobileModule from "@/Module/MobileModule/mobile-module";
+import {StoryOptions} from "@/Story/story.types";
 import {decorateResponseStories, getModule, mergeStoriesOptions} from "@/utils/utils";
+import MobileLayout from "@/Layouts/MobileLayout/mobile-layout";
 
 export default class Module {
     private static readonly _defaultOptions = {
@@ -52,7 +52,7 @@ export default class Module {
     }
 
     private _initModules(options:ModuleOptions,
-                         storiesOptions:StoryComingOptions[]):{ desktop:DesktopModule, mobile:MobileModule } {
+                         storiesOptions:StoryOptions[]):{ desktop:DesktopModule, mobile:MobileLayout } {
         return {
             desktop: new DesktopModule({
                 title: options.title,
@@ -64,7 +64,7 @@ export default class Module {
                 avatarSize: options.desktopStoryStyle.avatarSize,
                 descriptionSize: options.desktopStoryStyle.descriptionSize
             }),
-            mobile: new MobileModule({
+            mobile: new MobileLayout({
                 title:  options.title,
                 color: options.activeColor,
                 stories: storiesOptions,

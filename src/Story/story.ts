@@ -1,20 +1,11 @@
 import SimpleEventEmitter from "@/utils/event-emitter";
-import {StoryComingOptions, StoryOptions} from "@/Story/story.types";
+import {StoryOptions} from "@/Story/story.types";
 import {addListener} from "@/utils/utils";
 
 export default abstract class Story {
     el:HTMLElement;
-    name:string;
+    id:string;
 
-    private static readonly _defaultStoryOptions = {
-        avatarSrc: '',
-        title: '',
-        description: '',
-        color: '',
-        selected: false,
-        titleColor: '',
-        descriptionColor: ''
-    };
     protected _listeners:Array<() => void> = [];
 
     protected _eventEmitter = new SimpleEventEmitter();
@@ -36,20 +27,19 @@ export default abstract class Story {
 
     protected abstract _createTemplate():HTMLElement;
 
-    protected constructor(options:StoryComingOptions) {
-        const _options:StoryOptions = Object.assign({}, Story._defaultStoryOptions, options);
+    protected constructor(options:StoryOptions) {
         this.el = this._createTemplate();
-        this.name = _options.name;
-        this._title = _options.title;
-        this._description = _options.description;
-        this._avatarSrc = _options.avatarSrc;
-        this._color = _options.color;
+        this.id = options.id;
+        this._title = options.title || '';
+        this._description = options.description || '';
+        this._avatarSrc = options.avatarSrc || '';
+        this._color = options.color || '';
         this._addSelectEmitter();
-        if (typeof _options.onSelect === 'function') {
-            this._eventEmitter.on('select', _options.onSelect);
+        if (typeof options.onSelect === 'function') {
+            this._eventEmitter.on('select', options.onSelect);
         }
-        if (_options.container) {
-            _options.container.appendChild(this.el);
+        if (options.container) {
+            options.container.appendChild(this.el);
         }
     }
 

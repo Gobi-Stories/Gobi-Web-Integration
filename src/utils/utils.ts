@@ -1,6 +1,6 @@
 import Promise from "promise-polyfill";
 import {ModuleStoriesOptionsObj, ResponseModuleStory} from "@/Module/gobi-module.types";
-import {StoryComingOptions} from "@/Story/story.types";
+import {StoryOptions} from "@/Story/story.types";
 
 export function forEach<T>(list:ArrayLike<T>, callback:(listItem?:T, index?:number, list?:ArrayLike<T>) => void) {
   const max = list.length;
@@ -37,26 +37,31 @@ export function getModule(moduleId:string):Promise<Array<ResponseModuleStory>> {
   })
 }
 
-export function mergeStoriesOptions(responseStories:StoryComingOptions[],
-    comingStories:ModuleStoriesOptionsObj):StoryComingOptions[] {
-  const mergedOptions: StoryComingOptions[] = [];
-  for (const key in responseStories) {
-    const responseStory = responseStories[key];
-    const comingOptions = comingStories[key];
-    mergedOptions.push(comingOptions ?
-        Object.assign(responseStory, comingOptions) :
-        responseStory);
+export function mergeStoriesOptions(responseStories:StoryOptions[],
+    comingStories?:ModuleStoriesOptionsObj):StoryOptions[] {
+  if (comingStories) {
+    const mergedOptions: StoryOptions[] = [];
+    for (const key in responseStories) {
+      const responseStory = responseStories[key];
+      const comingOptions = comingStories[key];
+      mergedOptions.push(comingOptions ?
+          Object.assign(responseStory, comingOptions) :
+          responseStory);
+    }
+    return mergedOptions;
   }
-  return mergedOptions;
+  else {
+    return responseStories;
+  }
 }
 
-export function decorateResponseStories(responseStories:ResponseModuleStory[]):Array<StoryComingOptions> {
-  return responseStories.map((responseStory): StoryComingOptions => {
+export function decorateResponseStories(responseStories:ResponseModuleStory[]):Array<StoryOptions> {
+  return responseStories.map((responseStory): StoryOptions => {
     return {
       title: responseStory.title,
       avatarSrc: responseStory.thumbnail,
       description: responseStory.description,
-      name: responseStory.story_id
+      id: responseStory.story_id
     };
   })
 }

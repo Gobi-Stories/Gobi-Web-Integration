@@ -1,4 +1,4 @@
-import {StoryComingOptions} from "@/Story/story.types";
+import {StoryOptions} from "@/Story/story.types";
 
 export interface DesktopStoryOptions {
     selected: boolean,
@@ -6,7 +6,7 @@ export interface DesktopStoryOptions {
     descriptionSize?: string,
     avatarSize?: string,
 }
-export interface DesktopStoryComingOptions extends StoryComingOptions {
+export interface DesktopStoryComingOptions extends StoryOptions {
     selected?: boolean,
     titleSize?: string,
     descriptionSize?: string,

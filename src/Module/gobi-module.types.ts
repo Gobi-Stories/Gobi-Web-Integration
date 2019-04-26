@@ -14,24 +14,7 @@ export interface ModuleOptions {
         avatarSize?: string,
     }
 }
-export interface GobiMobileModuleOptions {
-    moduleId: string,
-    container: HTMLElement,
-    title: string,
-    color: string,
-    verticalOrientation?: boolean,
-    stories: ModuleStoriesOptionsObj,
-    playerOptions?: ModulePlayerOptions,
-}
-export interface GobiMobileModuleComingOptions {
-    moduleId: string,
-    container: HTMLElement,
-    title?: string,
-    color?: string,
-    verticalOrientation?: boolean
-    playerOptions?: ModulePlayerOptions,
-    stories?: ModuleStoriesOptionsObj,
-}
+
 
 export interface ModuleComingOptions {
     moduleId: string,

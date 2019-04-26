@@ -1,6 +1,6 @@
 import {addPrefixToClassName} from "@/utils/utils";
 import Story from "@/Story/story";
-import {StoryComingOptions} from "@/Story/story.types";
+import {StoryOptions} from "@/Story/story.types";
 
 export default class MobileStory extends Story {
 
@@ -40,7 +40,7 @@ export default class MobileStory extends Story {
         this._elems.avatarContainer.style.borderColor = color;
     }
 
-    constructor(options:StoryComingOptions) {
+    constructor(options:StoryOptions) {
         super(options);
         this._elems = {
             title: this._getElem('title'),

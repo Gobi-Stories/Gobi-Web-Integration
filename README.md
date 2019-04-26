@@ -271,6 +271,53 @@ stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific st
 stories[0...n].titleColor         |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story title text.
 stories[0...n].descriptionColor   |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story description text.
 
+## MobileLayout Constructor
+
+Function which create **mobile** layout with already embedded player. The output will be the same as MobileModule, the difference is that instead of the module identifier it is get the identifier of each story
+
+### Create
+```html
+<head>
+  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+        new gobi.MobileLayout({
+          container: document.getElementById('container'),
+          stories: [{
+                id: 'story-id',
+                title: 'Some Title',
+                description: 'Some Description'
+            }, {
+                id: 'another-story-id',
+                title: 'Some Another Title',
+                description: 'Some Another Description'
+            }],
+        });
+  </script>
+</body>
+```
+### Options
+
+option                            | default  | description
+----------------------------------| -------- | -----------
+container                         |          | **Required.** HTMLElement. Container where the module will be embed.
+title                             |    ``    | String. Module title.
+color                             |`#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of story circle.
+verticalOrientation               |  `false` | Boolean. Displays a list of stories vertically.
+**playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
+playerOptions.roundedCorners      |  `true`  | Boolean. Remove or add rounded corners to player element.
+playerOptions.shadow              |  `true`  | Boolean. Remove or add shadow to player element.
+**stories**                       |          | **Required.** Array. Data of stories.
+stories[0...n].id                 |          | **Required.** String. Identifire of story.
+stories[0...n].title              |    ``    | String. Change title text of specific story.
+stories[0...n].description        |    ``    | String. Change description text of specific story.
+stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific story.
+stories[0...n].titleColor         |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story title text.
+stories[0...n].descriptionColor   |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story description text.
+
 ## Player Constructor
 
 Function which create and return interface for managing and listening to events of Player.

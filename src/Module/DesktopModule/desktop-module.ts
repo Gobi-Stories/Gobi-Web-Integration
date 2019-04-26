@@ -1,6 +1,6 @@
 import {addPrefixToClassName} from "@/utils/utils";
 import Player from "@/GobiPlayer/gobi-player";
-import {StoryComingOptions} from "@/Story/story.types";
+import {StoryOptions} from "@/Story/story.types";
 import Story from "@/Story/story";
 import DesktopStory from "@/Story/DesktopStory/desktop-story";
 import {DesktopModuleComingOptions, DesktopModuleOptions} from "@/Module/DesktopModule/desktop-module.types";
@@ -43,7 +43,7 @@ export default class DesktopModule {
         this._currentStory.selected = true;
         this._currentStory.color = this._activeColor;
         this.player.load({
-            storyName: this._currentStory.name
+            storyName: this._currentStory.id
         });
     }
 
@@ -58,7 +58,7 @@ export default class DesktopModule {
         this._currentStory = this.stories[0];
         this._playerContainer = this.el.querySelector('[data-player]') as HTMLElement;
         this.player = new Player(Object.assign({
-            storyName: this._currentStory.name,
+            storyName: this._currentStory.id,
             container: this._playerContainer,
         }, _options.playerOptions));
 
@@ -81,11 +81,11 @@ export default class DesktopModule {
         }
     }
 
-    private _createStories(storiesOptions:StoryComingOptions[], options:DesktopModuleOptions):DesktopStory[] {
+    private _createStories(storiesOptions:StoryOptions[], options:DesktopModuleOptions):DesktopStory[] {
         const storiesBlock = this.el.querySelector('[data-stories]') as HTMLElement;
         return storiesOptions.map((story) => {
             return new DesktopStory({
-                name: story.name,
+                id: story.id,
                 container: storiesBlock,
                 avatarSrc: story.avatarSrc,
                 title: story.title,
@@ -102,7 +102,6 @@ export default class DesktopModule {
     }
 
     private _onStorySelect(story:Story) {
-        console.log('_onStorySelect');
         this.currentStory = story as DesktopStory;
     }
 
