@@ -87,14 +87,22 @@ Steps:
 
 Details:
 - Add a placeholder element to your HTML. Put it where you want the Gobi story bubbles to appear.
-  eg. ```<div id="container"></div>```
+  eg.
+  
+  ```<div id="container"></div>```
+  
   This placeholder is any simple div, and can have a class name instead of an ID. The important thing is that you are able to refer to it in your script code (below).
+  
 - Include the library Javascript and the library CSS in your HTML page. This can be done in two ways:
-  - by downloading ( for instance using ```npm``` (advanced)) and serving the files yourself.  To install using npm, do ```npm install --save @gobistories/gobi-web-integration```.
+  - by downloading ( for instance using ```npm``` (advanced)) and serving the files yourself.  To install using npm, do
+  
+    ```npm install --save @gobistories/gobi-web-integration```.
+
   - by reference the up‐to‐date version on npm CDN, as in the example below.
 
   If you don't know what this means, just follow the example below. 
-- Implement your custom code which should at least call the `gobi.Module` function or a related function, to get the placeholder replaced and the behavior started.
+- Implement your custom code in a <script> tag, which should at least call the `gobi.Module` function or a related function, to get the placeholder replaced and the behavior started.
+
   ```html
     <script>
         new gobi.Module({
@@ -103,9 +111,24 @@ Details:
         });
     </script>
   ```
+  
+  To populate stories from a module ID (if you have a module), use MobileModule or DesktopModule like above. Example:
+
+  ```
+  new gobi.Module({
+       moduleId: '3...'
+  ```
+
+  To specify each story from story IDs, use Mobile*Layout* and no moduleId. Example:
+  
+  ```
+  new gobi.MobileLayout({
+    stories: [
+      {id: '374f1...', title: 'Summer', avatarSrc: 'https://...'}, { ... }
+  ```
 
 
-Full example:
+Full example with module ID:
 
 ```html
 <html>
@@ -126,6 +149,41 @@ Full example:
 </html>
 ```
 
+Full example with story IDs and MobileLayout:
+
+```html
+<html>
+<head>
+  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css"
+        rel="stylesheet">
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
+</head>
+<body>
+  <div id="gobi-container"></div>
+  <script>
+    new gobi.MobileLayout({
+      container: document.getElementById('gobi-container'),
+      stories: [
+        {
+          id: "5601374f1437c89b6f6a641c97cc9d751982640f",
+          title: 'Story 1\nSummer',
+          avatarSrc: "https://gobiapp.com/img/example/seb/seb-demo-thumb-1.png"
+        }, {
+          id: "42b095ee3d96ad3670ef6e4d638cfeadd75671f5",
+          title: 'Story 2\nFall',
+          avatarSrc: "https://gobiapp.com/img/example/seb/seb-demo-thumb-2.png"
+        }, {
+          id: "1012da7b037762812a6b6ef4e9a2c2a286d8b63e",
+          title: 'Story 3\nWinter',
+          avatarSrc: "https://gobiapp.com/img/example/seb/seb-demo-thumb-3.png"
+        }]
+    });
+  </script>
+</body>
+</html>
+```
+
+## Referencing a specific version of the library
 
 If you want to reference a specific version, replace
 ```html
