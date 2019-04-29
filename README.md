@@ -21,15 +21,15 @@ See a demo of this library in action at
 
 ### Bubbles (initially)
 
-![Bubbles](https://eu1media.gobitech.no/bubbles-initial.png "Optional Title")
+<img src="https://eu1media.gobitech.no/bubbles-initial.png" width="550px">
 
 ### Bubbles (while hovering)
 
-![Bubbles (while hovering)](https://eu1media.gobitech.no/bubbles-hover.png "Optional Title")
+<img src="https://eu1media.gobitech.no/bubbles-hover.png" width="550px">
 
 ### Player opened after clicking bubble
 
-![Player opened after clicking bubble](https://eu1media.gobitech.no/click-player-small.png "Optional Title")
+<img src="https://eu1media.gobitech.no/click-player-small.png" width="400px">
 
 
 
