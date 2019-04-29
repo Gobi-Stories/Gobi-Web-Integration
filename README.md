@@ -131,6 +131,7 @@ Details:
       {id: '374f1...', title: 'Summer', avatarSrc: 'https://...'}, { ... }
   ```
 
+  NB: The requirement to specify the avatarSrc will disappear within a few days, and only the story ID will be required. The correct avatar will appear automatically.
 
 Full example with module ID:
 
@@ -186,6 +187,8 @@ Full example with story IDs and MobileLayout:
 </body>
 </html>
 ```
+
+NB: The requirement to specify the avatarSrc will disappear within a few days, and only the story ID will be required. The correct avatar will appear automatically.
 
 ## Referencing a specific version of the library
 
