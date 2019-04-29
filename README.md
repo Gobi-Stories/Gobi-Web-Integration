@@ -12,17 +12,13 @@ Below follow
 - Troubleshooting
 - Browser Support
 
-## What it will look like (link to demo site)
+## What it will look like (demo)
 
 See a demo of this library in action at
 [https://gobiapp.com/external/example-stories](https://gobiapp.com/external/example-stories)
 
 or a demo with module ID (not yet fully supported):
 [https://gobiapp.com/external/example-module](https://gobiapp.com/external/example-module)
-
-## What it will look like (demo iframe)
-
-<iframe width="630px" seamless frameborder="0" scrolling="no" src="https://gobiapp.com/external/example-stories"></iframe>
 
 
 ## What it will look like (screenshots)
