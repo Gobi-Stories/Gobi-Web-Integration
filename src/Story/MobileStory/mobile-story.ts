@@ -3,21 +3,6 @@ import Story from "@/Story/story";
 import {StoryOptions} from "@/Story/story.types";
 
 export default class MobileStory extends Story {
-
-    private _elems: {
-        title: HTMLElement,
-        description: HTMLElement,
-        avatar: HTMLElement,
-        avatarContainer: HTMLElement,
-    };
-
-    get avatarSrc():string {
-        return this._avatarSrc;
-    }
-    set avatarSrc(src:string) {
-        this._avatarSrc = src;
-        this._elems.avatar.style.backgroundImage = `url(${src})`;
-    }
     get title():string {
         return this._title;
     }
@@ -42,12 +27,6 @@ export default class MobileStory extends Story {
 
     constructor(options:StoryOptions) {
         super(options);
-        this._elems = {
-            title: this._getElem('title'),
-            description: this._getElem('description'),
-            avatar: this._getElem('avatar'),
-            avatarContainer: this._getElem('avatarContainer'),
-        };
         if (options.titleColor) {
             this._elems.title.style.color = options.titleColor;
         }
@@ -56,7 +35,6 @@ export default class MobileStory extends Story {
         }
         this.title = this._title;
         this.description = this._description;
-        this.avatarSrc = this._avatarSrc;
         this.color = this._color;
     }
 

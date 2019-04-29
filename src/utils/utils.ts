@@ -120,3 +120,21 @@ export const scrollDisabler = {
   isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent),
 };
 
+export function fetchAvatarSrc(storyId:string):Promise<string> {
+    return new Promise(function (resolve, reject) {
+        const xhr = new XMLHttpRequest();
+        const url = 'https://live.gobiapp.com/projector/player/stories/' + storyId;
+        xhr.open('GET', url, true);
+        xhr.send();
+        xhr.onload = function () {
+          if (this.status < 400) {
+            const response:any = JSON.parse(this.responseText);
+            const src:string = response && response.videos && response.videos[0] && response.videos[0].poster;
+            resolve(src)
+          } else {
+            reject(Error('Error loading avatar for story ' + storyId + ' -- ' + xhr.statusText));
+          }
+        }
+        xhr.onerror = () => { reject(Error('Error xhr-ing avatar for storyId ' + storyId)) }
+    })
+};

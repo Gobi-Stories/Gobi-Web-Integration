@@ -1,10 +1,17 @@
 import SimpleEventEmitter from "@/utils/event-emitter";
 import {StoryOptions} from "@/Story/story.types";
-import {addListener} from "@/utils/utils";
+import {addListener, fetchAvatarSrc} from "@/utils/utils";
 
 export default abstract class Story {
     el:HTMLElement;
     id:string;
+
+    protected _elems:{
+        title: HTMLElement,
+        description: HTMLElement,
+        avatar: HTMLElement,
+        avatarContainer: HTMLElement,
+    };
 
     protected _listeners:Array<() => void> = [];
 
@@ -13,11 +20,17 @@ export default abstract class Story {
     off = this._eventEmitter.off.bind(this._eventEmitter);
     protected _title:string;
     protected _description:string;
-    protected _avatarSrc:string;
+    protected _avatarSrc:string = '';
     protected _color:string;
 
-    abstract get avatarSrc():string;
-    abstract set avatarSrc(src:string);
+    get avatarSrc():string {
+        return this._avatarSrc;
+    }
+    set avatarSrc(src:string) {
+        this._avatarSrc = src;
+        this._elems.avatar.style.backgroundImage = `url(${src})`;
+    }
+
     abstract get title():string;
     abstract set title(title:string);
     abstract get description():string;
@@ -29,10 +42,21 @@ export default abstract class Story {
 
     protected constructor(options:StoryOptions) {
         this.el = this._createTemplate();
+        this._elems = {
+            title: this._getElem('title'),
+            description: this._getElem('description'),
+            avatar: this._getElem('avatar'),
+            avatarContainer: this._getElem('avatarContainer'),
+        };
         this.id = options.id;
         this._title = options.title || '';
         this._description = options.description || '';
-        this._avatarSrc = options.avatarSrc || '';
+        this.avatarSrc = options.avatarSrc || '';
+        if (!options.avatarSrc) {
+            fetchAvatarSrc(this.id).then((src) => {
+                this.avatarSrc = src;
+            })
+        }
         this._color = options.color || '';
         this._addSelectEmitter();
         if (typeof options.onSelect === 'function') {

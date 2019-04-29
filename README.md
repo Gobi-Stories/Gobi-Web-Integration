@@ -131,7 +131,8 @@ Details:
       {id: '374f1...', title: 'Summer', avatarSrc: 'https://...'}, { ... }
   ```
 
-  NB: The requirement to specify the avatarSrc will disappear within a few days, and only the story ID will be required. The correct avatar will appear automatically.
+  avatarSrc is optional – the avatar (thumbnail or picture in the bubble) will be fetched
+  automatically from the story video, but set avatarSrc if you wish to override it with your own.
 
 Full example with module ID:
 
@@ -175,20 +176,16 @@ Full example with story IDs and MobileLayout:
           avatarSrc: "https://gobiapp.com/img/example/seb/seb-demo-thumb-1.png"
         }, {
           id: "42b095ee3d96ad3670ef6e4d638cfeadd75671f5",
-          title: 'Story 2\nFall',
-          avatarSrc: "https://gobiapp.com/img/example/seb/seb-demo-thumb-2.png"
+          title: 'Story 2\nFall'
         }, {
           id: "1012da7b037762812a6b6ef4e9a2c2a286d8b63e",
-          title: 'Story 3\nWinter',
-          avatarSrc: "https://gobiapp.com/img/example/seb/seb-demo-thumb-3.png"
+          title: 'Story 3\nWinter'
         }]
     });
   </script>
 </body>
 </html>
 ```
-
-NB: The requirement to specify the avatarSrc will disappear within a few days, and only the story ID will be required. The correct avatar will appear automatically.
 
 ## Referencing a specific version of the library
 
