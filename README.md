@@ -29,7 +29,7 @@ See a demo of this library in action at
 
 ### Player opened after clicking bubble
 
-![Player opened after clicking bubble](https://eu1media.gobitech.no/click-player.png "Optional Title")
+![Player opened after clicking bubble](https://eu1media.gobitech.no/click-player-small.png "Optional Title")
 
 
 
