@@ -1,5 +1,5 @@
 {
-  "name": "gobi-web-integration",
+  "name": "@gobistories/gobi-web-integration",
   "version": "1.4.0",
   "description": "",
   "main": "dist/gobi-web-integration.js",
