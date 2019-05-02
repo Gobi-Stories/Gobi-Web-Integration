@@ -13,8 +13,9 @@ export interface MobileLayoutStoryOption {
 export interface MobileLayoutOptions{
     title?:string,
     color?: string,
+    avatarSize?: string
     verticalOrientation?: boolean
     stories: MobileLayoutStoryOption[],
     playerOptions?: ModulePlayerOptions,
-    container?: HTMLElement
+    container?: HTMLElement,
 }

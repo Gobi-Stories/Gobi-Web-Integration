@@ -40,7 +40,7 @@ export default class MobileLayout {
         this.el = this._createTemplate(options.verticalOrientation);
         this._title = options.title || '' ;
         this.title = this._title;
-        this.stories = this._createStories(options.stories, options.color);
+        this.stories = this._createStories(options.stories, options.color, options.avatarSize);
         this._currentStory = this.stories[0];
         this.player = new Player(Object.assign({
             storyName: this.currentStory.id,
@@ -68,7 +68,7 @@ export default class MobileLayout {
         }
     }
 
-    private _createStories(storiesOptions:StoryOptions[], color?:string):MobileStory[] {
+    private _createStories(storiesOptions:StoryOptions[], color?:string, avatarSize?:string):MobileStory[] {
         const storiesBlock = this.el.querySelector('[data-stories]') as HTMLElement;
         return storiesOptions.map((story) => {
             return new MobileStory({
@@ -80,6 +80,7 @@ export default class MobileLayout {
                 titleColor: story.titleColor,
                 descriptionColor: story.descriptionColor,
                 color: color,
+                avatarSize: avatarSize,
                 onSelect: this._onStorySelect.bind(this)
             });
         });

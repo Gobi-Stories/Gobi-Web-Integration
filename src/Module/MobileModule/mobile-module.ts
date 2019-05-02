@@ -1,7 +1,7 @@
 import {ResponseModuleStory} from "@/Module/gobi-module.types";
 import {decorateResponseStories, getModule, mergeStoriesOptions} from "@/utils/utils";
 import MobileLayout from "@/Layouts/MobileLayout/mobile-layout";
-import {MobileModuleOptions} from "@/Story/MobileStory/mobile-story.types";
+import {MobileModuleOptions} from "@/Module/MobileModule/mobile-module.types";
 
 export default class MobileModule {
     constructor(options:MobileModuleOptions) {
@@ -16,6 +16,7 @@ export default class MobileModule {
                 verticalOrientation: options.verticalOrientation,
                 title:  options.title,
                 color: options.color,
+                avatarSize: options.avatarSize,
                 stories: storiesOptions,
                 playerOptions: options.playerOptions,
                 container: options.container

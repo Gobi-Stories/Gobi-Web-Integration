@@ -33,6 +33,9 @@ export default class MobileStory extends Story {
         if (options.descriptionColor) {
             this._elems.description.style.color = options.descriptionColor;
         }
+        if (options.avatarSize) {
+            this._elems.avatarContainer.style.width = options.avatarSize;
+        }
         this.title = this._title;
         this.description = this._description;
         this.color = this._color;
