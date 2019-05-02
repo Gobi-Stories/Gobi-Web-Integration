@@ -45,7 +45,7 @@ body {
   box-sizing: content-box;
   &__avatar-container {
     display: inline-block;
-    width: 64px;
+    width: 95px;
     margin: 0 20px;
     padding: 2px;
     border: 1px solid #15d6ea;
@@ -98,6 +98,11 @@ body {
   &__avatar-container:hover ~ &__description &__description-text {
     opacity: 1;
     transform: translate(-50%, 0);
+  }
+  @media all and (max-width: 767px) {
+    &__avatar-container {
+      width: 65px;
+    }
   }
 }
 
