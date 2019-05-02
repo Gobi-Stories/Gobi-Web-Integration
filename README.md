@@ -322,6 +322,7 @@ moduleId                          |          | **Required.** String. The id of t
 container                         |          | **Required.** HTMLElement. Container where the module will be embed.
 title                             |    ``    | String. Module title.
 color                             |`#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of story circle.
+avatarSize                        |    ``    | Any valid css size value (10px, 10%, 10vw...). The size of avatar circle.
 verticalOrientation               |  `false` | Boolean. Displays a list of stories vertically.
 **playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
 playerOptions.roundedCorners      |  `true`  | Boolean. Remove or add rounded corners to player element.
@@ -368,6 +369,7 @@ option                            | default  | description
 container                         |          | **Required.** HTMLElement. Container where the module will be embed.
 title                             |    ``    | String. Module title.
 color                             |`#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of story circle.
+avatarSize                        |    ``    | Any valid css size value (10px, 10%, 10vw...). The size of avatar circle.
 verticalOrientation               |  `false` | Boolean. Displays a list of stories vertically.
 **playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
 playerOptions.roundedCorners      |  `true`  | Boolean. Remove or add rounded corners to player element.
