@@ -6,7 +6,8 @@ export interface MobileModuleOptions {
     title?: string,
     color?: string,
     avatarSize?:string,
-    verticalOrientation?: boolean
+    verticalOrientation?: boolean,
+    wrap?:boolean
     playerOptions?: ModulePlayerOptions,
     stories?: ModuleStoriesOptionsObj,
 }

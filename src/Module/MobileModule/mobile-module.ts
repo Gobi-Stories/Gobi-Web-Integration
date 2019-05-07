@@ -14,6 +14,7 @@ export default class MobileModule {
             const storiesOptions = mergeStoriesOptions(responseStoryOptions, options.stories);
             new MobileLayout({
                 verticalOrientation: options.verticalOrientation,
+                wrap: options.wrap,
                 title:  options.title,
                 color: options.color,
                 avatarSize: options.avatarSize,

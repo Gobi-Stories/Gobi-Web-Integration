@@ -29,6 +29,10 @@ body {
     & > * {
       margin: 10px 5px 80px;
     }
+    &--no-wrap {
+      white-space: nowrap;
+      overflow-x: auto;
+    }
     &--horizontal > * {
       display: inline-block;
       vertical-align: top;

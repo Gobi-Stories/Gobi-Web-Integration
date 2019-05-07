@@ -37,7 +37,7 @@ export default class MobileLayout {
     }
 
     constructor(options:MobileLayoutOptions) {
-        this.el = this._createTemplate(options.verticalOrientation);
+        this.el = this._createTemplate(options.verticalOrientation, !!options.wrap);
         this._title = options.title || '' ;
         this.title = this._title;
         this.stories = this._createStories(options.stories, options.color, options.avatarSize);
@@ -91,7 +91,7 @@ export default class MobileLayout {
         this.popup.open();
     }
 
-    private _createTemplate(isVertical:boolean = false):HTMLElement {
+    private _createTemplate(isVertical:boolean = false, isWrap:boolean):HTMLElement {
         const container = document.createElement('div');
         const classPrefix = 'gobi-popup-module';
         container.classList.add(classPrefix);
@@ -103,6 +103,9 @@ export default class MobileLayout {
         }
         else {
             storiesContainerEl.classList.add(classPrefix + '__stories--horizontal');
+        }
+        if (!isWrap) {
+            storiesContainerEl.classList.add(classPrefix + '__stories--no-wrap');
         }
         return container;
     }
