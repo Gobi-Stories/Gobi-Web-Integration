@@ -21,8 +21,19 @@ export default class Player {
     off = this._eventEmitter.off.bind(this._eventEmitter);
     el: HTMLIFrameElement;
 
-    get storyURL() {
-        return `https://live.gobiapp.com/next/story/id/${this._options.storyName}?autoStart=${this._options.autoStart}&addLooping=${this._options.loop}&hideOverlay=${this._options.hideOverlay}&roundedCorners=${this._options.roundedCorners}`;
+    get storyUrl() {
+        const parameters:any = {
+            autoStart: this._options.autoStart,
+            addLooping: this._options.loop,
+            hideOverlay: this._options.hideOverlay,
+            roundedCorners: this._options.roundedCorners
+        };
+        const queryString = Object.keys(parameters).map(function(key) {
+            const value = parameters[key];
+            return encodeURIComponent(key) + '=' + encodeURIComponent(value);
+        }).join('&');
+        const baseUrl = 'https://live.gobiapp.com/next/story/id';
+        return baseUrl + "/" + this._options.storyName + "?" + queryString;
     }
 
     constructor(options: PlayerComingOptions) {
@@ -45,7 +56,7 @@ export default class Player {
 
     load(options:PlayerLoadOptions) {
         Object.assign(this._options, options);
-        this.el.src = this.storyURL;
+        this.el.src = this.storyUrl;
     }
 
     play() {
@@ -93,8 +104,8 @@ export default class Player {
     }
     private _createIframe(): HTMLIFrameElement {
         const iframe = document.createElement('iframe');
-        const size = this._calcPlayerSize();
-        iframe.src = this.storyURL;
+        const size = this._calculatePlayerSize();
+        iframe.src = this.storyUrl;
         iframe.width = size.width.toString();
         iframe.height = size.height.toString();
         iframe.frameBorder = '0';
@@ -154,7 +165,7 @@ export default class Player {
         });
     }
 
-    private _calcPlayerSize() {
+    private _calculatePlayerSize() {
         let width = 612;
         let height = 1088;
         let aspectRatio = 0.5625; // 9/16

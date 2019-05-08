@@ -3,12 +3,21 @@ import SimpleEventEmitter from "@/utils/event-emitter.ts";
 import {GobiPopupOptions, GobiPopupComingOptions} from "@/GobiPopup/gobi-popup.types";
 import Player from "@/GobiPlayer/gobi-player";
 
+// GobiPopup is the overlay that contains the iframe with the Gobi Player.
+// The overlay is a half-transparent black fullpage background.
+// GobiPopup puts a close X button on the player, adds an Escape button listener, and also quits if
+// the background overlay is clicked.
+// GobiPopup does not contain the player itself, it only shows it using an iframe.
+
+// Classes for this component start with gobi-popup__.
+// The other components are not part of this popup, and thus should be renamed from
+// gobi-popup-* to gobi-storyset-*, or something else.
+
 export default class GobiPopup {
     private _isOpen = false;
     private _defaultOptions = {
         classes: '',
-        openers: '',
-        closers: ''
+        openers: ''
     };
     private _eventEmitter = new SimpleEventEmitter();
     private _listeners:Array<() => void> = [];
@@ -24,13 +33,17 @@ export default class GobiPopup {
 
     constructor(options:GobiPopupComingOptions) {
         const _options:GobiPopupOptions = Object.assign({}, this._defaultOptions, options);
-        this.el = this._createDiv(_options.classes);
-        this.content = this._createDiv('gobi-popup__content');
-        this.iframeContainer = this._createDiv('gobi-popup__iframe-container');
+        this.el = document.createElement('div');
+        this.el.className = _options.classes;
+        this.content = document.createElement('div');
+        this.content.className = 'gobi-popup__content';
+        this.iframeContainer = document.createElement('div');
+        this.iframeContainer.className = 'gobi-popup__iframe-container';
         this._createTemplate();
         this.player = _options.player;
         this.appendPlayer(this.player);
-        this._initClosers(_options.closers);
+        this.el.addEventListener('click', this._onDirectClickClose.bind(this));
+        this.content.addEventListener('click', this._onDirectClickClose.bind(this));
     }
 
     appendPlayer(player:Player) {
@@ -42,7 +55,7 @@ export default class GobiPopup {
         scrollDisabler.disable();
         this.el.style.zIndex = (returnHighestZIndex() + 1).toString();
         this.el.classList.add('gobi-popup--active');
-        this._listeners.push(addListener(window, 'keyup', this._onKeyUpClose.bind(this)));
+        this._listeners.push(addListener(window, 'keyup', this._onEscapeClose.bind(this)));
         this._isOpen = true;
         this._eventEmitter.emit('open', this, this);
     }
@@ -70,39 +83,29 @@ export default class GobiPopup {
         }
     }
     private _createTemplate() {
-        const closeBtn = this._createElement('button', 'gobi-popup__close-btn');
-        addListener(closeBtn, 'click', this.close.bind(this));
-        this._calcPlayerSize();
-        this.iframeContainer.appendChild(closeBtn);
+        const closeButton = document.createElement('button');
+        closeButton.className = 'gobi-popup__close-btn';
+        closeButton.addEventListener('click', this.close.bind(this));
+        this._calculatePlayerSize();
+        this.iframeContainer.appendChild(closeButton);
         this.content.appendChild(this.iframeContainer);
         this.el.classList.add('gobi-popup');
         this.el.appendChild(this.content);
-        window.addEventListener('resize', this._calcPlayerSize.bind(this));
-    }
-    private _createDiv(classes:string):HTMLDivElement {
-        return this._createElement('div', classes);
-    }
-    private _createElement<K extends keyof HTMLElementTagNameMap>(tagName: K, classes:string):HTMLElementTagNameMap[K] {
-        const elem = document.createElement(tagName);
-        elem.className = classes;
-        return elem;
+        window.addEventListener('resize', this._calculatePlayerSize.bind(this));
     }
 
-    private _initClosers(closersSelector:string) {
-        this.el.addEventListener('click', this._onOutsideClose.bind(this));
-        this.content.addEventListener('click', this._onOutsideClose.bind(this));
-    }
-    private _onOutsideClose(event:MouseEvent) {
+    private _onDirectClickClose(event:MouseEvent) {
+        // currentTarget is element that the event listener was attached to.
+        // target is the child-most element clicked
         if (event.target === event.currentTarget) {
             this.close();
         }
     }
-    private _onKeyUpClose(event:KeyboardEvent) {
+    private _onEscapeClose(event:KeyboardEvent) {
         let isEscape = false;
-        if (event.key !== undefined) {
-            isEscape = (event.key === 'Escape' || event.key === 'Esc');
-        }
-        else {
+        if (typeof event.key !== 'undefined') {
+            isEscape = ('Escape' === event.key || 'Esc' === event.key);
+        } else {
             isEscape = (event.keyCode === 27);
         }
         if (isEscape) {
@@ -110,7 +113,7 @@ export default class GobiPopup {
         }
     }
 
-    private _calcPlayerSize() {
+    private _calculatePlayerSize() {
         const videoAspectRatio = 0.5625; // 9:16
         const containerHeight = window.innerHeight - 100;
         const containerWidth = window.innerWidth;
