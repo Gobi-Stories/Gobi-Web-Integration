@@ -11,6 +11,7 @@ Below follow
 - Advanced configuration (eg. vertically oriented layout)
 - Troubleshooting
 - Browser Support
+- Development (how to build and publish)
 
 ## What it will look like (demo)
 
@@ -244,6 +245,20 @@ player.on('play', function() {
 
 The library will work in IE 11+, Chrome, Firefox, Safari, and Opera.
 
+
+## Development (how to build and publish)
+
+Bump version numbers in package.json according to semver rules. Then:
+
+```
+npm install
+npm run-script build
+git add ...
+git commit -m '...'
+git push
+npm login
+npm publish
+```
 
 ----
 
