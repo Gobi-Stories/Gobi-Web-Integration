@@ -95,6 +95,7 @@ export default class MobileLayout {
         const container = document.createElement('div');
         const classPrefix = 'gobi-popup-module';
         container.classList.add(classPrefix);
+        container.classList.add(classPrefix + '--hoverable');
         container.innerHTML = MobileLayout._HTML;
         addPrefixToClassName(container.querySelectorAll('*'), classPrefix + '__');
         const storiesContainerEl = container.lastElementChild as HTMLElement;
@@ -106,6 +107,18 @@ export default class MobileLayout {
         }
         if (!isWrap) {
             storiesContainerEl.classList.add(classPrefix + '__stories--no-wrap');
+        }
+        if (('ontouchstart' in window || navigator.maxTouchPoints)) {
+            window.addEventListener('touchstart', onTouch);
+            window.addEventListener('mousemove', removeListeners);
+        }
+        function onTouch() {
+            container.classList.remove(classPrefix + '--hoverable');
+            removeListeners();
+        }
+        function removeListeners() {
+            window.removeEventListener('touchstart', onTouch);
+            window.removeEventListener('mousemove', removeListeners);
         }
         return container;
     }

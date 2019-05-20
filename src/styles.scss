@@ -26,7 +26,6 @@ body {
   }
   &__stories {
     overflow-y: hidden;
-    padding: 0 60px;
     & > * {
       margin: 10px 5px 80px;
     }
@@ -44,10 +43,24 @@ body {
   }
 }
 .gobi-popup-story {
+  $scope: &;
   text-align: center;
   font-family: 'Open Sans', sans-serif;
   white-space: normal;
   box-sizing: content-box;
+  .gobi-popup-module--hoverable &__avatar-container:hover {
+    opacity: 1;
+    margin: 0 40px;
+    #{$scope}__avatar {
+      box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25);
+      transform: scale(1.2);
+    }
+    ~ #{$scope}__description #{$scope}__description-text {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+  }
+
   &__avatar-container {
     display: inline-block;
     width: 95px;
@@ -59,10 +72,6 @@ body {
     cursor: pointer;
     box-sizing: border-box;
     transition: margin 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.2s ease;
-    &:hover {
-      opacity: 1;
-      margin: 0 40px;
-    }
   }
   &__avatar {
     padding-top: 100%;
@@ -72,10 +81,6 @@ body {
     box-sizing: border-box;
     transform: scale(1);
     transition: box-shadow 0.4s ease, transform 0.2s ease;
-  }
-  &__avatar-container:hover &__avatar {
-    box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25);
-    transform: scale(1.2);
   }
   &__title {
     margin-top: 10px;
@@ -91,7 +96,7 @@ body {
     position: absolute;
     left: 50%;
     top: 20px;
-    width: 250px;
+    width: 100%;
     white-space: pre-line;
     color: #858585;
     font-size: $font-size;
@@ -99,10 +104,6 @@ body {
     box-sizing: border-box;
     transform: translate(-50%, $font-size/2);
     transition: opacity 0.2s ease, transform 0.4s ease;
-  }
-  &__avatar-container:hover ~ &__description &__description-text {
-    opacity: 1;
-    transform: translate(-50%, 0);
   }
   @media all and (max-width: 767px) {
     &__avatar-container {
