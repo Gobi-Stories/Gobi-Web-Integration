@@ -161,3 +161,8 @@ Temporary Items
 ### Sass template
 .sass-cache/
 *.css.map
+
+# Ignore auto-generated files
+# This means we now need to always npm run-script build after checking out,
+# before using the dist/* files and before npm publishing from that point.
+dist/
