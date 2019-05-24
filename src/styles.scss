@@ -27,7 +27,7 @@ body {
   &__stories {
     overflow-y: hidden;
     & > * {
-      margin: 10px 5px 80px;
+      margin: 0px 5px 80px;
     }
     &--no-wrap {
       white-space: nowrap;
@@ -51,9 +51,11 @@ body {
   .gobi-popup-module--hoverable &__avatar-container:hover {
     opacity: 1;
     margin: 0 40px;
+    width: calc(1.2 * 95px); // compute from bubble size
+    border-width: 0px;
+    margin-top: 0px;
     #{$scope}__avatar {
       box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25);
-      transform: scale(1.2);
     }
     ~ #{$scope}__description #{$scope}__description-text {
       opacity: 1;
@@ -63,7 +65,7 @@ body {
 
   &__avatar-container {
     display: inline-block;
-    width: 95px;
+    width: 95px; // bubble size
     margin: 0 20px;
     padding: 2px;
     border: 1px solid #15d6ea;
@@ -71,7 +73,8 @@ body {
     opacity: 0.8;
     cursor: pointer;
     box-sizing: border-box;
-    transition: margin 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.2s ease;
+    transition: margin 0.2s ease, opacity 0.2s ease, width 0.2s ease, border-width 0.2s ease;
+    margin-top: calc(0.1 * 95px); // compute from bubble size
   }
   &__avatar {
     padding-top: 100%;
@@ -79,8 +82,7 @@ body {
     background: no-repeat center;
     background-size: cover;
     box-sizing: border-box;
-    transform: scale(1);
-    transition: box-shadow 0.4s ease, transform 0.2s ease;
+    transition: box-shadow 0.4s ease;
   }
   &__title {
     margin-top: 10px;

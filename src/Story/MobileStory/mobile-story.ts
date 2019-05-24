@@ -34,7 +34,12 @@ export default class MobileStory extends Story {
             this._elems.description.style.color = options.descriptionColor;
         }
         if (options.avatarSize) {
-            this._elems.avatarContainer.style.width = options.avatarSize;
+            let css = '';
+            css += '.gobi-popup-story__avatar-container { width: ' + options.avatarSize + '; margin-top: calc(0.1 * ' + options.avatarSize + ');}';
+            css += '.gobi-popup-module--hoverable .gobi-popup-story__avatar-container:hover { width: calc(1.2 * ' + options.avatarSize + ');}';
+            const hoverStyle = document.createElement('style');
+            hoverStyle.appendChild(document.createTextNode(css));
+            document.getElementsByTagName('head')[0].appendChild(hoverStyle);
         }
         this.title = this._title;
         this.description = this._description;
