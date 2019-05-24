@@ -55,9 +55,26 @@ export default class DesktopStory extends Story {
             this._elems.description.style.fontSize = options.descriptionSize;
         }
         if (options.avatarSize) {
+            const s = options.avatarSize;
             let css = '';
-            css += '.gobi-popup-story__avatar-container { width: ' + options.avatarSize + '; margin-top: calc(0.1 * ' + options.avatarSize + ');}';
-            css += '.gobi-popup-module--hoverable .gobi-popup-story__avatar-container:hover { width: calc(1.2 * ' + options.avatarSize + ');}';
+            css += '.gobi-popup-story__avatar-container {';
+            css += ' width: ' + s + ';';
+            css += ' margin: calc(0.1 * ' + s + ') calc(.2*' + s + ') 0px calc(.2*' + s + ');';
+            css += '}';
+            css += '.gobi-popup-module--hoverable .gobi-popup-story__avatar-container:hover {';
+            css += '  width: calc(1.2 * ' + s + ');';
+            css += '  margin: 0px calc(.1*' + s + ') 0px calc(.1*' + s + ');';
+            css += '}';
+            css += '@media all and (max-width: 767px) {';
+            css += '  &__avatar-container {';
+            css += '    width: ' + s + ';';
+            css += '    margin: calc(0.1 * ' + s + ') calc(.2*' + s + ') 0px calc(.2*' + s + ');';
+            css += '  }';
+            css += '  .gobi-popup-module--hoverable &__avatar-container:hover {';
+            css += '    width: calc(1.2 * ' + s + '); // compute from bubble size';
+            css += '    margin: 0px calc(.1*' + s + ') 0px calc(.1*' + s + ');';
+            css += '  }';
+            css += '}';
             const hoverStyle = document.createElement('style');
             hoverStyle.appendChild(document.createTextNode(css));
             document.getElementsByTagName('head')[0].appendChild(hoverStyle);
