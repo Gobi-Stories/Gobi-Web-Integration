@@ -1,6 +1,6 @@
 {
   "name": "@gobistories/gobi-web-integration",
-  "version": "1.7.4",
+  "version": "2.0.0",
   "description": "",
   "main": "dist/gobi-web-integration.js",
   "scripts": {
@@ -39,6 +39,9 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "promise-polyfill": "8.1.0"
+    "base58": "^2.0.1",
+    "promise-polyfill": "8.1.0",
+    "qrcode": "^1.3.3",
+    "uuid": "^3.3.2"
   }
 }

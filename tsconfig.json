@@ -3,6 +3,7 @@
     "target": "es5",
     "module": "es2015",
     "strict": true,
+    "noImplicitAny": false,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",

@@ -83,9 +83,6 @@ module.exports = {
     },
     optimization: {
         minimizer: [
-            new UglifyJsPlugin({
-                sourceMap: devMode // set to true if you want JS source maps
-            }),
             new OptimizeCSSAssetsPlugin({})
         ]
     },

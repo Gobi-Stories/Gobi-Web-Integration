@@ -1,84 +1,58 @@
 import Promise from "promise-polyfill";
-import {ModuleStoriesOptionsObj, ResponseModuleStory} from "@/Module/gobi-module.types";
-import {StoryOptions} from "@/Story/story.types";
+import { default as uuid } from "uuid";
+import { default as v5 } from "uuid/v5";
+import { default as Base58 } from 'base58';
 
-export function forEach<T>(list:ArrayLike<T>, callback:(listItem?:T, index?:number, list?:ArrayLike<T>) => void) {
-  const max = list.length;
-  for (let i = 0; i < max; i++) {
-    callback(list[i], i, list);
+export function makeViewKey(secretKey:string):string {
+  const execd:any = secretKey.match('^([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})$');
+  if (!execd) {
+    throw new Error('secretKey malformed');
   }
+  const uuidNodePart:any = execd[5];
+  const uuidNodePartInt:any = parseInt(uuidNodePart, 0x10);
+  const nodeInBase58:any = Base58.int_to_base58(uuidNodePartInt);
+  const node6Characters:any = nodeInBase58.slice(-6);
+  return node6Characters;
 }
 
-export function addPrefixToClassName(list:ArrayLike<HTMLElement>, prefix:string) {
+export function makeRandomStorySecretKey() {
+  const gobiUuid = v5("gobistories.co", v5.DNS);
+  const storySecretKey = uuid.v4(gobiUuid);
+  return storySecretKey;
+}
+
+export function getBranchLink(data) {
+  const url = "https://api2.branch.io/v1/url";
+  const fetching = fetch(url, {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then(function(response) {
+    return response.json();
+  });
+  return fetching;
+}
+
+export function addPrefixToClassName(
+  list: ArrayLike<HTMLElement>,
+  prefix: string
+) {
   const max = list.length;
-  let elem:HTMLElement;
+  let elem: HTMLElement;
   for (let i = 0; i < max; i++) {
     elem = list[i];
     elem.className = prefix + elem.className;
   }
 }
 
-export function getModule(moduleId:string):Promise<Array<ResponseModuleStory>> {
-  return new Promise(function (resolve, reject) {
-    const xhr = new XMLHttpRequest();
-    const url = 'https://live.gobiapp.com/projector/player/storyModules/' + moduleId;
-    xhr.open('GET', url, true);
-    xhr.send();
-    xhr.onload = function () {
-      if (this.status < 400) {
-        resolve(JSON.parse(this.responseText));
-      } else {
-        reject(Error('Module didn\'t load successfully; error code:' + xhr.statusText));
-      }
-    };
-    xhr.onerror = function () {
-      reject(Error('There was a network error.'));
-    };
-  })
-}
-
-export function mergeStoriesOptions(responseStories:StoryOptions[],
-    comingStories?:ModuleStoriesOptionsObj):StoryOptions[] {
-  if (comingStories) {
-    const mergedOptions: StoryOptions[] = [];
-    for (const key in responseStories) {
-      const responseStory = responseStories[key];
-      const comingOptions = comingStories[key];
-      mergedOptions.push(comingOptions ?
-          Object.assign(responseStory, comingOptions) :
-          responseStory);
-    }
-    return mergedOptions;
-  }
-  else {
-    return responseStories;
-  }
-}
-
-export function decorateResponseStories(responseStories:ResponseModuleStory[]):Array<StoryOptions> {
-  return responseStories.map((responseStory): StoryOptions => {
-    return {
-      title: responseStory.title,
-      avatarSrc: responseStory.thumbnail,
-      description: responseStory.description,
-      id: responseStory.story_id
-    };
-  })
-}
-
-export function addListener(object:Window | Document | HTMLElement,
-                            eventName:string,
-                            listener: (event?:any) => void):() => void {
-  const callback = (event: Event) => listener(event);
-  object.addEventListener(eventName, callback);
-  return () => object.removeEventListener(eventName, callback);
-}
-
 export function returnHighestZIndex() {
-  const elems = document.body.querySelectorAll('*');
+  const elems = document.body.querySelectorAll("*");
   let maxZIndex = 1;
   let currentZIndex = 0;
-  for (let i = elems.length; i--;) {
+  for (let i = elems.length; i--; ) {
     currentZIndex = Number(window.getComputedStyle(elems[i]).zIndex);
     if (maxZIndex < currentZIndex) {
       maxZIndex = currentZIndex;
@@ -89,8 +63,8 @@ export function returnHighestZIndex() {
 
 export const scrollDisabler = {
   scrollTop: 0,
-  bodyOverflow: '' as string | null,
-  htmlOverflow: '' as string | null,
+  bodyOverflow: "" as string | null,
+  htmlOverflow: "" as string | null,
   disable: function() {
     this.isIOS ? this.IOSDisable() : this.classicDisable();
   },
@@ -100,46 +74,60 @@ export const scrollDisabler = {
   classicDisable: function() {
     this.bodyOverflow = document.body.style.overflow;
     this.htmlOverflow = document.documentElement.style.overflow;
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
   },
   classicEnable: function() {
     document.documentElement.style.overflow = this.htmlOverflow;
     document.body.style.overflow = this.bodyOverflow;
   },
   IOSEnable: function() {
-    document.documentElement.classList.remove('disabled-scroll');
-    document.body.classList.remove('disabled-scroll');
+    document.documentElement.classList.remove("disabled-scroll");
+    document.body.classList.remove("disabled-scroll");
     window.scrollTo(0, this.scrollTop);
   },
   IOSDisable: function() {
     this.scrollTop = window.pageYOffset;
-    document.documentElement.classList.add('disabled-scroll');
-    document.body.classList.add('disabled-scroll');
+    document.documentElement.classList.add("disabled-scroll");
+    document.body.classList.add("disabled-scroll");
   },
-  isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent),
+  isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent)
 };
 
-export function fetchAvatarAndTitle(storyId:string):Promise<any> {
-    return new Promise(function (resolve, reject) {
-        const xhr = new XMLHttpRequest();
-        const url = 'https://live.gobiapp.com/projector/player/stories/' + storyId;
-        xhr.open('GET', url, true);
-        xhr.send();
-        xhr.onload = function () {
-          if (this.status < 400) {
-            const response:any = JSON.parse(this.responseText);
-            if (response && response.videos && response.videos[0]) {
-              const src:string = response.videos[0].poster;
-              const title:string = response.videos[0].title;
-              resolve({src, title});
-            } else {
-              reject(Error('No video[0] for story ' + storyId + ' -- ' + xhr.statusText));
-            }
-          } else {
-            reject(Error('Error loading info for story ' + storyId + ' -- ' + xhr.statusText));
-          }
+export function fetchAvatarAndTitleGivenViewKey(viewKey: string): Promise<any> {
+  const url = "https://live.gobiapp.com/api/v4/story/by_view_key/" + viewKey;
+  return inner(url, viewKey);
+}
+export function fetchAvatarAndTitleGivenStoryId(storyId: string): Promise<any> {
+  const url = "https://live.gobiapp.com/projector/player/stories/" + storyId;
+  return inner(url, storyId);
+}
+
+function inner(url, key_or_id): Promise<any> {
+  return new Promise(function(resolve, reject) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.send();
+    xhr.onload = function() {
+      if (this.status < 400) {
+        const response: any = JSON.parse(this.responseText);
+        if (response && response.videos && response.videos[0]) {
+          const src: string = response.videos[0].poster;
+          const title: string = response.title || response.videos[0].title;
+          resolve({ src, title });
+        } else {
+          reject(
+            Error("No video[0] for story " + url + " -- " + xhr.statusText)
+          );
         }
-        xhr.onerror = () => { reject(Error('Error xhr-ing info for storyId ' + storyId)) }
-    })
-};
+      } else {
+        reject(
+          Error("Error loading info for story " + url + " -- " + xhr.statusText)
+        );
+      }
+    };
+    xhr.onerror = () => {
+      reject(Error("Error xhr-ing info for url " + url));
+    };
+  });
+}

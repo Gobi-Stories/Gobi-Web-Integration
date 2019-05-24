@@ -106,57 +106,29 @@ Details:
   - by reference the up‐to‐date version on npm CDN, as in the example below.
 
   If you don't know what this means, just follow the example below. 
-- Implement your custom code in a <script> tag, which should at least call the `gobi.Module` function or a related function, to get the placeholder replaced and the behavior started.
+- Implement your custom code in a <script> tag, which should at least call the `gobi.Bubbles` function, to get the placeholder replaced and the stories running.
 
   ```html
     <script>
-        new gobi.Module({
-          moduleId: 'some-module-id',
+        new gobi.Bubbles({
           container: document.getElementById('container'),
+          stories: [{...}, {...}],
         });
     </script>
   ```
-  
-  To populate stories from a module ID (if you have a module), use MobileModule or DesktopModule like above. Example:
 
-  ```
-  new gobi.Module({
-       moduleId: '3...'
-  ```
-
-  To specify each story from story IDs, use Mobile*Layout* and no moduleId. Example:
+  Specify each story from story viewKeys. Example:
   
   ```
-  new gobi.MobileLayout({
+  new gobi.Bubbles({
     stories: [
-      {id: '374f1...', title: 'Summer', avatarSrc: 'https://...'}, { ... }
+      {viewKey: '37Njb1', title: 'Summer', avatarSrc: 'https://...'}, { ... }
   ```
 
-  avatarSrc is optional – the avatar (thumbnail or picture in the bubble) will be fetched
+  avatarSrc and title are optional – the avatar (thumbnail or picture in the bubble) will be fetched
   automatically from the story video, but set avatarSrc if you wish to override it with your own.
 
-Full example with module ID:
-
-```html
-<html>
-<head>
-  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css"
-        rel="stylesheet">
-  <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
-</head>
-<body>
-  <div id="container"></div>
-  <script>
-    new gobi.Module({
-      moduleId: 'some-module-id',
-      container: document.getElementById('container'),
-    });
-  </script>
-</body>
-</html>
-```
-
-Full example with story IDs and MobileLayout:
+Full example:
 
 ```html
 <html>
@@ -168,18 +140,18 @@ Full example with story IDs and MobileLayout:
 <body>
   <div id="gobi-container"></div>
   <script>
-    new gobi.MobileLayout({
+    new gobi.Bubbles({
       container: document.getElementById('gobi-container'),
       stories: [
         {
-          id: "5601374f1437c89b6f6a641c97cc9d751982640f",
+          viewKey: "fhG6eY",
           title: 'Story 1\nSummer',
           avatarSrc: "https://gobiapp.com/img/example/seb/seb-demo-thumb-1.png"
         }, {
-          id: "42b095ee3d96ad3670ef6e4d638cfeadd75671f5",
+          viewKey: "8tazBc",
           title: 'Story 2\nFall'
         }, {
-          id: "1012da7b037762812a6b6ef4e9a2c2a286d8b63e",
+          viewKey: "9uIOKd",
           title: 'Story 3\nWinter'
         }]
     });
@@ -207,9 +179,9 @@ If you’re using a bundler like [webpack](https://webpack.js.org), the exported
 constructor (unlike the browser where it is attached to `window.gobi`):
 
 ```js
-import { Module } from 'gobi-web-integration';
+import { Bubbles } from 'gobi-web-integration';
 
-new Module({
+new Bubbles({
     container: document.getElementById('container'),
     moduleId: 'module-id'
 });
@@ -264,54 +236,9 @@ npm publish
 
 # Technical documentation
 
-## Module Constructor
+## Bubbles Constructor
 
-Function which create module layout with already embedded player. Getting options which allow to customize layout. Doesn't return any interface. 
-
-### Create
-
-```html
-<head>
-  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
-  <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
-</head>
-<body>
-  <div id="container"></div>
-  <script>
-        new gobi.Module({
-          moduleId: 'some-module-id',
-          container: document.getElementById('container'),
-        });
-  </script>
-</body>
-```
-
-### Options
-
-option                            | default  | description
-----------------------------------| -------- | -----------
-moduleId                          |          | **Required.** String. The id of the module.
-container                         |          | **Required.** HTMLElement. Container where the module will be embed.
-title                             |    ``    | String. Module title.
-color                             |`#999999` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of unselected desktop story circle.
-activeColor                       |`#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of selected desktop and mobile story circle.
-**desktopStoryStyle**             |   `{}`   | Object which provides interface for customization of desktop stories circles. 
-desktopStoryStyle.titleSize       |    ``    | Css size value ('20px, 10em..').Set font size of desktop circles titles.
-desktopStoryStyle.descriptionSize |    ``    | Css size value ('20px, 10em..').Set font size of desktop circles descriptions.
-desktopStoryStyle.avatarSize      |    ``    | Css size value ('20px, 10em..').Set size of desktop circles.
-**playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
-playerOptions.roundedCorners      |  `true`  | Boolean. Remove or add rounded corners to player element.
-playerOptions.shadow              |  `true`  | Boolean. Remove or add shadow to player element.
-**stories**                       |   `{}`   | Object. Allow to change content of each stroy circle.
-stories[0...n].title              |    ``    | String. Change title text of specific story.
-stories[0...n].description        |    ``    | String. Change description text of specific story.
-stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific story.
-stories[0...n].titleColor         |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story title text.
-stories[0...n].descriptionColor   |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story description text.
-
-## MobileModule Constructor
-
-Function which create **mobile** module layout with already embedded player. Getting options which allow to customize layout. Doesn't return any interface. 
+Function which creates a bubble layout with already embedded player.
 
 ### Create
 ```html
@@ -322,55 +249,14 @@ Function which create **mobile** module layout with already embedded player. Get
 <body>
   <div id="container"></div>
   <script>
-        new gobi.MobileModule({
-          moduleId: 'some-module-id',
-          container: document.getElementById('container'),
-        });
-  </script>
-</body>
-```
-### Options
-
-option                            | default  | description
-----------------------------------| -------- | -----------
-moduleId                          |          | **Required.** String. The id of the module.
-container                         |          | **Required.** HTMLElement. Container where the module will be embed.
-title                             |    ``    | String. Module title.
-color                             |`#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of story circle.
-avatarSize                        |    ``    | Any valid css size value (10px, 10%, 10vw...). The size of avatar circle.
-verticalOrientation               |  `false` | Boolean. Displays a list of stories vertically.
-wrap                              |  `false` | Boolean. Add styles which allow stories wrap to a new line on small screen sizes.
-**playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
-playerOptions.roundedCorners      |  `true`  | Boolean. Remove or add rounded corners to player element.
-playerOptions.shadow              |  `true`  | Boolean. Remove or add shadow to player element.
-**stories**                       |   `{}`   | Object. Allow to change content of each stroy circle.
-stories[0...n].title              |    ``    | String. Change title text of specific story.
-stories[0...n].description        |    ``    | String. Change description text of specific story.
-stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific story.
-stories[0...n].titleColor         |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story title text.
-stories[0...n].descriptionColor   |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story description text.
-
-## MobileLayout Constructor
-
-Function which create **mobile** layout with already embedded player. The output will be the same as MobileModule, the difference is that instead of the module identifier it is get the identifier of each story
-
-### Create
-```html
-<head>
-  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
-  <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
-</head>
-<body>
-  <div id="container"></div>
-  <script>
-        new gobi.MobileLayout({
+        new gobi.Bubbles({
           container: document.getElementById('container'),
           stories: [{
-                id: 'story-id',
+                viewKey: 'story-view-key',
                 title: 'Some Title',
                 description: 'Some Description'
             }, {
-                id: 'another-story-id',
+                viewKey: 'another-story-view-key',
                 title: 'Some Another Title',
                 description: 'Some Another Description'
             }],
@@ -414,7 +300,7 @@ Function which create and return interface for managing and listening to events 
   <script>
         var player = new gobi.Player({
           container: document.getElementById('player-container'),
-          storyName: 'story-id'
+          viewKey: 'story-view-key'
         });
         player.on('play', function() {
             console.log('played the video!');
@@ -426,7 +312,7 @@ Function which create and return interface for managing and listening to events 
 ### Options
 option             | default | description
 -------------------| ------- | -----------
-storyName          |         | **Required.** String. The id of the story.
+viewKey            |         | **Required.** String. The view key of the story.
 container          |         | HTMLElement. Container where the player will be embed.
 autoStart          | `false` | Boolean. Add `autoplay` and `mute` attributes to video.
 loop               | `false` | Boolean. Add `loop` attributes to video.

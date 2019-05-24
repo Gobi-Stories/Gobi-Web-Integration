@@ -4,6 +4,6 @@ interface Window {
 }
 
 declare module "promise-polyfill" {
-  const Promise:PromiseConstructor;
+  const Promise: PromiseConstructor;
   export = Promise;
 }
