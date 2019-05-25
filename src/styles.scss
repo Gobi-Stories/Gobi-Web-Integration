@@ -50,8 +50,8 @@ body {
   box-sizing: content-box;
   .gobi-popup-module--hoverable &__avatar-container:hover {
     opacity: 1;
-    margin: 0px calc(.1*95px) 0px calc(.1*95px);
-    width: calc(1.2 * 95px); // compute from bubble size
+    margin: 0px calc(.1*96px);
+    width: calc(1.2 * 96px); // compute from bubble size
     border-width: 0px;
     #{$scope}__avatar {
       box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25);
@@ -64,7 +64,7 @@ body {
 
   &__avatar-container {
     display: inline-block;
-    width: 95px; // bubble size
+    width: 96px; // bubble size
     padding: 2px;
     border: 1px solid #15d6ea;
     border-radius: 50%;
@@ -72,7 +72,7 @@ body {
     cursor: pointer;
     box-sizing: border-box;
     transition: margin 0.2s ease, opacity 0.2s ease, width 0.2s ease, border-width 0.2s ease;
-    margin: calc(0.1 * 95px) calc(.2*95px) 0px calc(.2*95px);
+    margin: calc(0.1 * 96px) calc(.2*96px);
   }
   &__avatar {
     padding-top: 100%;
@@ -108,11 +108,11 @@ body {
   @media all and (max-width: 767px) {
     &__avatar-container {
       width: 65px;
-      margin: calc(0.1 * 65px) calc(.2*65px) 0px calc(.2*65px);
+      margin: calc(0.1 * 65px) calc(.2*65px);
     }
     .gobi-popup-module--hoverable &__avatar-container:hover {
       width: calc(1.2 * 65px); // compute from bubble size
-      margin: 0px calc(.1*65px) 0px calc(.1*65px);
+      margin: 0px calc(.1*65px);
     }
   }
 }
