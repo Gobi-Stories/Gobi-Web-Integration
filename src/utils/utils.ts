@@ -120,7 +120,7 @@ export const scrollDisabler = {
   isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent),
 };
 
-export function fetchAvatarSrc(storyId:string):Promise<string> {
+export function fetchAvatarAndTitle(storyId:string):Promise<any> {
     return new Promise(function (resolve, reject) {
         const xhr = new XMLHttpRequest();
         const url = 'https://live.gobiapp.com/projector/player/stories/' + storyId;
@@ -129,12 +129,17 @@ export function fetchAvatarSrc(storyId:string):Promise<string> {
         xhr.onload = function () {
           if (this.status < 400) {
             const response:any = JSON.parse(this.responseText);
-            const src:string = response && response.videos && response.videos[0] && response.videos[0].poster;
-            resolve(src)
+            if (response && response.videos && response.videos[0]) {
+              const src:string = response.videos[0].poster;
+              const title:string = response.videos[0].title;
+              resolve({src, title});
+            } else {
+              reject(Error('No video[0] for story ' + storyId + ' -- ' + xhr.statusText));
+            }
           } else {
-            reject(Error('Error loading avatar for story ' + storyId + ' -- ' + xhr.statusText));
+            reject(Error('Error loading info for story ' + storyId + ' -- ' + xhr.statusText));
           }
         }
-        xhr.onerror = () => { reject(Error('Error xhr-ing avatar for storyId ' + storyId)) }
+        xhr.onerror = () => { reject(Error('Error xhr-ing info for storyId ' + storyId)) }
     })
 };

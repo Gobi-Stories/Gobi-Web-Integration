@@ -1,6 +1,6 @@
 import SimpleEventEmitter from "@/utils/event-emitter";
 import {StoryOptions} from "@/Story/story.types";
-import {addListener, fetchAvatarSrc} from "@/utils/utils";
+import {addListener, fetchAvatarAndTitle} from "@/utils/utils";
 
 export default abstract class Story {
     el:HTMLElement;
@@ -50,13 +50,14 @@ export default abstract class Story {
         };
         this.id = options.id;
         this._title = options.title || '';
-        this._description = options.description || '';
         this.avatarSrc = options.avatarSrc || '';
-        if (!options.avatarSrc) {
-            fetchAvatarSrc(this.id).then((src) => {
-                this.avatarSrc = src;
+        if (!options.avatarSrc || !this._title) {
+            fetchAvatarAndTitle(this.id).then((data) => {
+                this.avatarSrc = this.avatarSrc || data.src;
+                this.title = this.title || data.title;
             })
         }
+        this._description = options.description || '';
         this._color = options.color || '';
         this._addSelectEmitter();
         if (typeof options.onSelect === 'function') {
