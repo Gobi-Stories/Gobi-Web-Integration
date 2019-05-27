@@ -107,12 +107,12 @@ body {
   }
   @media all and (max-width: 767px) {
     &__avatar-container {
-      width: 65px;
-      margin: calc(0.1 * 65px) calc(.2*65px);
+      width: 64px;
+      margin: calc(0.1 * 64px) calc(.2*64px);
     }
     .gobi-popup-module--hoverable &__avatar-container:hover {
-      width: calc(1.2 * 65px); // compute from bubble size
-      margin: 0px calc(.1*65px);
+      width: calc(1.2 * 64px); // compute from bubble size
+      margin: 0px calc(.1*64px);
     }
   }
 }
