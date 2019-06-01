@@ -83,6 +83,7 @@ body {
     transition: box-shadow 0.4s ease;
   }
   &__title {
+    display: block; // because it is an <a>
     margin-top: 10px;
     font-size: 11px;
     box-sizing: border-box;

@@ -14,7 +14,7 @@ export default abstract class AbstractStory {
   timerId?: number;
 
   protected _elems: {
-    title: HTMLElement;
+    title: HTMLAnchorElement;
     description: HTMLElement;
     avatar: HTMLElement;
     avatarContainer: HTMLElement;
@@ -68,7 +68,7 @@ export default abstract class AbstractStory {
   protected constructor(options: StoryOptions) {
     this.rootElement = this._createTemplate();
     this._elems = {
-      title: this._getElem("title"),
+      title: <HTMLAnchorElement>this._getElem("title"),
       description: this._getElem("description"),
       avatar: this._getElem("avatar"),
       avatarContainer: this._getElem("avatarContainer")

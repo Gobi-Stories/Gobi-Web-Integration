@@ -22,7 +22,13 @@ export default class Story extends AbstractStory {
   }
   set title(title: string) {
     this._title = title;
-    this._elems.title.textContent = title;
+    if (title.match(/[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/)) {
+      this._elems.title.href = title;
+      this._elems.title.textContent = title.replace(new RegExp('^https?://'), '');
+    } else {
+      this._elems.title.textContent = title;
+      delete this._elems.title.href;
+    }
   }
   get description(): string {
     return this._description;
@@ -98,7 +104,7 @@ export default class Story extends AbstractStory {
   private static get _HTML(): string {
     return (
       '<div class="avatar-container" data-select-area data-avatarContainer><div class="avatar" data-avatar></div></div>' +
-      '<div class="title" data-title></div>' +
+      '<a class="title" data-title></a>' +
       '<div class="description"><div class="description-text" data-description></div></div>'
     );
   }
