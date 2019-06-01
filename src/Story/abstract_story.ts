@@ -11,6 +11,7 @@ export default abstract class AbstractStory {
   rootElement: HTMLElement;
   id: string;
   viewKey: string;
+  secretKey?: string;
   timerId?: number;
 
   protected _elems: {
@@ -91,37 +92,34 @@ export default abstract class AbstractStory {
         });
       }
     } else {
-      const secretKey = makeRandomStorySecretKey();
-      console.log('webcruiter must save secretKey', secretKey);
-      this.viewKey = makeViewKey(secretKey);
-      console.log('viewKey is', this.viewKey);
-      const storyName = secretKey.slice(0, 20);
+      this.secretKey = makeRandomStorySecretKey();
+      this.viewKey = makeViewKey(this.secretKey);
+      const storyName = this.secretKey.slice(0, 20);
       const data = {
         branch_key: "key_live_haoXB4nBJ0AHZj0o1OFOGjafzFa8nQOG",
         channel: 'sms',
         feature: 'sharing',
         data: {
           "~creation_source": 3,
-          $ios_url: "https://itunes.apple.com/us/app/gobi-send-snaps-in-groups!/id1025344825?mt=8",
+          "$ios_url": "https://itunes.apple.com/us/app/gobi-send-snaps-in-groups!/id1025344825?mt=8",
           $desktop_url: "http://www.gobiapp.com",
           $identity_id: "624199976595486526",
           //$desktop_url: 'https://gobistories.co/storyen/leggtilinnhold',
           // should be the image of the story, or an image of a gobi camera,
           // since this 'object' is to add video
           $og_image_url: 'https://gobiapp.com/img/gobi_blue.png',
-          "$og_description": "Snaps in groups!",
-          //$og_description: 'View, or Add a video to this story',
+          "$og_description": 'Create videos in this story :)',
           $canonical_identifier: 'group/' + storyName,
           $og_title: 'Gobi',
           $one_time_use: false,
           $publicly_indexable: false,
           action: 'groupAdd', // recordVideo
-          username: 'ovikholt', // maybe ios wants this? see AppDelegate.swift
+          username: '', // Necessary to have this key. See AppDelegate.swift
           // TODO add another action to native/mobile clients
           group: storyName,
           // overloading meaning (originally it refers to id in inviteLink table in database)
-          id: 'auto-' + secretKey,
-          source: 'Gobi-Web-Integration webcruiter'
+          id: 'auto-' + this.secretKey,
+          source: 'Gobi-Web-Integration'
         }
       }
       const canvas = document.createElement('canvas');

@@ -66,6 +66,10 @@ export default class Bubbles {
     }
   }
 
+  getViewKeys() {
+    return this.stories.map((story) => story.viewKey);
+  }
+
   append(container: HTMLElement) {
     document.body.appendChild(this.popup.rootElement);
     container.appendChild(this.rootElement);

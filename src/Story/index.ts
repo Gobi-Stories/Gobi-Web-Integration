@@ -104,7 +104,7 @@ export default class Story extends AbstractStory {
   private static get _HTML(): string {
     return (
       '<div class="avatar-container" data-select-area data-avatarContainer><div class="avatar" data-avatar></div></div>' +
-      '<a class="title" data-title></a>' +
+      '<a class="title" target="_blank" data-title></a>' +
       '<div class="description"><div class="description-text" data-description></div></div>'
     );
   }

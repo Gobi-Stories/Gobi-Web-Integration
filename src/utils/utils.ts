@@ -15,7 +15,7 @@ export function makeViewKey(secretKey:string):string {
   return node6Characters;
 }
 
-export function makeRandomStorySecretKey() {
+export function makeRandomStorySecretKey():string {
   const gobiUuid = v5("gobistories.co", v5.DNS);
   const storySecretKey = uuid.v4(gobiUuid);
   return storySecretKey;
