@@ -94,7 +94,7 @@ export default abstract class AbstractStory {
     } else {
       this.secretKey = makeRandomStorySecretKey();
       this.viewKey = makeViewKey(this.secretKey);
-      const storyName = this.secretKey.slice(0, 20);
+      const storyName = this.viewKey.slice(0, 20);
       const data = {
         branch_key: "key_live_haoXB4nBJ0AHZj0o1OFOGjafzFa8nQOG",
         channel: 'sms',
