@@ -11,8 +11,8 @@ export function makeViewKey(secretKey:string):string {
   const uuidNodePart:any = execd[5];
   const uuidNodePartInt:any = parseInt(uuidNodePart, 0x10);
   const nodeInBase58:any = Base58.int_to_base58(uuidNodePartInt);
-  const node6Characters:any = nodeInBase58.slice(-6);
-  return node6Characters;
+  const node8Characters:any = nodeInBase58.slice(-8);
+  return node8Characters;
 }
 
 export function makeRandomStorySecretKey():string {
