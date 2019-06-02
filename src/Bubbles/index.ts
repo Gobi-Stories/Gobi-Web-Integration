@@ -3,7 +3,7 @@ import Popup from "@/Popup";
 import Story from "@/Story";
 import Player from "@/Player";
 import { StoryOptions } from "@/Story/types";
-import AbstractStory from "@/Story/abstract_story";
+import AbstractStory from "@/Story/abstract-story";
 import { BubbleLayoutOptions } from "@/Bubbles/types";
 
 export default class Bubbles {

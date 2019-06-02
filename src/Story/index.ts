@@ -1,5 +1,5 @@
 import { addPrefixToClassName } from "@/utils/utils";
-import AbstractStory from "@/Story/abstract_story";
+import AbstractStory from "@/Story/abstract-story";
 import { StoryOptions } from "@/Story/types";
 
 export default class Story extends AbstractStory {
