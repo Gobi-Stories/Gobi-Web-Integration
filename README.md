@@ -213,15 +213,26 @@ The library will work in IE 11+, Chrome, Firefox, Safari, and Opera.
 
 ## Development (how to build and publish)
 
-Bump version numbers in package.json according to semver rules. Then:
+Run:
+
+  `npm run-script build`
+
+This populates the dist/ folder which will be used when publishing. Note, that this folder doesn't
+get committed.
+
+Commit your work. When your working directory is clean, continue.
+
+To automatically bump version numbers in package.json according to semver rules, and also
+automatically create a commit, run (usually, just choose patch):
+
+  `npm version [major | minor | patch]`
+
+Push your work.
+
+Finally, publish your new version
 
 ```
-npm install
-npm run-script build
-git add ...
-git commit -m '...'
-git push
-npm login
+npm login  (only if needed)
 npm publish
 ```
 
