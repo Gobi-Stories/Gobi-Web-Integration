@@ -143,17 +143,10 @@ Full example:
     new gobi.Bubbles({
       container: document.getElementById('gobi-container'),
       stories: [
-        {
-          viewKey: "fhG6eY",
-          title: 'Story 1\nSummer',
-          avatarSrc: "https://gobiapp.com/img/example/seb/seb-demo-thumb-1.png"
-        }, {
-          viewKey: "8tazBc",
-          title: 'Story 2\nFall'
-        }, {
-          viewKey: "9uIOKd",
-          title: 'Story 3\nWinter'
-        }]
+        {viewKey: "fhG6eY"},
+        {viewKey: "8tazBc"},
+        {viewKey: "9uIOKd"}
+      ]
     });
   </script>
 </body>
