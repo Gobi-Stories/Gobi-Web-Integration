@@ -1,7 +1,7 @@
 import Promise from "promise-polyfill";
 import { default as uuid } from "uuid";
 import { default as v5 } from "uuid/v5";
-import { default as Base58 } from 'base58';
+import { default as Base58 } from '@/base58';
 
 export function makeViewKey(secretKey:string):string {
   const execd:any = secretKey.match('^([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})$');
