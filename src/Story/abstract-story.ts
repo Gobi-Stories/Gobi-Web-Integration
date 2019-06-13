@@ -73,6 +73,36 @@ export default abstract class AbstractStory {
     this.socket.on('connect', this.socketConnected.bind(this));
   }
 
+  protected makeBranchQueryData(storyName: string, secretKey: string) {
+    return {
+        branch_key: "key_live_haoXB4nBJ0AHZj0o1OFOGjafzFa8nQOG",
+        channel: 'sms',
+        feature: 'sharing',
+        data: {
+          "~creation_source": 3,
+          "$ios_url": "https://itunes.apple.com/us/app/gobi-send-snaps-in-groups!/id1025344825?mt=8",
+          $desktop_url: "http://www.gobiapp.com",
+          $identity_id: "624199976595486526",
+          //$desktop_url: 'https://gobistories.co/storyen/leggtilinnhold',
+          // should be the image of the story, or an image of a gobi camera,
+          // since this 'object' is to add video
+          $og_image_url: 'https://gobiapp.com/img/gobi_blue.png',
+          "$og_description": 'Create videos in this story :)',
+          $canonical_identifier: 'group/' + storyName,
+          $og_title: 'Gobi',
+          $one_time_use: false,
+          $publicly_indexable: false,
+          action: 'groupAdd', // recordVideo
+          username: '', // Necessary to have this key. See AppDelegate.swift
+          // TODO add another action to native/mobile clients
+          group: storyName,
+          // overloading meaning (originally it refers to id in inviteLink table in database)
+          id: 'auto-' + secretKey,
+          source: 'Gobi-Web-Integration'
+        }
+    };
+  }
+
   protected constructor(options: StoryOptions) {
     this.rootElement = this._createTemplate();
     this._elems = {
@@ -103,33 +133,7 @@ export default abstract class AbstractStory {
       this.secretKey = makeRandomStorySecretKey();
       this.viewKey = makeViewKey(this.secretKey);
       const storyName = this.viewKey.slice(0, 20);
-      const data = {
-        branch_key: "key_live_haoXB4nBJ0AHZj0o1OFOGjafzFa8nQOG",
-        channel: 'sms',
-        feature: 'sharing',
-        data: {
-          "~creation_source": 3,
-          "$ios_url": "https://itunes.apple.com/us/app/gobi-send-snaps-in-groups!/id1025344825?mt=8",
-          $desktop_url: "http://www.gobiapp.com",
-          $identity_id: "624199976595486526",
-          //$desktop_url: 'https://gobistories.co/storyen/leggtilinnhold',
-          // should be the image of the story, or an image of a gobi camera,
-          // since this 'object' is to add video
-          $og_image_url: 'https://gobiapp.com/img/gobi_blue.png',
-          "$og_description": 'Create videos in this story :)',
-          $canonical_identifier: 'group/' + storyName,
-          $og_title: 'Gobi',
-          $one_time_use: false,
-          $publicly_indexable: false,
-          action: 'groupAdd', // recordVideo
-          username: '', // Necessary to have this key. See AppDelegate.swift
-          // TODO add another action to native/mobile clients
-          group: storyName,
-          // overloading meaning (originally it refers to id in inviteLink table in database)
-          id: 'auto-' + this.secretKey,
-          source: 'Gobi-Web-Integration'
-        }
-      }
+      const data = makeBranchQueryData(storyName, this.secretKey);
       const canvas = document.createElement('canvas');
       getBranchLink(data).then((result) => {
         const qrData = result.url;
