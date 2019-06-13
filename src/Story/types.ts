@@ -3,6 +3,7 @@ import Story from "./";
 export interface AbstractStoryOptions {
   id?: string;
   viewKey?: string;
+  secretKey?: string;
   container?: HTMLElement;
   avatarSrc?: string;
   avatarSize?: string;

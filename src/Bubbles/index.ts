@@ -70,6 +70,10 @@ export default class Bubbles {
     return this.stories.map((story) => story.viewKey);
   }
 
+  getKeys() {
+    return this.stories.map((story) => ({viewKey: story.viewKey, secretKey: story.secretKey}));
+  }
+
   append(container: HTMLElement) {
     document.body.appendChild(this.popup.rootElement);
     container.appendChild(this.rootElement);
@@ -96,6 +100,7 @@ export default class Bubbles {
     const stories = storyOptionsArray.map(storyOptions => {
       return new Story({
         viewKey: storyOptions.viewKey,
+        secretKey: storyOptions.secretKey,
         id: storyOptions.id,
         container: storiesContainer,
         avatarSrc: storyOptions.avatarSrc,

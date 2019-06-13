@@ -92,6 +92,7 @@ export default abstract class AbstractStory {
     };
     this.id = options.id || '';
     this.viewKey = options.viewKey || '';
+    this.secretKey = options.secretKey || '';
     this._title = options.title || "";
     this.avatarSrc = options.avatarSrc || "";
     if (this.id || this.viewKey) {
@@ -102,9 +103,8 @@ export default abstract class AbstractStory {
           promise.catch(error => {
             // story likely empty, assume it is empty
             // assume storyName is viewKey, not always true
-            // const storyName: string = this.viewKey;
-            // TODO receive secretKey first
-            // this.putQrInAvatar(storyName, this.secretKey);
+            const storyName: string = this.viewKey;
+            this.secretKey && this.putQrInAvatar(storyName, this.secretKey);
           });
           this.setupSocketToListenForNewMediaInStory();
         } else {
