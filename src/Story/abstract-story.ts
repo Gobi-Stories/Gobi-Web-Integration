@@ -90,6 +90,7 @@ export default abstract class AbstractStory {
         let promise;
         if (this.viewKey) {
           promise = fetchAvatarAndTitleGivenViewKey(this.viewKey);
+          this.setupSocketToListenForNewMediaInStory();
         } else {
           promise = fetchAvatarAndTitleGivenStoryId(this.id);
         }
