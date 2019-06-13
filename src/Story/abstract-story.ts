@@ -6,13 +6,13 @@ import {
   fetchAvatarAndTitleGivenStoryId
 } from "@/utils/utils";
 import { default as QRCode } from "qrcode";
+import SocketIO from "socket.io-client";
 
 export default abstract class AbstractStory {
   rootElement: HTMLElement;
   id: string;
   viewKey: string;
   secretKey?: string;
-  timerId?: number;
 
   protected _elems: {
     title: HTMLAnchorElement;
@@ -30,6 +30,7 @@ export default abstract class AbstractStory {
   protected _description: string;
   protected _avatarSrc: string = "";
   protected _color: string;
+  private socket: any;
 
   get avatarSrc(): string {
     return this._avatarSrc;
@@ -51,19 +52,25 @@ export default abstract class AbstractStory {
   protected checkForVideoInStory() {
     const promise = fetchAvatarAndTitleGivenViewKey(this.viewKey);
     promise.then((data) => {
-      this.stopWatchingForVideoInStory();
       this.avatarSrc = data.src;
       this.title = data.title;
     }).catch((err) => {
     });
   }
 
-  protected startWatchingForVideoInStory() {
-    this.timerId = setInterval(() => this.checkForVideoInStory(), 5000);
+  private mediaDetected(media) {
+    this.socket.disconnect();
+    this.checkForVideoInStory();
   }
 
-  protected stopWatchingForVideoInStory() {
-    this.timerId && clearInterval(this.timerId);
+  private socketConnected() {
+    this.socket.on('media', this.mediaDetected.bind(this));
+    this.socket.emit('subscribe_to_story_media', {viewKey: this.viewKey});
+  }
+
+  protected setupSocketToListenForNewMediaInStory() {
+    this.socket = SocketIO('https://live.gobiapp.com');
+    this.socket.on('connect', this.socketConnected.bind(this));
   }
 
   protected constructor(options: StoryOptions) {
@@ -131,7 +138,7 @@ export default abstract class AbstractStory {
           const dataUrl = canvas.toDataURL();
           this.avatarSrc = dataUrl;
           // User now scans this QR with their phone, and adds a video
-          this.startWatchingForVideoInStory();
+          this.setupSocketToListenForNewMediaInStory();
         });
       });
     }
