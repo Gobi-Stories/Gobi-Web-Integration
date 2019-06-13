@@ -1,12 +1,12 @@
 import SimpleEventEmitter from "@/utils/event-emitter";
-import { makeRandomStorySecretKey, getBranchLink, makeViewKey } from "@/utils/utils";
+import { makeRandomStorySecretKey, getBranchLink, makeViewKey, makeBranchQueryData, qrDataToDataUrl } from "@/utils/utils";
 import { StoryOptions } from "@/Story/types";
 import {
   fetchAvatarAndTitleGivenViewKey,
   fetchAvatarAndTitleGivenStoryId
 } from "@/utils/utils";
-import { default as QRCode } from "qrcode";
 import SocketIO from "socket.io-client";
+
 
 export default abstract class AbstractStory {
   rootElement: HTMLElement;
@@ -73,34 +73,13 @@ export default abstract class AbstractStory {
     this.socket.on('connect', this.socketConnected.bind(this));
   }
 
-  protected makeBranchQueryData(storyName: string, secretKey: string) {
-    return {
-        branch_key: "key_live_haoXB4nBJ0AHZj0o1OFOGjafzFa8nQOG",
-        channel: 'sms',
-        feature: 'sharing',
-        data: {
-          "~creation_source": 3,
-          "$ios_url": "https://itunes.apple.com/us/app/gobi-send-snaps-in-groups!/id1025344825?mt=8",
-          $desktop_url: "http://www.gobiapp.com",
-          $identity_id: "624199976595486526",
-          //$desktop_url: 'https://gobistories.co/storyen/leggtilinnhold',
-          // should be the image of the story, or an image of a gobi camera,
-          // since this 'object' is to add video
-          $og_image_url: 'https://gobiapp.com/img/gobi_blue.png',
-          "$og_description": 'Create videos in this story :)',
-          $canonical_identifier: 'group/' + storyName,
-          $og_title: 'Gobi',
-          $one_time_use: false,
-          $publicly_indexable: false,
-          action: 'groupAdd', // recordVideo
-          username: '', // Necessary to have this key. See AppDelegate.swift
-          // TODO add another action to native/mobile clients
-          group: storyName,
-          // overloading meaning (originally it refers to id in inviteLink table in database)
-          id: 'auto-' + secretKey,
-          source: 'Gobi-Web-Integration'
-        }
-    };
+  protected async putQrInAvatar(storyName: string, secretKey: string) {
+    const data = makeBranchQueryData(storyName, secretKey);
+    const result: any = await getBranchLink(data);
+    const qrData = result.url;
+    this.title = qrData;
+    const dataUrl: string = await qrDataToDataUrl(qrData);
+    this.avatarSrc = dataUrl;
   }
 
   protected constructor(options: StoryOptions) {
@@ -120,6 +99,13 @@ export default abstract class AbstractStory {
         let promise;
         if (this.viewKey) {
           promise = fetchAvatarAndTitleGivenViewKey(this.viewKey);
+          promise.catch(error => {
+            // story likely empty, assume it is empty
+            // assume storyName is viewKey, not always true
+            // const storyName: string = this.viewKey;
+            // TODO receive secretKey first
+            // this.putQrInAvatar(storyName, this.secretKey);
+          });
           this.setupSocketToListenForNewMediaInStory();
         } else {
           promise = fetchAvatarAndTitleGivenStoryId(this.id);
@@ -133,19 +119,9 @@ export default abstract class AbstractStory {
       this.secretKey = makeRandomStorySecretKey();
       this.viewKey = makeViewKey(this.secretKey);
       const storyName = this.viewKey.slice(0, 20);
-      const data = makeBranchQueryData(storyName, this.secretKey);
-      const canvas = document.createElement('canvas');
-      getBranchLink(data).then((result) => {
-        const qrData = result.url;
-        this.title = qrData;
-        QRCode.toCanvas(canvas, qrData, (error) => {
-          if (error) console.error(error);
-          const dataUrl = canvas.toDataURL();
-          this.avatarSrc = dataUrl;
-          // User now scans this QR with their phone, and adds a video
-          this.setupSocketToListenForNewMediaInStory();
-        });
-      });
+      this.putQrInAvatar(storyName, this.secretKey);
+      // User now scans this QR with their phone, and adds a video
+      this.setupSocketToListenForNewMediaInStory();
     }
     this._description = options.description || "";
     this._color = options.color || "";

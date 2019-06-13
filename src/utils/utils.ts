@@ -1,7 +1,52 @@
 import Promise from "promise-polyfill";
 import { default as uuid } from "uuid";
 import { default as v5 } from "uuid/v5";
-import { default as Base58 } from '@/base58';
+import { int_to_base58 } from '@/base58';
+import { default as QRCode } from "qrcode";
+
+export function qrDataToDataUrl(qrData: string): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('canvas');
+    QRCode.toCanvas(canvas, qrData, (error) => {
+      if (error) {
+        console.error(error);
+        reject(error);
+      }
+      const dataUrl: string = canvas.toDataURL();
+      resolve(dataUrl);
+    });
+  });
+}
+
+export function makeBranchQueryData(storyName: string, secretKey: string): any {
+  return {
+      branch_key: "key_live_haoXB4nBJ0AHZj0o1OFOGjafzFa8nQOG",
+      channel: 'sms',
+      feature: 'sharing',
+      data: {
+        "~creation_source": 3,
+        "$ios_url": "https://itunes.apple.com/us/app/gobi-send-snaps-in-groups!/id1025344825?mt=8",
+        $desktop_url: "http://www.gobiapp.com",
+        $identity_id: "624199976595486526",
+        //$desktop_url: 'https://gobistories.co/storyen/leggtilinnhold',
+        // should be the image of the story, or an image of a gobi camera,
+        // since this 'object' is to add video
+        $og_image_url: 'https://gobiapp.com/img/gobi_blue.png',
+        "$og_description": 'Create videos in this story :)',
+        $canonical_identifier: 'group/' + storyName,
+        $og_title: 'Gobi',
+        $one_time_use: false,
+        $publicly_indexable: false,
+        action: 'groupAdd', // recordVideo
+        username: '', // Necessary to have this key. See AppDelegate.swift
+        // TODO add another action to native/mobile clients
+        group: storyName,
+        // overloading meaning (originally it refers to id in inviteLink table in database)
+        id: 'auto-' + secretKey,
+        source: 'Gobi-Web-Integration'
+      }
+  };
+}
 
 export function makeViewKey(secretKey:string):string {
   const execd:any = secretKey.match('^([0-9a-f]{8})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{4})-([0-9a-f]{12})$');
@@ -10,7 +55,7 @@ export function makeViewKey(secretKey:string):string {
   }
   const uuidNodePart:any = execd[5];
   const uuidNodePartInt:any = parseInt(uuidNodePart, 0x10);
-  const nodeInBase58:any = Base58.int_to_base58(uuidNodePartInt);
+  const nodeInBase58:any = int_to_base58(uuidNodePartInt);
   const node8Characters:any = nodeInBase58.slice(-8);
   return node8Characters;
 }
