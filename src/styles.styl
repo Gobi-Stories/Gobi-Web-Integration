@@ -1,0 +1,138 @@
+@import 'Popup/styles'
+.disabled-scroll
+  width: 100%
+  height: 100%
+  overflow: hidden
+body
+  margin: 0
+.gobi-player-shadow
+  box-shadow: 0 30px 30px 0 rgba(0, 0, 0, 0.2)
+.gobi-popup-module
+  padding-top: 60px
+  text-align: center
+  font-family: 'Open Sans', sans-serif
+  &__title
+    display block
+    margin-bottom 20px
+    color: #4a4a4a
+    font-size: 23px
+    font-weight: 600
+  &__stories
+    overflow-y: hidden
+    & > *
+      margin: 10px 5px 80px
+    &--no-wrap
+      white-space: nowrap
+      overflow-x: auto
+    &--horizontal > *
+      display: inline-block
+      vertical-align: top
+    &--vertical > *
+      display: block
+.gobi-popup-story
+  text-align: center
+  font-family: 'Open Sans', sans-serif
+  white-space: normal
+  box-sizing: content-box
+  .gobi-popup-module--hoverable &__avatar-container:hover
+    opacity: 1
+    margin: 0px calc(.1*96px)
+    width: calc(1.2 * 96px)
+    // compute from bubble size
+    border-width: 0px
+    &__avatar
+      box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25)
+    ~ &__description &__description-text
+      opacity: 1
+      transform: translate(-50%, 0)
+  &__avatar-container
+    display: inline-block
+    width: 96px
+    // bubble size
+    padding: 2px
+    border: 1px solid #15d6ea
+    border-radius: 50%
+    opacity: 0.8
+    cursor: pointer
+    box-sizing: border-box
+    transition: margin 0.2s ease, opacity 0.2s ease, width 0.2s ease, border-width 0.2s ease
+    margin: calc(0.1 * 96px) calc(.2*96px)
+  &__avatar
+    padding-top: 100%
+    border-radius: 50%
+    background: no-repeat center
+    background-size: cover
+    box-sizing: border-box
+    transition: box-shadow 0.4s ease
+  &__title
+    display: block
+    // because it is an <a>
+    margin-top: 10px
+    font-size: 11px
+    box-sizing: border-box
+    white-space: pre-line
+  &__description
+    position: relative
+  &__description-text
+    $font-size = 12px
+    position: absolute
+    left: 50%
+    top: 20px
+    width: 100%
+    white-space: pre-line
+    color: #858585
+    font-size: $font-size
+    opacity: 0
+    box-sizing: border-box
+    transform: translate(-50%, $font-size / 2)
+    transition: opacity 0.2s ease, transform 0.4s ease
+  @media all and (max-width: 767px)
+    &__avatar-container
+      width: 64px
+      margin: calc(0.1 * 64px) calc(.2*64px)
+    .gobi-popup-module--hoverable &__avatar-container:hover
+      width: calc(1.2 * 64px)
+      // compute from bubble size
+      margin: 0px calc(.1*64px)
+.gobi-story
+  max-width: 160px
+  text-align: center
+  opacity: 0.8
+  transition: opacity 0.2s ease
+  &--selected,
+  &:hover
+    opacity: 1
+  &__avatar-container
+    width: 128px
+    margin: 0 auto
+    padding: 2px
+    border: 2px solid #999
+    border-radius: 50%
+    cursor: pointer
+    box-sizing: border-box
+  &--selected &__avatar-container
+    border-color: #15d6ea
+  &__avatar
+    padding-top: 100%
+    border-radius: 50%
+    background: no-repeat center top
+    background-size: cover
+    box-sizing: border-box
+    transition: box-shadow 400ms ease
+  &__avatar-container:hover &__avatar,
+  &--selected &__avatar
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3)
+  &__title
+    font-family: 'Open Sans', sans-serif
+    color: #333
+    margin: 4px 0 0
+    font-size: 14px
+    font-weight: 600
+    white-space: pre-line
+  &__description
+    margin: 6px auto 0
+    font-family: Arial, sans-serif
+    color: #969696
+    font-size: 10px
+    line-height: 1.3
+    white-space: pre-line
