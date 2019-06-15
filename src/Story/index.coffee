@@ -1,22 +1,19 @@
-'use strict'
-Object.defineProperty exports, '__esModule', value: true
-tslib_1 = require('tslib')
 utils_1 = require('@/utils/utils')
-abstract_story_1 = tslib_1.__importDefault(require('@/Story/abstract-story'))
-Story = ((_super) ->
-  `var Story`
+AbstractStory = require('@/Story/abstract-story')
+Function::property = (name, getset) -> Object.defineProperty @prototype, name, getset
 
-  Story = (options) ->
-    _this = _super.call(this, options) or this
-    _this._selected = false
+class Story extends AbstractStory
+  constructor: (options) ->
+    super options
+    @_selected = false
     if options.titleColor
-      _this._elems.title.style.color = options.titleColor
+      @_elems.title.style.color = options.titleColor
     if options.descriptionColor
-      _this._elems.description.style.color = options.descriptionColor
+      @_elems.description.style.color = options.descriptionColor
     if options.titleSize
-      _this._elems.title.style.fontSize = options.titleSize
+      @_elems.title.style.fontSize = options.titleSize
     if options.descriptionSize
-      _this._elems.description.style.fontSize = options.descriptionSize
+      @_elems.description.style.fontSize = options.descriptionSize
     if options.avatarSize
       s = options.avatarSize
       css = ''
@@ -41,14 +38,12 @@ Story = ((_super) ->
       hoverStyle = document.createElement('style')
       hoverStyle.appendChild document.createTextNode(css)
       document.getElementsByTagName('head')[0].appendChild hoverStyle
-    _this._selected = ! !options.selected
-    _this.title = _this._title
-    _this.description = _this._description
-    _this.color = _this._color
-    _this
+    @_selected = ! !options.selected
+    @title = @_title
+    @description = @_description
+    @color = @_color
 
-  tslib_1.__extends Story, _super
-  Object.defineProperty Story.prototype, 'selected',
+  @property 'selected',
     get: ->
       @_selected
     set: (selected) ->
@@ -57,10 +52,7 @@ Story = ((_super) ->
       else
         @rootElement.classList.remove 'gobi-story--selected'
       @_selected = selected
-      return
-    enumerable: true
-    configurable: true
-  Object.defineProperty Story.prototype, 'title',
+  @property 'title',
     get: ->
       @_title
     set: (title) ->
@@ -71,42 +63,28 @@ Story = ((_super) ->
       else
         @_elems.title.textContent = title
         delete @_elems.title.href
-      return
-    enumerable: true
-    configurable: true
-  Object.defineProperty Story.prototype, 'description',
+  @property 'description',
     get: ->
       @_description
     set: (description) ->
       @_description = description
       @_elems.description.textContent = description
-      return
-    enumerable: true
-    configurable: true
-  Object.defineProperty Story.prototype, 'color',
+  @property 'color',
     get: ->
       @_color
     set: (color) ->
       @_color = color
       @_elems.avatarContainer.style.borderColor = color
-      return
-    enumerable: true
-    configurable: true
-
-  Story::_createTemplate = ->
+  _createTemplate: ->
     # "desktop": const classPrefix = 'gobi-story';
     classPrefix = 'gobi-popup-story'
     container = document.createElement('div')
     container.classList.add classPrefix
-    container.innerHTML = Story._HTML
+    container.innerHTML = @_HTML
     utils_1.addPrefixToClassName container.querySelectorAll('*'), classPrefix + '__'
     container
-
-  Object.defineProperty Story, '_HTML',
+  @property '_HTML',
     get: ->
       '<div class="avatar-container" data-select-area data-avatarContainer><div class="avatar" data-avatar></div></div>' + '<a class="title" target="_blank" data-title></a>' + '<div class="description"><div class="description-text" data-description></div></div>'
-    enumerable: true
-    configurable: true
-  Story
-)(abstract_story_1.default)
-exports.default = Story
+
+module.exports = Story

@@ -40,5 +40,5 @@ alphabetLookup = alphabet.split('').reduce(((lookup, char, index) ->
   lookup[char] = index
   lookup
 ), {})
-exports.int_to_base58 = int_to_base58
-exports.base58_to_int = base58_to_int
+module.exports.int_to_base58 = int_to_base58
+module.exports.base58_to_int = base58_to_int

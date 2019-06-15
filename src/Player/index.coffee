@@ -1,11 +1,7 @@
-'use strict'
-Object.defineProperty exports, '__esModule', value: true
-tslib_1 = require('tslib')
-event_emitter_1 = tslib_1.__importDefault(require('@/utils/event-emitter'))
-Player = do ->
-  `var Player`
-
-  Player = (options) ->
+event_emitter_1 = require('@/utils/event-emitter')
+Function::property = (name, getset) -> Object.defineProperty @prototype, name, getset
+class Player
+  constructor: (options) ->
     _this = this
     @_defaultOptions =
       autoStart: false
@@ -16,28 +12,21 @@ Player = do ->
       roundedCorners: true
       shadow: true
       checkViewPort: true
-    @_eventEmitter = new (event_emitter_1.default)
+    @_eventEmitter = new event_emitter_1()
     @on = @_eventEmitter.on.bind(@_eventEmitter)
     @off = @_eventEmitter.off.bind(@_eventEmitter)
-
     @_removeIsOnScreenChecker = ->
-
     @_removeIsOutOfScreenChecker = ->
-
     @_isOutOfScreenChecker = ->
       if !_this.isInViewport()
         _this.pause()
         _this._removeIsOutOfScreenChecker()
         _this._addIsOnScreenChecker()
-      return
-
     @_isOnScreenChecker = ->
       if _this.isInViewport()
         _this.play()
         _this._removeIsOnScreenChecker()
         _this._addIsOutOfScreenChecker()
-      return
-
     @_options = Object.assign({}, @_defaultOptions, options)
     @rootElement = @_createIframe()
     if @_options.container
@@ -50,10 +39,7 @@ Player = do ->
         _this._eventEmitter.emit data.event, data.value, _this
         if _this._options.checkViewPort
           _this._viewPortChecker data.event
-      return
-    return
-
-  Object.defineProperty Player.prototype, 'storyUrl',
+  @property 'storyUrl',
     get: ->
       parameters = 
         autoStart: @_options.autoStart
@@ -72,53 +58,35 @@ Player = do ->
         url = 'https://live.gobiapp.com/next/story/id/'
         url += @_options.storyName
       url + '?' + queryString
-    enumerable: true
-    configurable: true
-
-  Player::load = (options) ->
+  load: (options) ->
     Object.assign @_options, options
     @rootElement.src = @storyUrl
-    return
-
-  Player::play = ->
+  play: ->
     @_callPlayerMethod 'play'
-    return
-
-  Player::pause = ->
+  pause: ->
     @_callPlayerMethod 'pause'
-    return
-
-  Player::reload = ->
+  reload: ->
     @_callPlayerMethod 'reset'
-    return
-
-  Player::setMute = (flag) ->
+  setMute: (flag) ->
     @_callPlayerMethod 'setMute', flag
-    return
-
-  Player::isInViewport = ->
+  isInViewport: ->
     distance = @rootElement.getBoundingClientRect()
     viewportHeight = window.innerHeight or document.documentElement.clientHeight
     viewportWidth = window.innerWidth or document.documentElement.clientWidth
     hiddenHeight = distance.height * 0.8
     hiddenWidth = distance.width * 0.8
     distance.top >= 0 - hiddenHeight and distance.left >= 0 - hiddenWidth and distance.bottom <= viewportHeight + hiddenHeight and distance.right <= viewportWidth + hiddenWidth
-
-  Player::_callPlayerMethod = (name, arg) ->
+  _callPlayerMethod: (name, arg) ->
     if arg == undefined
       arg = undefined
     @_sendMessage
       method: name
       value: arg
-    return
-
-  Player::_sendMessage = (message) ->
+  _sendMessage: (message) ->
     target = @rootElement.contentWindow
     if target
       target.postMessage message, '*'
-    return
-
-  Player::_createIframe = ->
+  _createIframe: ->
     iframe = document.createElement('iframe')
     size = @_calculatePlayerSize()
     iframe.src = @storyUrl
@@ -135,8 +103,7 @@ Player = do ->
       iframe.style.borderRadius = '10px'
     iframe.setAttribute 'allow', 'autoplay;'
     iframe
-
-  Player::_viewPortChecker = (playerEventName) ->
+  _viewPortChecker: (playerEventName) ->
     switch playerEventName
       when 'play'
         @_addIsOutOfScreenChecker()
@@ -147,29 +114,19 @@ Player = do ->
       when 'ended'
         @_removeIsOnScreenChecker()
         @_removeIsOutOfScreenChecker()
-    return
-
-  Player::_addIsOutOfScreenChecker = ->
+  _addIsOutOfScreenChecker: ->
     _this = this
     @_removeIsOutOfScreenChecker()
     @_removeIsOnScreenChecker()
     window.addEventListener 'scroll', @_isOutOfScreenChecker
-
     @_removeIsOutOfScreenChecker = ->
       window.removeEventListener 'scroll', _this._isOutOfScreenChecker
-
-    return
-
-  Player::_addIsOnScreenChecker = ->
+  _addIsOnScreenChecker: ->
     _this = this
     window.addEventListener 'scroll', @_isOnScreenChecker
-
     @_removeIsOnScreenChecker = ->
       window.removeEventListener 'scroll', _this._isOnScreenChecker
-
-    return
-
-  Player::_calculatePlayerSize = ->
+  _calculatePlayerSize: ->
     width = 612
     height = 1088
     aspectRatio = 0.5625
@@ -183,10 +140,5 @@ Player = do ->
     else if @_options.height
       height = @_options.height
       width = height * aspectRatio
-    {
-      width: width
-      height: height
-    }
-
-  Player
-exports.default = Player
+    {width: width, height: height}
+module.exports = Player
