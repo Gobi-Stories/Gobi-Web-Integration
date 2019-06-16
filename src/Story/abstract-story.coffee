@@ -39,7 +39,7 @@ class AbstractStory
           @title = @title or data.title
     else
       @secretKey = utils.makeRandomStorySecretKey()
-      @viewKey = utils.makeViewKey(@secretKey)
+      @viewKey = utils.makeViewKey @secretKey
       storyName = @viewKey.slice(0, 20)
       @putQrInAvatar storyName, @secretKey
       # User now scans this QR with their phone, and adds a video

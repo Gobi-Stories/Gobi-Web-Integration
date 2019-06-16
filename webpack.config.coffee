@@ -1,10 +1,10 @@
-path = require('path')
-MiniCssExtractPlugin = require('mini-css-extract-plugin')
-autoprefixer = require('autoprefixer')
-CleanWebpackPlugin = require('clean-webpack-plugin')
-OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+path = require 'path'
+MiniCssExtractPlugin = require 'mini-css-extract-plugin'
+autoprefixer = require 'autoprefixer'
+CleanWebpackPlugin = require 'clean-webpack-plugin'
+OptimizeCSSAssetsPlugin = require 'optimize-css-assets-webpack-plugin'
 
-developmentMode = process.env.NODE_ENV != 'production'
+developmentMode = process.env.NODE_ENV isnt 'production'
 module.exports =
   mode: if developmentMode then 'development' else 'production'
   entry: './src/index.coffee'
@@ -31,6 +31,7 @@ module.exports =
         {
           loader: 'babel-loader'
           options:
+            plugins: ['@babel/plugin-transform-classes'],
             cacheDirectory: true
             env:
               'development': comments: false

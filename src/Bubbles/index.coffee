@@ -16,8 +16,12 @@ class Bubbles
       checkViewPort: false
     }, options.playerOptions)
     @popup = new Popup_1 player: @player
-    if options.container
-      @append options.container
+    if not options.container
+      options.container = document.createElement 'div'
+      options.container.classList.add 'gobi-bubbles-container'
+      scriptElement = document.querySelector 'script#gobi-here'
+      scriptElement.insertAdjacentElement 'beforebegin', options.container
+    @append options.container
   @property 'title',
     get: ->
       @_title

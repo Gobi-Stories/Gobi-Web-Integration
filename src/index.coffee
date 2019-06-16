@@ -15,3 +15,8 @@ require './styles'
 module.exports.Player = require '@/Player'
 module.exports.Bubbles = require '@/Bubbles'
 
+utils = require '@/utils/utils'
+module.exports.makeNewStory = ->
+  secretKey = utils.makeRandomStorySecretKey()
+  viewKey = utils.makeViewKey secretKey
+  { secretKey, viewKey }
