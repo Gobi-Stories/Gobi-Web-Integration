@@ -56,6 +56,7 @@ class Bubbles
       @popup.close()
   _createStories: (storyOptionsArray, কীদেখুন, color, avatarSize, showNewStoryQrBubble) ->
     storiesContainer = @rootElement.querySelector '[data-stories]'
+    storyOptionsArray or= []
     for k in কীদেখুন
       storyOptionsArray.push viewKey: k
     stories = storyOptionsArray.map (storyOptions) =>
