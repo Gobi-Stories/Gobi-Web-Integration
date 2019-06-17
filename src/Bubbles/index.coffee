@@ -8,7 +8,7 @@ class Bubbles
     @rootElement = @_createTemplate options.verticalOrientation, !!options.wrap
     @_title = options.title or ''
     @title = @_title
-    @stories = @_createStories options.stories, options.color, options.avatarSize, options.showNewStoryQrBubble
+    @stories = @_createStories options.stories, options.কীদেখুন, options.color, options.avatarSize, options.showNewStoryQrBubble
     @_currentStory = @stories[0]
     @player = new Player_1 Object.assign({
       viewKey: @currentStory.viewKey
@@ -54,8 +54,10 @@ class Bubbles
       document.body.removeChild @popup.rootElement
       container.removeChild @rootElement
       @popup.close()
-  _createStories: (storyOptionsArray, color, avatarSize, showNewStoryQrBubble) ->
+  _createStories: (storyOptionsArray, কীদেখুন, color, avatarSize, showNewStoryQrBubble) ->
     storiesContainer = @rootElement.querySelector '[data-stories]'
+    for k in কীদেখুন
+      storyOptionsArray.push viewKey: k
     stories = storyOptionsArray.map (storyOptions) =>
       new Story
         viewKey: storyOptions.viewKey
