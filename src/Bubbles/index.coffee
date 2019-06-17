@@ -19,8 +19,8 @@ class Bubbles
     if not options.container
       options.container = document.createElement 'div'
       options.container.classList.add 'gobi-bubbles-container'
-      scriptElement = document.querySelector 'script#gobi-here'
-      scriptElement.insertAdjacentElement 'beforebegin', options.container
+      gobiHereElement = document.querySelector '#gobi-here'
+      gobiHereElement.insertAdjacentElement 'beforebegin', options.container
     @append options.container
   @property 'title',
     get: ->

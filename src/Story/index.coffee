@@ -14,7 +14,7 @@ class Story extends AbstractStory
       @_elems.title.style.fontSize = options.titleSize
     if options.descriptionSize
       @_elems.description.style.fontSize = options.descriptionSize
-    if options.avatarSize
+    if options.avatarSize # happens multiple times :(
       s = options.avatarSize
       css = ''
       css += '.gobi-popup-story__avatar-container {'
@@ -31,7 +31,7 @@ class Story extends AbstractStory
       css += '    margin: calc(0.1 * ' + s + ') calc(.2*' + s + ');'
       css += '  }'
       css += '  .gobi-popup-module--hoverable &__avatar-container:hover {'
-      css += '    width: calc(1.2 * ' + s + '); // compute from bubble size'
+      css += '    width: calc(1.2 * ' + s + '); /* compute from bubble size*/'
       css += '    margin: 0px calc(.1*' + s + ');'
       css += '  }'
       css += '}'
