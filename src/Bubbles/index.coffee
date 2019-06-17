@@ -59,6 +59,11 @@ class Bubbles
     storyOptionsArray or= []
     for k in কীদেখুন
       storyOptionsArray.push viewKey: k
+    if 'GNa4TE' in কীদেখুন #RSMzzxxxxdcssd
+      css = '.gobi-popup-story__title {white-space: pre; font-size: 15px; } @media all and (max-width: 767px) { .gobi-popup-story__title {font-size: 12px; } } .gobi-popup-module {padding-top: 10px; } .gobi-popup-module__stories {padding: 0; } .gobi-popup-module__stories > * {margin-bottom: 10px; } .gobi-popup-module {font-family: inherit; } .gobi-popup-story__title {font-weight: 100; } .gobi-popup-story__title:first-line {font-weight: 400; } .gobi-popup-module {text-align: left; text-align: start; } #jobylon-jobs-widget { margin-bottom: -20px; }'
+      hoverStyle = document.createElement('style')
+      hoverStyle.appendChild document.createTextNode(css)
+      document.getElementsByTagName('head')[0].appendChild hoverStyle
     stories = storyOptionsArray.map (storyOptions) =>
       new Story
         viewKey: storyOptions.viewKey
