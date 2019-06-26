@@ -122,7 +122,7 @@ Details:
   ```
   new gobi.Bubbles({
     stories: [
-      {viewKey: '37Njb1', title: 'Summer', avatarSrc: 'https://...'}, { ... }
+      {id: '5601374f1437c89b6f6a641c97cc9d751982640f', title: 'Summer', avatarSrc: 'https://...'}, { ... }
   ```
 
   avatarSrc and title are optional – the avatar (thumbnail or picture in the bubble) will be fetched
@@ -143,9 +143,9 @@ Full example:
     new gobi.Bubbles({
       container: document.getElementById('gobi-container'),
       stories: [
-        {viewKey: "fhG6eY"},
-        {viewKey: "8tazBc"},
-        {viewKey: "9uIOKd"}
+        {id: "5601374f1437c89b6f6a641c97cc9d751982640f"},
+        {id: "42b095ee3d96ad3670ef6e4d638cfeadd75671f5"},
+        {id: "1012da7b037762812a6b6ef4e9a2c2a286d8b63e"}
       ]
     });
   </script>
@@ -256,11 +256,11 @@ Function which creates a bubble layout with already embedded player.
         new gobi.Bubbles({
           container: document.getElementById('container'),
           stories: [{
-                viewKey: 'story-view-key',
+                id: 'story-id',
                 title: 'Some Title',
                 description: 'Some Description'
             }, {
-                viewKey: 'another-story-view-key',
+                id: 'another-story-id',
                 title: 'Some Another Title',
                 description: 'Some Another Description'
             }],
