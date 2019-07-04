@@ -304,7 +304,7 @@ Function which create and return interface for managing and listening to events 
   <script>
         var player = new gobi.Player({
           container: document.getElementById('player-container'),
-          id: 'story-id'
+          storyName: 'story-id'
         });
         player.on('play', function() {
             console.log('played the video!');
@@ -316,7 +316,7 @@ Function which create and return interface for managing and listening to events 
 ### Options
 option             | default | description
 -------------------| ------- | -----------
-id                 |         | **Required.** String. The ID of the story.
+storyName          |         | **Required.** String. The ID of the story.
 container          |         | HTMLElement. Container where the player will be embed.
 autoStart          | `false` | Boolean. Add `autoplay` and `mute` attributes to video.
 loop               | `false` | Boolean. Add `loop` attributes to video.
