@@ -1,5 +1,4 @@
 utils_1 = require('@/utils/utils')
-event_emitter_1 = require('@/utils/event-emitter')
 Function::property = (name, getset) -> Object.defineProperty @prototype, name, getset
 # Popup is the overlay that contains the iframe with the Gobi Player.
 # The overlay is a half-transparent black fullpage background.
@@ -15,7 +14,6 @@ class Popup
     @_defaultOptions =
       classes: ''
       openers: ''
-    @_eventEmitter = new event_emitter_1()
     @_listenerRemoveFunctions = []
     _options = Object.assign {}, @_defaultOptions, options
     @rootElement = document.createElement 'div'
@@ -46,7 +44,6 @@ class Popup
     @_listenerRemoveFunctions.push =>
       window.removeEventListener 'keyup', @_onKeyUp.bind @
     @_isOpen = true
-    @_eventEmitter.emit 'open', @, @
   _onKeyUp: (event) ->
     @close() if event.key in ['Escape', 'Esc'] or event.keyCode is 27
   close: ->
@@ -57,11 +54,6 @@ class Popup
     @_removeListeners()
     @player.pause()
     @_isOpen = false
-    @_eventEmitter.emit 'close', @, @
-  on: (eventName, callback) ->
-    @_eventEmitter.on eventName, callback
-  off: (eventName, callback) ->
-    @_eventEmitter.off eventName, callback
   _removeListeners: ->
     i = @_listenerRemoveFunctions.length
     while i--
