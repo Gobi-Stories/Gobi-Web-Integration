@@ -1,4 +1,3 @@
-event_emitter_1 = require('@/utils/event-emitter')
 utils = require('@/utils/utils')
 socket_io_client_1 = require('socket.io-client')
 Function::property = (name, getset) -> Object.defineProperty @prototype, name, getset
@@ -6,9 +5,6 @@ Function::property = (name, getset) -> Object.defineProperty @prototype, name, g
 class AbstractStory
   constructor: (options) ->
     @_listenerRemoveFunctions = []
-    @_eventEmitter = new event_emitter_1()
-    @on = @_eventEmitter.on.bind(@_eventEmitter)
-    @off = @_eventEmitter.off.bind(@_eventEmitter)
     @_avatarSrc = ''
     @rootElement = @_createTemplate()
     @_elems =
@@ -46,10 +42,13 @@ class AbstractStory
       @setupSocketToListenForNewMediaInStory()
     @_description = options.description or ''
     @_color = options.color or ''
-    @_addSelectEmitter()
-    if typeof options.onSelect is 'function'
-      @_eventEmitter.on 'select', options.onSelect
+    @setupOnSelectListener()
     options.container?.appendChild @rootElement
+  setupOnSelectListener: ->
+    selectArea = @rootElement.querySelector '[data-select-area]'
+    selectArea.addEventListener 'click', options.onSelect
+    @_listenerRemoveFunctions.push ->
+      selectArea.removeEventListener 'click', options.onSelect
   @property 'avatarSrc',
     get: ->
       @_avatarSrc
@@ -80,21 +79,9 @@ class AbstractStory
   destroy: ->
     if @rootElement.parentElement
       @rootElement.parentElement.removeChild @rootElement
-    @_eventEmitter.off()
     i = @_listenerRemoveFunctions.length
     while i--
       @_listenerRemoveFunctions[i]()
-  _addSelectEmitter: ->
-    selectAreas = @rootElement.querySelectorAll('[data-select-area]')
-    selectClickCallback = => @_eventEmitter.emit 'select', @
-    _loop_1 = (i) ->
-      selectAreas[i].addEventListener 'click', selectClickCallback
-      this_1._listenerRemoveFunctions.push ->
-        selectAreas[i].removeEventListener 'click', selectClickCallback
-    this_1 = this
-    i = selectAreas.length
-    while i--
-      _loop_1 i
   _getElem: (name) ->
     attr = 'data-' + name
     elem = @rootElement.querySelector '[' + attr + ']'
