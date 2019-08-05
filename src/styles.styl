@@ -1,4 +1,5 @@
 @import 'Popup/styles'
+
 .disabled-scroll
   width: 100%
   height: 100%
@@ -8,6 +9,9 @@ body
 .gobi-player-shadow
   box-shadow: 0 30px 30px 0 rgba(0, 0, 0, 0.2)
 .gobi-popup-module
+  font-size: 0
+  letter-spacing: 0
+  padding: 0 5%
   padding-top: 60px
   text-align: center
   font-family: 'Open Sans', sans-serif
@@ -29,6 +33,32 @@ body
       vertical-align: top
     &--vertical > *
       display: block
+  &__player-block, &__stories-block
+    display: inline-block
+    vertical-align: middle
+    box-sizing: border-box
+  &__player-block--all-inline
+    width: 40%
+    padding-right: 2.5%
+  &__stories-block--all-inline
+    width: 60%
+    padding-left: 2.5%
+  &__player
+    position: relative
+    $height-to-width-ratio = 16 / 9
+    $max-width = 95vh / $height-to-width-ratio
+    max-width: $max-width
+    margin: 0 auto
+    &::before
+      content: ''
+      display: block
+      padding-top: ($height-to-width-ratio * 100%)
+    iframe
+      position: absolute
+      left: 0
+      top: 0
+      width: 100%
+      height: 100%
 .gobi-popup-story
   text-align: center
   font-family: 'Open Sans', sans-serif

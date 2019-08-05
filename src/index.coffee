@@ -7,13 +7,18 @@ addCss = (filename) ->
   head.appendChild link
 
 packageJson = require '../package.json'
-console.log 'Gobi-Web-Integration version', packageJson.version
 v = packageJson.version
-addCss "https://unpkg.com/@gobistories/gobi-web-integration@^#{v}/dist/index.css"
+console.log 'Gobi-Web-Integration version', v
+addCss "https://unpkg.com/@gobistories/gobi-web-integration@#{v}/dist/index.css"
+# addCss "file:///Users/ovikholt/gobi/Gobi-Web-Integration/dist/index.css"
 
 require './styles'
-module.exports.Player = require '@/Player'
-module.exports.Bubbles = require '@/Bubbles'
+Player = require '@/Player'
+Bubbles = require '@/Bubbles'
+
+module.exports.Player = Player
+module.exports.SinglePlayer = Player
+module.exports.Bubbles = Bubbles
 
 utils = require '@/utils/utils'
 module.exports.makeNewStory = ->

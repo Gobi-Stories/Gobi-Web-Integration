@@ -8,10 +8,10 @@ class AbstractStory
     @_avatarSrc = ''
     @rootElement = @_createTemplate()
     @_elems =
-      title: @_getElem('title')
-      description: @_getElem('description')
-      avatar: @_getElem('avatar')
-      avatarContainer: @_getElem('avatarContainer')
+      title: @rootElement.querySelector '.gobi-popup-story__title'
+      description: @rootElement.querySelector '.gobi-popup-story__description'
+      avatar: @rootElement.querySelector '.gobi-popup-story__avatar'
+      avatarContainer: @rootElement.querySelector '.gobi-popup-story__avatar-container'
     @id = options.id or ''
     @viewKey = options.viewKey or ''
     @secretKey = options.secretKey or ''
@@ -42,13 +42,14 @@ class AbstractStory
       @setupSocketToListenForNewMediaInStory()
     @_description = options.description or ''
     @_color = options.color or ''
-    @setupOnSelectListener()
+    @setupOnSelectListener options.onSelect
     options.container?.appendChild @rootElement
-  setupOnSelectListener: ->
+  setupOnSelectListener: (onSelect) ->
+    onSelect = onSelect.bind @, @
     selectArea = @rootElement.querySelector '[data-select-area]'
-    selectArea.addEventListener 'click', options.onSelect
+    selectArea.addEventListener 'click', onSelect
     @_listenerRemoveFunctions.push ->
-      selectArea.removeEventListener 'click', options.onSelect
+      selectArea.removeEventListener 'click', onSelect
   @property 'avatarSrc',
     get: ->
       @_avatarSrc
@@ -82,13 +83,5 @@ class AbstractStory
     i = @_listenerRemoveFunctions.length
     while i--
       @_listenerRemoveFunctions[i]()
-  _getElem: (name) ->
-    attr = 'data-' + name
-    elem = @rootElement.querySelector '[' + attr + ']'
-    if elem
-      elem.removeAttribute attr
-      elem
-    else
-      throw new Error 'Story does not contain element with name:' + name
 
 module.exports = AbstractStory

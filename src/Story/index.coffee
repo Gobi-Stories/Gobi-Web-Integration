@@ -1,4 +1,3 @@
-utils_1 = require('@/utils/utils')
 AbstractStory = require('@/Story/abstract-story')
 Function::property = (name, getset) -> Object.defineProperty @prototype, name, getset
 
@@ -79,12 +78,8 @@ class Story extends AbstractStory
     # "desktop": const classPrefix = 'gobi-story';
     classPrefix = 'gobi-popup-story'
     container = document.createElement('div')
-    container.classList.add classPrefix
-    container.innerHTML = @_HTML
-    utils_1.addPrefixToClassName container.querySelectorAll('*'), classPrefix + '__'
+    container.classList.add 'gobi-popup-story'
+    container.innerHTML = '<div class="gobi-popup-story__avatar-container" data-select-area><div class="gobi-popup-story__avatar"></div></div><a class="gobi-popup-story__title" target="_blank"></a><div class="gobi-popup-story__description"><div class="gobi-popup-story__description-text"></div></div>'
     container
-  @property '_HTML',
-    get: ->
-      '<div class="avatar-container" data-select-area data-avatarContainer><div class="avatar" data-avatar></div></div>' + '<a class="title" target="_blank" data-title></a>' + '<div class="description"><div class="description-text" data-description></div></div>'
 
 module.exports = Story

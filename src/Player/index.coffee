@@ -1,5 +1,12 @@
 event_emitter_1 = require('@/utils/event-emitter')
 Function::property = (name, getset) -> Object.defineProperty @prototype, name, getset
+
+makeQueryString = (parameters) ->
+  Object.keys(parameters).map (key) ->
+    value = parameters[key]
+    encodeURIComponent(key) + '=' + encodeURIComponent(value)
+  .join '&'
+
 class Player
   constructor: (options) ->
     _this = this
@@ -46,27 +53,31 @@ class Player
         addLooping: @_options.loop
         hideOverlay: @_options.hideOverlay
         roundedCorners: @_options.roundedCorners
-      queryString = Object.keys(parameters).map((key) ->
-        value = parameters[key]
-        encodeURIComponent(key) + '=' + encodeURIComponent(value)
-      ).join('&')
+      queryString = makeQueryString parameters
       url = undefined
-      if ! !@_options.viewKey
+      if !!@_options.viewKey
         url = 'https://live.gobiapp.com/next/story/viewKey/'
         url += @_options.viewKey
       else
         url = 'https://live.gobiapp.com/next/story/id/'
         url += @_options.storyName
       url + '?' + queryString
-  load: (options) ->
+  load: (options, callback) ->
     Object.assign @_options, options
+    @rootElement.onload = callback
     @rootElement.src = @storyUrl
+  hide: ->
+    @_options.container?.style['display'] = 'none'
+  show: ->
+    @_options.container?.style['display'] = ''
   play: ->
     @_callPlayerMethod 'play'
+    @show()
   pause: ->
     @_callPlayerMethod 'pause'
   reload: ->
     @_callPlayerMethod 'reset'
+    @show()
   setMute: (flag) ->
     @_callPlayerMethod 'setMute', flag
   isInViewport: ->

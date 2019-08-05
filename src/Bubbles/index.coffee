@@ -1,53 +1,99 @@
 Function::property = (name, getset) -> Object.defineProperty @prototype, name, getset
-utils_1 = require('@/utils/utils')
 Popup_1 = require('@/Popup')
 Story = require('@/Story')
-Player_1 = require('@/Player')
+Player = require '@/Player'
+
+createGobiHereContainer = (options) ->
+  options.container = document.createElement 'div'
+  options.container.classList.add 'gobi-bubbles-container'
+  gobiHereElement = document.querySelector '#gobi-here'
+  gobiHereElement.insertAdjacentElement 'beforebegin', options.container
+
 class Bubbles
   constructor: (options) ->
     @rootElement = @_createTemplate options.verticalOrientation, !!options.wrap
+    @responsive = options.responsive
     @_title = options.title or ''
     @title = @_title
     @stories = @_createStories options.stories, options.কীদেখুন, options.color, options.avatarSize, options.showNewStoryQrBubble
     @_currentStory = @stories[0]
-    @player = new Player_1 Object.assign({
-      viewKey: @currentStory.viewKey
-      storyName: @currentStory.id
+    @_playerContainer = @rootElement.querySelector '.gobi-popup-module__player'
+    playerOptions = Object.assign({
+      viewKey: @_currentStory.viewKey
+      storyName: @_currentStory.id
       checkViewPort: false
+      container: @_playerContainer
     }, options.playerOptions)
-    @popup = new Popup_1 player: @player
-    if not options.container
-      options.container = document.createElement 'div'
-      options.container.classList.add 'gobi-bubbles-container'
-      gobiHereElement = document.querySelector '#gobi-here'
-      gobiHereElement.insertAdjacentElement 'beforebegin', options.container
-    @append options.container
+    @player = new Player playerOptions
+    @nei = new Player playerOptions
+    @popup = new Popup_1 player: @nei
+    createGobiHereContainer options if not options.container
+    @addToDom options.container
+    @layout = options.layout
+    @reconsiderLayoutTimeout = null
+    if @responsive
+      window.addEventListener 'resize', @debounceReconsiderLayout
+  debounceReconsiderLayout: =>
+    clearTimeout @reconsiderLayoutTimeout if @reconsiderLayoutTimeout
+    @reconsiderLayoutTimeout = setTimeout @reconsiderLayout, 500
+  reconsiderLayout: =>
+    if @rootElement.clientWidth < 767
+      @player.hide()
+      @player.pause()
+      @rootElement.querySelector '.gobi-popup-module__player-block'
+      .classList.remove 'gobi-popup-module__player-block--all-inline'
+      @rootElement.querySelector '.gobi-popup-module__stories-block'
+      .classList.remove 'gobi-popup-module__stories-block--all-inline'
+    else
+      @rootElement.querySelector '.gobi-popup-module__player-block'
+      .classList.add 'gobi-popup-module__player-block--all-inline'
+      @rootElement.querySelector '.gobi-popup-module__stories-block'
+      .classList.add 'gobi-popup-module__stories-block--all-inline'
+      @player.show()
+      @popup.close()
   @property 'title',
     get: ->
       @_title
     set: (title) ->
-      titleEl = @rootElement.querySelector '[data-title]'
-      if titleEl
+      t = @rootElement.querySelector '.gobi-popup-module__title'
+      if t
         @_title = title or ''
-        titleEl.textContent = @_title
-        titleEl.style.display = if @_title then '' else 'none'
-  @property 'currentStory',
-    get: ->
-      @_currentStory
-    set: (story) ->
-      @_currentStory = story
-      @player.load
-        viewKey: @_currentStory.viewKey
-        storyName: @_currentStory.id
+        t.textContent = @_title
+        t.style.display = if @_title then '' else 'none'
+  setCurrentStory: (story, callback) ->
+    @_currentStory = story
+    @player.load
+      viewKey: @_currentStory.viewKey
+      storyName: @_currentStory.id
+    , callback
+    @nei.load
+      viewKey: @_currentStory.viewKey
+      storyName: @_currentStory.id
+    , callback
   getViewKeys: ->
     @stories.map (story) ->
       story.viewKey
   getKeys: ->
     @stories.map (story) ->
       {viewKey: story.viewKey, secretKey: story.secretKey}
-  append: (container) ->
+  addToDom: (container) ->
     document.body.appendChild @popup.rootElement
     container.appendChild @rootElement
+    alwaysDoPopup = not @responsive
+    doPopupNow = @rootElement.clientWidth < 767
+    if alwaysDoPopup or doPopupNow
+      @popup.open()
+      @player.hide()
+      @rootElement.querySelector '.gobi-popup-module__player-block'
+      .classList.remove 'gobi-popup-module__player-block--all-inline'
+      @rootElement.querySelector '.gobi-popup-module__stories-block'
+      .classList.remove 'gobi-popup-module__stories-block--all-inline'
+    else
+      @player.show()
+      @rootElement.querySelector '.gobi-popup-module__player-block'
+      .classList.add 'gobi-popup-module__player-block--all-inline'
+      @rootElement.querySelector '.gobi-popup-module__stories-block'
+      .classList.add 'gobi-popup-module__stories-block--all-inline'
   remove: ->
     container = @rootElement.parentElement
     if container
@@ -55,7 +101,7 @@ class Bubbles
       container.removeChild @rootElement
       @popup.close()
   _createStories: (storyOptionsArray, কীদেখুন, color, avatarSize, showNewStoryQrBubble) ->
-    storiesContainer = @rootElement.querySelector '[data-stories]'
+    storiesContainer = @rootElement.querySelector '.gobi-popup-module__stories'
     storyOptionsArray or= []
     for k in কীদেখুন
       storyOptionsArray.push viewKey: k
@@ -87,35 +133,35 @@ class Bubbles
       stories.push qrStory
     stories
   _onStorySelect: (story) ->
-    @currentStory = story
-    @popup.open()
+    @setCurrentStory story, =>
+      alwaysDoPopup = not @responsive
+      doPopupNow = @rootElement.clientWidth < 767
+      if alwaysDoPopup or doPopupNow
+        @popup.open()
+      else
+        @player.play()
+  onTouch: (container) =>
+    container.classList.remove 'gobi-popup-module--hoverable'
+    @removeListeners()
+  removeListeners: (onTouch) =>
+    window.removeEventListener 'touchstart', onTouch
+    window.removeEventListener 'mousemove', @removeListeners
   _createTemplate: (isVertical, isWrap) ->
-    onTouch = ->
-      container.classList.remove classPrefix + '--hoverable'
-      removeListeners()
-    removeListeners = ->
-      window.removeEventListener 'touchstart', onTouch
-      window.removeEventListener 'mousemove', removeListeners
-    if isVertical == undefined
-      isVertical = false
-    container = document.createElement('div')
-    classPrefix = 'gobi-popup-module'
-    container.classList.add classPrefix
-    container.classList.add classPrefix + '--hoverable'
-    container.innerHTML = @_HTML
-    utils_1.addPrefixToClassName container.querySelectorAll('*'), classPrefix + '__'
-    storiesContainerEl = container.lastElementChild
+    container = document.createElement 'div'
+    container.classList.add 'gobi-popup-module'
+    container.classList.add 'gobi-popup-module--hoverable'
+    container.innerHTML = '<div class="gobi-popup-module__player-block"><div class="gobi-popup-module__player"></div></div><div class="gobi-popup-module__title"></div><div class="gobi-popup-module__stories-block"><div class="gobi-popup-module__stories"></div></div>'
+    storiesContainer = container.querySelector '.gobi-popup-module__stories'
+    isVertical = false unless isVertical
     if isVertical
-      storiesContainerEl.classList.add classPrefix + '__stories--vertical'
+      storiesContainer.classList.add 'gobi-popup-module__stories--vertical'
     else
-      storiesContainerEl.classList.add classPrefix + '__stories--horizontal'
-    if !isWrap
-      storiesContainerEl.classList.add classPrefix + '__stories--no-wrap'
+      storiesContainer.classList.add 'gobi-popup-module__stories--horizontal'
+    if not isWrap then storiesContainer.classList.add 'gobi-popup-module__stories--no-wrap'
     if 'ontouchstart' of window or navigator.maxTouchPoints
+      onTouch = @onTouch.bind @, container
       window.addEventListener 'touchstart', onTouch
-      window.addEventListener 'mousemove', removeListeners
+      window.addEventListener 'mousemove', @removeListeners.bind @, onTouch
     container
-  @property '_HTML',
-    get: ->
-      '<div class="title" data-title></div> <div class="stories" data-stories></div>'
+
 module.exports = Bubbles
