@@ -103,9 +103,17 @@ export default class Story extends AbstractStory {
 
   private static get _HTML(): string {
     return (
-      '<div class="avatar-container" data-select-area data-avatarContainer><div class="avatar" data-avatar></div></div>' +
+      '<div class="avatar-container" data-select-area data-avatarContainer>' +
+      '<div class="avatar" data-avatar></div>' +
+      '<svg class="gobi-popup-story__avatar-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 68">' +
+      '<path d="M1 34a33 33 0 1 1 66 0 33 33 0 1 1-66 0" stroke-dasharray="208 210" stroke-dashoffset="209" fill="none" stroke="#15d6ea" stroke-width="1" stroke-miterlimit="10"/>' +
+      '</svg>' +
+      '</div>' +
       '<a class="title" target="_blank" data-title></a>' +
-      '<div class="description"><div class="description-text" data-description></div></div>'
+      '<div class="description">' +
+      '<div class="description-text" data-description>' +
+      '</div>' +
+      '</div>'
     );
   }
 }

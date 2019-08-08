@@ -1,10 +1,10 @@
-import { addPrefixToClassName } from "@/utils/utils";
+import {addPrefixToClassName, isInViewport} from "@/utils/utils";
 import Popup from "@/Popup";
 import Story from "@/Story";
 import Player from "@/Player";
-import { StoryOptions } from "@/Story/types";
+import {StoryOptions} from "@/Story/types";
 import AbstractStory from "@/Story/abstract-story";
-import { BubbleLayoutOptions } from "@/Bubbles/types";
+import {BubbleLayoutOptions} from "@/Bubbles/types";
 
 export default class Bubbles {
   private _currentStory: Story;
@@ -64,6 +64,42 @@ export default class Bubbles {
     if (options.container) {
       this.append(options.container);
     }
+
+    window.addEventListener('scroll', this.customDebounce(this.viewPortChecker.bind(this), 500, false));
+  }
+
+  viewPortChecker() {
+    isInViewport(this.rootElement) ? this.showAnimBorder() : this.hideAnimBorder();
+  }
+
+  showAnimBorder() {
+    const bubblesBorder = Array.prototype.slice.call(this.rootElement.querySelectorAll('.gobi-popup-story__avatar-svg path'), 0);
+
+    bubblesBorder.forEach(function (bubble) {
+      bubble.style.animation = 'bubbleBorderDraw 800ms ease-in-out 0ms forwards';
+    });
+  }
+
+  hideAnimBorder() {
+    const bubblesBorder = Array.prototype.slice.call(this.rootElement.querySelectorAll('.gobi-popup-story__avatar-svg path'), 0);
+
+    bubblesBorder.forEach(function (bubble) {
+      bubble.style.animation = 'none';
+    });
+  }
+
+  customDebounce(func, wait, immediate) {
+    let timeout;
+    return function () {
+      // @ts-ignore
+      const context = this, args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(function () {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      }, wait);
+      if (immediate && !timeout) func.apply(context, args);
+    };
   }
 
   getViewKeys() {
