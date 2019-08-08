@@ -65,6 +65,8 @@ export default class Bubbles {
       this.append(options.container);
     }
 
+    this.viewPortChecker();
+
     window.addEventListener('scroll', this.customDebounce(this.viewPortChecker.bind(this), 500, false));
   }
 
@@ -76,7 +78,7 @@ export default class Bubbles {
     const bubblesBorder = Array.prototype.slice.call(this.rootElement.querySelectorAll('.gobi-popup-story__avatar-svg path'), 0);
 
     bubblesBorder.forEach(function (bubble) {
-      bubble.style.animation = 'bubbleBorderDraw 800ms ease-in-out 0ms forwards';
+      bubble.style.animation = 'bubbleBorderDraw 800ms ease-in-out 100ms forwards';
     });
   }
 
