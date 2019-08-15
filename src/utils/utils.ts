@@ -89,8 +89,26 @@ export function addPrefixToClassName(
   let elem: HTMLElement;
   for (let i = 0; i < max; i++) {
     elem = list[i];
-    elem.className = prefix + elem.className;
+    if (!(list[i] instanceof SVGElement)) {
+      elem.className = prefix + elem.className;
+    }
   }
+}
+
+export function isInViewport(elem: HTMLElement) {
+  const distance = elem.getBoundingClientRect();
+  const viewportHeight =
+    window.innerHeight || document.documentElement.clientHeight;
+  const viewportWidth =
+    window.innerWidth || document.documentElement.clientWidth;
+  const hiddenHeight = distance.height * 0.8;
+  const hiddenWidth = distance.width * 0.8;
+  return (
+    distance.top >= 0 - hiddenHeight &&
+    distance.left >= 0 - hiddenWidth &&
+    distance.bottom <= viewportHeight + hiddenHeight &&
+    distance.right <= viewportWidth + hiddenWidth
+  );
 }
 
 export function returnHighestZIndex() {

@@ -1,5 +1,6 @@
 import { PlayerLoadOptions, PlayerOptions } from "@/Player/types";
 import SimpleEventEmitter from "@/utils/event-emitter";
+import {isInViewport} from "@/utils/utils";
 
 export default class Player {
   private readonly _defaultOptions = {
@@ -82,22 +83,6 @@ export default class Player {
     this._callPlayerMethod("setMute", flag);
   }
 
-  isInViewport() {
-    const distance = this.rootElement.getBoundingClientRect();
-    const viewportHeight =
-      window.innerHeight || document.documentElement.clientHeight;
-    const viewportWidth =
-      window.innerWidth || document.documentElement.clientWidth;
-    const hiddenHeight = distance.height * 0.8;
-    const hiddenWidth = distance.width * 0.8;
-    return (
-      distance.top >= 0 - hiddenHeight &&
-      distance.left >= 0 - hiddenWidth &&
-      distance.bottom <= viewportHeight + hiddenHeight &&
-      distance.right <= viewportWidth + hiddenWidth
-    );
-  }
-
   private _callPlayerMethod(name: string, arg: any = undefined) {
     this._sendMessage({
       method: name,
@@ -138,7 +123,7 @@ export default class Player {
         this._addIsOutOfScreenChecker();
         break;
       case "pause":
-        if (this.isInViewport()) {
+        if (isInViewport(this.rootElement)) {
           this._removeIsOnScreenChecker();
           this._removeIsOutOfScreenChecker();
         }
@@ -153,7 +138,7 @@ export default class Player {
   private _removeIsOnScreenChecker = () => {};
   private _removeIsOutOfScreenChecker = () => {};
   private _isOutOfScreenChecker = () => {
-    if (!this.isInViewport()) {
+    if (!isInViewport(this.rootElement)) {
       this.pause();
       this._removeIsOutOfScreenChecker();
       this._addIsOnScreenChecker();
@@ -161,7 +146,7 @@ export default class Player {
   };
 
   private _isOnScreenChecker = () => {
-    if (this.isInViewport()) {
+    if (isInViewport(this.rootElement)) {
       this.play();
       this._removeIsOnScreenChecker();
       this._addIsOutOfScreenChecker();
