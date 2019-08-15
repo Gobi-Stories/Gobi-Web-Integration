@@ -1,6 +1,6 @@
 {
   "name": "@gobistories/gobi-web-integration",
-  "version": "3.9.6",
+  "version": "3.9.7",
   "description": "",
   "main": "dist/gobi-web-integration.js",
   "scripts": {
