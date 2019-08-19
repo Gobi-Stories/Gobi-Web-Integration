@@ -45,6 +45,7 @@ export default class Popup {
     this.iframeContainer.className = "gobi-popup__iframe-container";
     this._createTemplate();
     this.player = _options.player;
+    this.player.rootElement.src = '';
     this.appendPlayer(this.player);
     this.rootElement.addEventListener("click", this._onDirectClickClose.bind(this));
     this.content.addEventListener("click", this._onDirectClickClose.bind(this));
@@ -76,6 +77,7 @@ export default class Popup {
     scrollDisabler.enable();
     this._removeListeners();
     this.player.pause();
+    this.player.rootElement.src = '';
     this._isOpen = false;
     this._eventEmitter.emit("close", this, this);
   }
