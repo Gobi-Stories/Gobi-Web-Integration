@@ -50,7 +50,7 @@ body {
   box-sizing: content-box;
   .gobi-popup-module--hoverable &__avatar-container:hover {
     opacity: 1;
-    margin: 0px calc(.1*96px);
+    margin: 0px calc(.2*150px);
     width: calc(1.2 * 96px); // compute from bubble size
     border-width: 0px;
     #{$scope}__avatar {
