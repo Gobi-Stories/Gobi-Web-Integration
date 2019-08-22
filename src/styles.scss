@@ -69,7 +69,7 @@ body {
     position: relative;
     display: inline-block;
     width: 96px; // bubble size
-    padding: 4px;
+    padding: 5px;
     border: 0px solid #15d6ea;
     opacity: 0.8;
     cursor: pointer;
@@ -84,6 +84,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: rotate(-90deg);
     transition: opacity .3s ease;
   }
   &__avatar {
@@ -183,6 +184,9 @@ body {
 }
 
 @keyframes bubbleBorderDraw {
+  from {
+    stroke-dashoffset: 370.52;
+  }
   to {
     stroke-dashoffset: 0;
   }

@@ -75,7 +75,7 @@ export default class Bubbles {
   }
 
   showAnimBorder() {
-    const bubblesBorder = Array.prototype.slice.call(this.rootElement.querySelectorAll('.gobi-popup-story__avatar-svg path'), 0);
+    const bubblesBorder = Array.prototype.slice.call(this.rootElement.querySelectorAll('.gobi-popup-story__avatar-circle'), 0);
 
     bubblesBorder.forEach(function (bubble) {
       bubble.style.animation = 'bubbleBorderDraw 800ms ease-in-out 100ms forwards';
@@ -83,7 +83,7 @@ export default class Bubbles {
   }
 
   hideAnimBorder() {
-    const bubblesBorder = Array.prototype.slice.call(this.rootElement.querySelectorAll('.gobi-popup-story__avatar-svg path'), 0);
+    const bubblesBorder = Array.prototype.slice.call(this.rootElement.querySelectorAll('.gobi-popup-story__avatar-circle'), 0);
 
     bubblesBorder.forEach(function (bubble) {
       bubble.style.animation = 'none';

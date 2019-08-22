@@ -42,7 +42,11 @@ export default class Story extends AbstractStory {
   }
   set color(color: string) {
     this._color = color;
-    this._elems.avatarContainer.style.borderColor = color;
+    const avatarCircleBorder: SVGElement|null = this._elems.avatarContainer.querySelector('.gobi-popup-story__avatar-circle');
+    if (avatarCircleBorder) {
+      avatarCircleBorder.style.stroke = color;
+    }
+    return;
   }
 
   constructor(options: StoryOptions) {
@@ -105,8 +109,9 @@ export default class Story extends AbstractStory {
     return (
       '<div class="avatar-container" data-select-area data-avatarContainer>' +
       '<div class="avatar" data-avatar></div>' +
-      '<svg class="gobi-popup-story__avatar-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 68 68">' +
-      '<path d="M1 34a33 33 0 1 1 66 0 33 33 0 1 1-66 0" stroke-dasharray="208 210" stroke-dashoffset="209" fill="none" stroke="#15d6ea" stroke-width="1" stroke-miterlimit="10"/>' +
+      '<svg class="gobi-popup-story__avatar-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">' +
+      '<circle cx="60" cy="60" r="59" fill="none" stroke="transparent" stroke-width="2" />' +
+      '<circle class="gobi-popup-story__avatar-circle" cx="60" cy="60" r="59" fill="none" stroke="#15d6ea" stroke-width="2" stroke-dasharray="370.52" stroke-dashoffset="370.52" />' +
       '</svg>' +
       '</div>' +
       '<a class="title" target="_blank" data-title></a>' +
