@@ -110,8 +110,7 @@ export default class Story extends AbstractStory {
       '<div class="avatar-container" data-select-area data-avatarContainer>' +
       '<div class="avatar" data-avatar></div>' +
       '<svg class="gobi-popup-story__avatar-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">' +
-      '<circle cx="60" cy="60" r="58" fill="none" stroke="transparent" stroke-width="3" />' +
-      '<circle class="gobi-popup-story__avatar-circle" cx="60" cy="60" r="59" fill="none" stroke="#15d6ea" stroke-width="2" stroke-dasharray="370.52" stroke-dashoffset="370.52" />' +
+      '<circle class="gobi-popup-story__avatar-circle" cx="60" cy="60" r="57" fill="none" stroke="#15d6ea" stroke-width="3" stroke-dasharray="370.52" stroke-dashoffset="370.52" />' +
       '</svg>' +
       '</div>' +
       '<a class="title" target="_blank" data-title></a>' +
