@@ -1,5 +1,6 @@
 event_emitter_1 = require('@/utils/event-emitter')
 Function::property = (name, getset) -> Object.defineProperty @prototype, name, getset
+isInViewport = require('@/utils/utils').isInViewport
 
 makeQueryString = (parameters) ->
   Object.keys(parameters).map (key) ->
@@ -25,12 +26,12 @@ class Player
     @_removeIsOnScreenChecker = ->
     @_removeIsOutOfScreenChecker = ->
     @_isOutOfScreenChecker = ->
-      if !_this.isInViewport()
+      if !isInViewport @rootElement
         _this.pause()
         _this._removeIsOutOfScreenChecker()
         _this._addIsOnScreenChecker()
     @_isOnScreenChecker = ->
-      if _this.isInViewport()
+      if isInViewport @rootElement
         _this.play()
         _this._removeIsOnScreenChecker()
         _this._addIsOutOfScreenChecker()
@@ -45,7 +46,7 @@ class Player
       if data.event
         _this._eventEmitter.emit data.event, data.value, _this
         if _this._options.checkViewPort
-          _this._viewPortChecker data.event
+          _this._viewPortChecker data.event, _this.rootElement
   @property 'storyUrl',
     get: ->
       parameters = 
@@ -80,13 +81,6 @@ class Player
     @show()
   setMute: (flag) ->
     @_callPlayerMethod 'setMute', flag
-  isInViewport: ->
-    distance = @rootElement.getBoundingClientRect()
-    viewportHeight = window.innerHeight or document.documentElement.clientHeight
-    viewportWidth = window.innerWidth or document.documentElement.clientWidth
-    hiddenHeight = distance.height * 0.8
-    hiddenWidth = distance.width * 0.8
-    distance.top >= 0 - hiddenHeight and distance.left >= 0 - hiddenWidth and distance.bottom <= viewportHeight + hiddenHeight and distance.right <= viewportWidth + hiddenWidth
   _callPlayerMethod: (name, arg) ->
     if arg == undefined
       arg = undefined
@@ -114,12 +108,12 @@ class Player
       iframe.style.borderRadius = '10px'
     iframe.setAttribute 'allow', 'autoplay;'
     iframe
-  _viewPortChecker: (playerEventName) ->
+  _viewPortChecker: (playerEventName, element) ->
     switch playerEventName
       when 'play'
         @_addIsOutOfScreenChecker()
       when 'pause'
-        if @isInViewport()
+        if isInViewport element
           @_removeIsOnScreenChecker()
           @_removeIsOutOfScreenChecker()
       when 'ended'

@@ -73,13 +73,21 @@ class Story extends AbstractStory
       @_color
     set: (color) ->
       @_color = color
-      @_elems.avatarContainer.style.borderColor = color
+      avatarCircleBorder = @_elems.avatarContainer.querySelector '.gobi-popup-story__avatar-circle'
+      avatarCircleBorder?.style.stroke = color
   _createTemplate: ->
     # "desktop": const classPrefix = 'gobi-story';
     classPrefix = 'gobi-popup-story'
     container = document.createElement('div')
     container.classList.add 'gobi-popup-story'
-    container.innerHTML = '<div class="gobi-popup-story__avatar-container" data-select-area><div class="gobi-popup-story__avatar"></div></div><a class="gobi-popup-story__title" target="_blank"></a><div class="gobi-popup-story__description"><div class="gobi-popup-story__description-text"></div></div>'
+    container.innerHTML = '<div class="gobi-popup-story__avatar-container" data-select-area data-avatarContainer>' +
+      '<div class="gobi-popup-story__avatar" data-avatar></div>' +
+      '<svg class="gobi-popup-story__avatar-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">' +
+      '<circle class="gobi-popup-story__avatar-circle" cx="60" cy="60" r="57" fill="none" stroke="#15d6ea" stroke-width="3" stroke-dasharray="370.52" stroke-dashoffset="370.52" />' +
+      '</svg>' +
+      '</div>' +
+      '<a class="gobi-popup-story__title" target="_blank" data-title></a>' +
+      '<div class="gobi-popup-story__description"><div class="gobi-popup-story__description-text"></div></div>'
     container
 
 module.exports = Story

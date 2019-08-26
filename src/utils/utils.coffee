@@ -12,6 +12,14 @@ qrDataToDataUrl = (qrData) ->
         reject error
       dataUrl = canvas.toDataURL()
       resolve dataUrl
+isInViewport = (element) ->
+  distance = element.getBoundingClientRect()
+  viewportHeight = window.innerHeight or document.documentElement.clientHeight
+  viewportWidth = window.innerWidth or document.documentElement.clientWidth
+  hiddenHeight = distance.height * 0.8
+  hiddenWidth = distance.width * 0.8
+  distance.top >= 0 - hiddenHeight and distance.left >= 0 - hiddenWidth and distance.bottom <= viewportHeight + hiddenHeight and distance.right <= viewportWidth + hiddenWidth
+
 makeBranchQueryData = (storyName, secretKey) ->
   branch_key: 'key_live_haoXB4nBJ0AHZj0o1OFOGjafzFa8nQOG'
   channel: 'sms'
@@ -64,7 +72,8 @@ addPrefixToClassName = (list, prefix) ->
   i = 0
   while i < max
     elem = list[i]
-    elem.className = prefix + elem.className
+    if not list[i] instanceof SVGElement
+      elem.className = prefix + elem.className
     i++
   return
 
@@ -143,3 +152,4 @@ module.exports.makeRandomStorySecretKey = makeRandomStorySecretKey
 module.exports.getBranchLink = getBranchLink
 module.exports.addPrefixToClassName = addPrefixToClassName
 module.exports.returnHighestZIndex = returnHighestZIndex
+module.exports.isInViewport = isInViewport

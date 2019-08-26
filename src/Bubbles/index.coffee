@@ -2,6 +2,7 @@ Function::property = (name, getset) -> Object.defineProperty @prototype, name, g
 Popup_1 = require('@/Popup')
 Story = require('@/Story')
 Player = require '@/Player'
+isInViewport = require('@/utils/utils').isInViewport
 
 createGobiHereContainer = (options) ->
   options.container = document.createElement 'div'
@@ -31,11 +32,17 @@ class Bubbles
     @addToDom options.container
     @layout = options.layout
     @reconsiderLayoutTimeout = null
+    @viewPortCheckerTimeout = null
     if @responsive
       window.addEventListener 'resize', @debounceReconsiderLayout
+    window.addEventListener 'scroll', @debounceViewPortChecker
+    @viewPortChecker()
   debounceReconsiderLayout: =>
     clearTimeout @reconsiderLayoutTimeout if @reconsiderLayoutTimeout
-    @reconsiderLayoutTimeout = setTimeout @reconsiderLayout, 500
+    @reconsiderLayoutTimeout = setTimeout @reconsiderLayout.bind(@), 500
+  debounceViewPortChecker: =>
+    clearTimeout @viewPortCheckerTimeout if @viewPortCheckerTimeout
+    @viewPortCheckerTimeout = setTimeout @viewPortChecker.bind(@), 500
   reconsiderLayout: =>
     if @rootElement.clientWidth < 767
       @player.hide()
@@ -51,6 +58,19 @@ class Bubbles
       .classList.add 'gobi-popup-module__stories-block--all-inline'
       @player.show()
       @popup.close()
+  viewPortChecker: ->
+    if isInViewport @rootElement
+      @showAnimBorder()
+    else
+      @hideAnimBorder()
+  showAnimBorder: ->
+    bubblesBorder = Array.prototype.slice.call @rootElement.querySelectorAll '.gobi-popup-story__avatar-circle'
+    bubblesBorder.forEach (bubble) ->
+      bubble.style.animation = 'bubbleBorderDraw 800ms ease-in-out 100ms forwards'
+  hideAnimBorder: ->
+    bubblesBorder = Array.prototype.slice.call @rootElement.querySelectorAll '.gobi-popup-story__avatar-circle'
+    bubblesBorder.forEach (bubble) ->
+      bubble.style.animation = 'none'
   @property 'title',
     get: ->
       @_title
