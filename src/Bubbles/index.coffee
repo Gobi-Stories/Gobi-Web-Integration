@@ -4,11 +4,18 @@ Story = require('@/Story')
 Player = require '@/Player'
 isInViewport = require('@/utils/utils').isInViewport
 
-createGobiHereContainer = (options) ->
+useGobiHereContainer = (options) ->
   options.container = document.createElement 'div'
   options.container.classList.add 'gobi-bubbles-container'
-  gobiHereElement = document.querySelector '#gobi-here'
-  gobiHereElement.insertAdjacentElement 'beforebegin', options.container
+  gobiHereContainer = document.querySelector '#gobi-here'
+  if not gobiHereContainer
+    gobiHereContainer = document.querySelector 'body'
+    gobiHereContainer?.insertAdjacentElement 'afterbegin', options.container
+    console.error 'You must specify a container in the Bubbles() constructor, or, add an ' +
+      'element in your HTML with the magic ID like <div id="gobi-here"><div>.'
+    console.error 'Adding to top of <body> so you see at least something.'
+  else
+    gobiHereContainer?.insertAdjacentElement 'beforebegin', options.container
 
 class Bubbles
   constructor: (options) ->
@@ -28,7 +35,7 @@ class Bubbles
     @player = new Player playerOptions
     @nei = new Player playerOptions
     @popup = new Popup_1 player: @nei
-    createGobiHereContainer options if not options.container
+    useGobiHereContainer options if not options.container
     @addToDom options.container
     @layout = options.layout
     @reconsiderLayoutTimeout = null
