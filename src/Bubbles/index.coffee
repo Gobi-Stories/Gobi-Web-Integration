@@ -110,7 +110,8 @@ class Bubbles
     alwaysDoPopup = not @responsive
     doPopupNow = @rootElement.clientWidth < 767
     if alwaysDoPopup or doPopupNow
-      @popup.open()
+      # probably shouldn't pop up on page load, should it?
+      # @popup.open()
       @player.hide()
       @rootElement.querySelector '.gobi-popup-module__player-block'
       .classList.remove 'gobi-popup-module__player-block--all-inline'
