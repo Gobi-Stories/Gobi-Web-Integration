@@ -23,7 +23,8 @@ class Bubbles
     @responsive = options.responsive
     @_title = options.title or ''
     @title = @_title
-    @stories = @_createStories options.stories, options.কীদেখুন, options.color, options.avatarSize, options.showNewStoryQrBubble
+    options.viewKeys or= options.কীদেখুন or []
+    @stories = @_createStories options.stories, options.viewKeys, options.color, options.avatarSize, options.showNewStoryQrBubble
     @_currentStory = @stories[0]
     @_playerContainer = @rootElement.querySelector '.gobi-popup-module__player'
     playerOptions = Object.assign({
@@ -127,12 +128,12 @@ class Bubbles
       document.body.removeChild @popup.rootElement
       container.removeChild @rootElement
       @popup.close()
-  _createStories: (storyOptionsArray, কীদেখুন, color, avatarSize, showNewStoryQrBubble) ->
+  _createStories: (storyOptionsArray, viewKeys, color, avatarSize, showNewStoryQrBubble) ->
     storiesContainer = @rootElement.querySelector '.gobi-popup-module__stories'
     storyOptionsArray or= []
-    for k in কীদেখুন
+    for k in viewKeys
       storyOptionsArray.push viewKey: k
-    if 'GNa4TE' in কীদেখুন #RSMzzxxxxdcssd
+    if 'GNa4TE' in viewKeys #RSMzzxxxxdcssd
       css = '.gobi-popup-story__title {white-space: pre; font-size: 15px; } @media all and (max-width: 767px) { .gobi-popup-story__title {font-size: 12px; } } .gobi-popup-module {padding-top: 10px; } .gobi-popup-module__stories {padding: 0; } .gobi-popup-module__stories > * {margin-bottom: 10px; } .gobi-popup-module {font-family: inherit; } .gobi-popup-story__title {font-weight: 100; } .gobi-popup-story__title:first-line {font-weight: 400; } .gobi-popup-module {text-align: left; text-align: start; } #jobylon-jobs-widget { margin-bottom: -20px; }'
       hoverStyle = document.createElement('style')
       hoverStyle.appendChild document.createTextNode(css)
