@@ -23,7 +23,6 @@ class Bubbles
     @responsive = options.responsive
     @_title = options.title or ''
     @title = @_title
-    options.viewKeys or= options.কীদেখুন or []
     @stories = @_createStories options.stories, options.viewKeys, options.color, options.avatarSize, options.showNewStoryQrBubble
     @_currentStory = @stories[0]
     @_playerContainer = @rootElement.querySelector '.gobi-popup-module__player'
@@ -132,6 +131,7 @@ class Bubbles
   _createStories: (storyOptionsArray, viewKeys, color, avatarSize, showNewStoryQrBubble) ->
     storiesContainer = @rootElement.querySelector '.gobi-popup-module__stories'
     storyOptionsArray or= []
+    viewKeys or= []
     for k in viewKeys
       storyOptionsArray.push viewKey: k
     if 'GNa4TE' in viewKeys #RSMzzxxxxdcssd
