@@ -25,6 +25,8 @@ addCustomCssForCustomerRsm = (viewKeys) ->
     document.getElementsByTagName('head')[0].appendChild rsmStyleElement
 
 
+THRESHOLD_SCREEN_WIDTH = 767
+
 class Bubbles
   constructor: (options) ->
     @rootElement = @_createTemplate options.verticalOrientation, !!options.wrap
@@ -59,7 +61,7 @@ class Bubbles
     clearTimeout @viewPortCheckerTimeout if @viewPortCheckerTimeout
     @viewPortCheckerTimeout = setTimeout @viewPortChecker.bind(@), 500
   reconsiderLayout: =>
-    if @rootElement.clientWidth < 767
+    if @rootElement.clientWidth < THRESHOLD_SCREEN_WIDTH
       @player.hide()
       @player.pause()
       @rootElement.querySelector '.gobi-popup-module__player-block'
@@ -115,7 +117,7 @@ class Bubbles
     document.body.appendChild @popup.rootElement
     container.appendChild @rootElement
     alwaysDoPopup = not @responsive
-    doPopupNow = @rootElement.clientWidth < 767
+    doPopupNow = @rootElement.clientWidth < THRESHOLD_SCREEN_WIDTH
     if alwaysDoPopup or doPopupNow
       # probably shouldn't pop up on page load, should it?
       # @popup.open()
@@ -168,7 +170,7 @@ class Bubbles
   _onStorySelect: (story) ->
     @setCurrentStory story, =>
       alwaysDoPopup = not @responsive
-      doPopupNow = @rootElement.clientWidth < 767
+      doPopupNow = @rootElement.clientWidth < THRESHOLD_SCREEN_WIDTH
       if alwaysDoPopup or doPopupNow
         @popup.open()
       else
