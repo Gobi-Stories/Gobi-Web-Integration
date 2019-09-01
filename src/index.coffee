@@ -24,4 +24,4 @@ utils = require '@/utils/utils'
 module.exports.makeNewStory = ->
   secretKey = utils.makeRandomStorySecretKey()
   viewKey = utils.makeViewKey secretKey
-  { secretKey, viewKey }
+  { secretKey: secretKey, viewKey: viewKey }
