@@ -9,7 +9,7 @@ addCss = (filename) ->
 packageJson = require '../package.json'
 v = packageJson.version
 console.log 'Gobi-Web-Integration version', v
-addCss "https://unpkg.com/@gobistories/gobi-web-integration@#{v}/dist/index.css"
+addCss 'https://unpkg.com/@gobistories/gobi-web-integration@' + v + '/dist/index.css'
 # addCss "file:///Users/ovikholt/gobi/Gobi-Web-Integration/dist/index.css"
 
 require './styles'
