@@ -28,7 +28,7 @@ base58_to_int = (str) ->
   assertString str
   str.slice().reverse().reduce ((num, character, index) ->
     assertBase58Character character
-    num + alphabetLookup[character] * base ** index
+    num + alphabetLookup[character] * Math.pow(base, index)
   ), 0
 
 'use strict'
