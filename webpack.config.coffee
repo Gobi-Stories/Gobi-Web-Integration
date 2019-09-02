@@ -53,10 +53,7 @@ module.exports =
         {
           loader: 'postcss-loader'
           options:
-            plugins: [ autoprefixer(browsers: [
-              '> 0.01%'
-              'last 2 version'
-            ]) ]
+            plugins: [ autoprefixer() ]
             sourceMap: developmentMode
         }
         {
