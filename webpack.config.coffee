@@ -7,7 +7,7 @@ OptimizeCSSAssetsPlugin = require 'optimize-css-assets-webpack-plugin'
 developmentMode = process.env.NODE_ENV isnt 'production'
 module.exports =
   mode: if developmentMode then 'development' else 'production'
-  entry: './src/index.coffee'
+  entry: ['babel-polyfill', './src/index.coffee']
   output:
     path: path.resolve(__dirname, 'dist')
     filename: 'index.js'
@@ -31,7 +31,7 @@ module.exports =
         {
           loader: 'babel-loader'
           options:
-            presets: ['@babel/preset-env'],
+            presets: ['env'],
             plugins: ['@babel/plugin-transform-classes'],
             cacheDirectory: true
             env:
