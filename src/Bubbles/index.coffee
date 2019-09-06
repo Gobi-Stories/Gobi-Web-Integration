@@ -42,9 +42,13 @@ class Bubbles
       checkViewPort: false
       container: @_playerContainer
     }, options.playerOptions)
-    @player = new Player playerOptions
-    @nei = new Player playerOptions
-    @popup = new Popup_1 player: @nei
+    if options.openInPlayer
+      @hasExternalPlayer = true
+      @player = options.openInPlayer
+    else
+      @player = new Player playerOptions
+    @popupPlayer = new Player playerOptions
+    @popup = new Popup_1 player: @popupPlayer
     useGobiHereContainer options if not options.container
     @addToDom options.container
     @layout = options.layout
@@ -61,6 +65,7 @@ class Bubbles
     clearTimeout @viewPortCheckerTimeout if @viewPortCheckerTimeout
     @viewPortCheckerTimeout = setTimeout @viewPortChecker.bind(@), 500
   reconsiderLayout: =>
+    return if @hasExternalPlayer
     if @rootElement.clientWidth < THRESHOLD_SCREEN_WIDTH
       @player.hide()
       @player.pause()
@@ -103,7 +108,7 @@ class Bubbles
       viewKey: @_currentStory.viewKey
       storyName: @_currentStory.id
     , callback
-    @nei.load
+    @popupPlayer.load
       viewKey: @_currentStory.viewKey
       storyName: @_currentStory.id
     , callback
@@ -118,6 +123,7 @@ class Bubbles
     container.appendChild @rootElement
     alwaysDoPopup = not @responsive
     doPopupNow = @rootElement.clientWidth < THRESHOLD_SCREEN_WIDTH
+    return if @hasExternalPlayer
     if alwaysDoPopup or doPopupNow
       # probably shouldn't pop up on page load, should it?
       # @popup.open()
@@ -171,6 +177,9 @@ class Bubbles
     @setCurrentStory story, =>
       alwaysDoPopup = not @responsive
       doPopupNow = @rootElement.clientWidth < THRESHOLD_SCREEN_WIDTH
+      if @hasExternalPlayer
+        @player.play()
+        return
       if alwaysDoPopup or doPopupNow
         @popup.open()
       else

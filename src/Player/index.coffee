@@ -26,6 +26,7 @@ class Player
     @_removeIsOnScreenChecker = ->
     @_removeIsOutOfScreenChecker = ->
     @_isOutOfScreenChecker = ->
+      return if not @rootElement
       if !isInViewport @rootElement
         _this.pause()
         _this._removeIsOutOfScreenChecker()
@@ -36,7 +37,7 @@ class Player
         _this._removeIsOnScreenChecker()
         _this._addIsOutOfScreenChecker()
     @_options = Object.assign({}, @_defaultOptions, options)
-    @rootElement = @_createIframe()
+    @rootElement = @_createIframe @_options.container?.clientWidth
     if @_options.container
       @_options.container.appendChild @rootElement
     window.addEventListener 'message', (event) ->
@@ -91,9 +92,9 @@ class Player
     target = @rootElement.contentWindow
     if target
       target.postMessage message, '*'
-  _createIframe: ->
+  _createIframe: (clientWidth) ->
     iframe = document.createElement('iframe')
-    size = @_calculatePlayerSize()
+    size = @_calculatePlayerSize clientWidth
     iframe.src = @storyUrl
     iframe.width = size.width.toString()
     iframe.height = size.height.toString()
@@ -131,10 +132,10 @@ class Player
     window.addEventListener 'scroll', @_isOnScreenChecker
     @_removeIsOnScreenChecker = ->
       window.removeEventListener 'scroll', _this._isOnScreenChecker
-  _calculatePlayerSize: ->
-    width = 612
-    height = 1088
+  _calculatePlayerSize: (clientWidth) ->
+    width = clientWidth or 612
     aspectRatio = 0.5625
+    height = width/aspectRatio
     # 9/16
     if @_options.width and @_options.height
       width = @_options.width
