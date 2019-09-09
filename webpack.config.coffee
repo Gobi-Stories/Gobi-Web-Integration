@@ -4,7 +4,7 @@ autoprefixer = require 'autoprefixer'
 CleanWebpackPlugin = require 'clean-webpack-plugin'
 OptimizeCSSAssetsPlugin = require 'optimize-css-assets-webpack-plugin'
 
-developmentMode = process.env.NODE_ENV isnt 'production'
+developmentMode = false
 module.exports =
   mode: if developmentMode then 'development' else 'production'
   entry: ['babel-polyfill', './src/index.coffee']
