@@ -117,12 +117,12 @@ Details:
     </script>
   ```
 
-  Specify each story from story viewKeys. Example:
+  Specify each story from story ID. Example:
   
   ```
   new gobi.Bubbles({
     stories: [
-      {viewKey: '37Njb1', title: 'Summer', avatarSrc: 'https://...'}, { ... }
+      {id: '37Njb1', title: 'Summer', avatarSrc: 'https://...'}, { ... }
   ```
 
   avatarSrc and title are optional – the avatar (thumbnail or picture in the bubble) will be fetched
@@ -143,9 +143,9 @@ Full example:
     new gobi.Bubbles({
       container: document.getElementById('gobi-container'),
       stories: [
-        {viewKey: "fhG6eY"},
-        {viewKey: "8tazBc"},
-        {viewKey: "9uIOKd"}
+        {id: "fhG6eY"},
+        {id: "8tazBc"},
+        {id: "9uIOKd"}
       ]
     });
   </script>
@@ -161,9 +161,9 @@ If you want to reference a specific version, replace
 ```
 with
 ```html
-<script src="https://unpkg.com/@gobistories/gobi-web-integration@1.2.2"></script>
+<script src="https://unpkg.com/@gobistories/gobi-web-integration@3.9.8"></script>
 ```
-where 1.2.2 is the version you require.
+where 3.9.8 is the version you require.
 
 
 ## Using with a bundler
@@ -176,7 +176,11 @@ import { Bubbles } from 'gobi-web-integration';
 
 new Bubbles({
     container: document.getElementById('container'),
-    moduleId: 'module-id'
+        stories: [
+        {id: "fhG6eY"},
+        {id: "8tazBc"},
+        {id: "9uIOKd"}
+      ]
 });
 ```
 
@@ -256,11 +260,11 @@ Function which creates a bubble layout with already embedded player.
         new gobi.Bubbles({
           container: document.getElementById('container'),
           stories: [{
-                viewKey: 'story-view-key',
+                id: 'story-key',
                 title: 'Some Title',
                 description: 'Some Description'
             }, {
-                viewKey: 'another-story-view-key',
+                id: 'another-story-key',
                 title: 'Some Another Title',
                 description: 'Some Another Description'
             }],
@@ -304,7 +308,7 @@ Function which create and return interface for managing and listening to events 
   <script>
         var player = new gobi.Player({
           container: document.getElementById('player-container'),
-          viewKey: 'story-view-key'
+          id: 'story-key'
         });
         player.on('play', function() {
             console.log('played the video!');
@@ -316,7 +320,7 @@ Function which create and return interface for managing and listening to events 
 ### Options
 option             | default | description
 -------------------| ------- | -----------
-viewKey            |         | **Required.** String. The view key of the story.
+id                 |         | **Required.** String. The key of the story.
 container          |         | HTMLElement. Container where the player will be embed.
 autoStart          | `false` | Boolean. Add `autoplay` and `mute` attributes to video.
 loop               | `false` | Boolean. Add `loop` attributes to video.
