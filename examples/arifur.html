@@ -1,0 +1,17 @@
+<html>
+<head>
+  <link href="https://unpkg.com/@gobistories/gobi-web-integration@3.9.8/dist/gobi-web-integration.css" rel="stylesheet">
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration@3.9.8"></script>
+</head>
+<body>
+  <div class="gobi-bubbles-auto-setup" id='gobi-module-container'></div>
+  <script>
+    const moduleContainerElement = document.getElementById('gobi-module-container')
+    const bubbles = new gobi.Bubbles({
+      container: moduleContainerElement,
+      stories: [{id: '46210b00'}],
+    });
+    // dette automatisk vise QR i sirkel som har all data og sender det til søkerens telefon
+    console.log(bubbles,bubbles.getViewKeys());  // dere lagrer denne
+  </script>
+</html>
