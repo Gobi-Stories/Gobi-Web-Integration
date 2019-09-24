@@ -29,7 +29,7 @@ THRESHOLD_SCREEN_WIDTH = 767
 
 class Bubbles
   constructor: (options) ->
-    @rootElement = @_createTemplate options.verticalOrientation, !!options.wrap
+    @rootElement = @_createTemplate options.verticalOrientation, !!options.wrap, options.align
     @responsive = options.responsive
     @_title = options.title or ''
     @title = @_title
@@ -190,10 +190,11 @@ class Bubbles
   removeListeners: (onTouch) =>
     window.removeEventListener 'touchstart', onTouch
     window.removeEventListener 'mousemove', @removeListeners
-  _createTemplate: (isVertical, isWrap) ->
+  _createTemplate: (isVertical, isWrap, align) ->
     container = document.createElement 'div'
     container.classList.add 'gobi-popup-module'
     container.classList.add 'gobi-popup-module--hoverable'
+    container.classList.add 'gobi-popup-module__align-' + align
     container.innerHTML = '<div class="gobi-popup-module__player-block"><div class="gobi-popup-module__player"></div></div><div class="gobi-popup-module__title"></div><div class="gobi-popup-module__stories-block"><div class="gobi-popup-module__stories"></div></div>'
     storiesContainer = container.querySelector '.gobi-popup-module__stories'
     isVertical = false unless isVertical
