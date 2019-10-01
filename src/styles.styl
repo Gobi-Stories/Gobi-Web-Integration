@@ -78,13 +78,6 @@ body
     width: calc(1.2 * 96px)
     // compute from bubble size
     border-width: 0px
-    &__avatar
-      box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25)
-    &__avatar-svg
-      opacity: 0
-    ~ &__description &__description-text
-      opacity: 1
-      transform: translate(-50%, 0)
   &__avatar-container
     position: relative
     display: inline-block
@@ -143,6 +136,14 @@ body
       width: calc(1.2 * 64px)
       // compute from bubble size
       margin: 0px calc(.1*64px)
+.gobi-popup-module--hoverable .gobi-popup-story__avatar-container:hover
+  .gobi-popup-story__avatar
+    box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.25)
+  .gobi-popup-story__avatar-svg
+    opacity: 0
+  ~ .gobi-popup-story__description .gobi-popup-story__description-text
+    opacity: 1
+    transform: translate(-50%, 0)
 .gobi-story
   max-width: 160px
   text-align: center

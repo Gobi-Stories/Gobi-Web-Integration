@@ -6,7 +6,7 @@ class Story
   constructor: (options) ->
     @_listenerRemoveFunctions = []
     @_avatarSrc = ''
-    @rootElement = @_createTemplate()
+    @rootElement = @_createTemplate options
     @_elems =
       title: @rootElement.querySelector '.gobi-popup-story__title'
       description: @rootElement.querySelector '.gobi-popup-story__description'
@@ -58,19 +58,21 @@ class Story
       s = options.avatarSize
       css = ''
       css += '.gobi-popup-story__avatar-container {'
-      css += ' width: ' + s + ';'
-      css += ' margin: calc(0.1 * ' + s + ') calc(.2*' + s + ');'
+      css += '  width: ' + s + ';'
+      css += '  margin: calc(0.1 * ' + s + ') calc(.2*' + s + ');'
+      css += '  padding: ' + Math.max((parseInt(s or 96)/9-5), 4) + 'px;'
       css += '}'
       css += '.gobi-popup-module--hoverable .gobi-popup-story__avatar-container:hover {'
       css += '  width: calc(1.2 * ' + s + ');'
       css += '  margin: 0px calc(.1*' + s + ');'
       css += '}'
       css += '@media all and (max-width: 767px) {'
-      css += '  &__avatar-container {'
+      css += '  .gobi-popup-story__avatar-container {'
       css += '    width: ' + s + ';'
       css += '    margin: calc(0.1 * ' + s + ') calc(.2*' + s + ');'
+      css += '    padding: ' + Math.max((parseInt(s or 96)/9-5), 4) + 'px;'
       css += '  }'
-      css += '  .gobi-popup-module--hoverable &__avatar-container:hover {'
+      css += '  .gobi-popup-module--hoverable .gobi-popup-story__avatar-container:hover {'
       css += '    width: calc(1.2 * ' + s + '); /* compute from bubble size*/'
       css += '    margin: 0px calc(.1*' + s + ');'
       css += '  }'
@@ -155,15 +157,19 @@ class Story
       @_color = color
       avatarCircleBorder = @_elems.avatarContainer.querySelector '.gobi-popup-story__avatar-circle'
       avatarCircleBorder?.style.stroke = color
-  _createTemplate: ->
+  _createTemplate: (options) ->
     # "desktop": const classPrefix = 'gobi-story';
     classPrefix = 'gobi-popup-story'
     container = document.createElement('div')
     container.classList.add 'gobi-popup-story'
+    strokeWidth = parseInt(options.avatarSize or 96) / 120 * 3
+    if strokeWidth < 3
+      strokeWidth = 3
+    radius = 60 - strokeWidth
     container.innerHTML = '<div class="gobi-popup-story__avatar-container" data-select-area data-avatarContainer>' +
       '<div class="gobi-popup-story__avatar" data-avatar></div>' +
       '<svg class="gobi-popup-story__avatar-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">' +
-      '<circle class="gobi-popup-story__avatar-circle" cx="60" cy="60" r="57" fill="none" stroke="#15d6ea" stroke-width="3" stroke-dasharray="370.52" stroke-dashoffset="370.52" />' +
+      '<circle class="gobi-popup-story__avatar-circle" cx="60" cy="60" r="' + radius + '" fill="none" stroke="#15d6ea" stroke-width="' + strokeWidth + '" stroke-dasharray="370.52" stroke-dashoffset="370.52" />' +
       '</svg>' +
       '</div>' +
       '<a class="gobi-popup-story__title" target="_blank" data-title></a>' +
