@@ -21,4 +21,5 @@ export interface BubbleLayoutOptions {
   playerOptions?: InlinePlayerOptions;
   container?: HTMLElement;
   showNewStoryQrBubble?: boolean;
+  isFullHeight?: boolean;
 }

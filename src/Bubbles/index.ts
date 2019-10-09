@@ -59,7 +59,8 @@ export default class Bubbles {
       )
     );
     this.popup = new Popup({
-      player: this.player
+      player: this.player,
+      isFullHeight: options.isFullHeight,
     });
     if (options.container) {
       this.append(options.container);

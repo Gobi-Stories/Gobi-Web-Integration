@@ -4,4 +4,5 @@ export interface PopupOptions {
   classes?: string;
   openers?: string;
   player: Player;
+  isFullHeight?: boolean;
 }

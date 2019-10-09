@@ -277,10 +277,12 @@ title                             |    ``    | String. Module title.
 color                             |`#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of story circle.
 avatarSize                        |    ``    | Valid css size value, except % (10px, 10vw...). The size of avatar circle.
 verticalOrientation               |  `false` | Boolean. Displays a list of stories vertically.
+isFullHeight                      |  `false` | Boolean. Display player in full height or with 100px margin (50 from top and bottom);
 wrap                              |  `false` | Boolean. Add styles which allow stories wrap to a new line on small screen sizes.
 **playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
 playerOptions.roundedCorners      |  `true`  | Boolean. Remove or add rounded corners to player element.
 playerOptions.shadow              |  `true`  | Boolean. Remove or add shadow to player element.
+playerOptions.autoStart           |  `false` | Boolean. Add `autoplay` and `mute` attributes to video.
 **stories**                       |          | **Required.** Array. Data of stories.
 stories[0...n].id                 |          | **Required.** String. Identifire of story.
 stories[0...n].title              |    ``    | String. Change title text of specific story.

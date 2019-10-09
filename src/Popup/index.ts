@@ -15,6 +15,7 @@ import Player from "@/Player";
 
 export default class Popup {
   private _isOpen = false;
+  private _isFullHeight = false;
   private _defaultOptions = {
     classes: "",
     openers: ""
@@ -32,6 +33,7 @@ export default class Popup {
   }
 
   constructor(options: PopupOptions) {
+    this._isFullHeight = options.isFullHeight || false;
     const _options: PopupOptions = Object.assign(
       {},
       this._defaultOptions,
@@ -125,7 +127,8 @@ export default class Popup {
 
   private _calculatePlayerSize() {
     const videoAspectRatio = 0.5625; // 9:16
-    const containerHeight = window.innerHeight - 100;
+    const heightMargin = this._isFullHeight ? 0 : 100;
+    const containerHeight = window.innerHeight - heightMargin;
     const containerWidth = window.innerWidth;
     const containerAspectRatio = containerWidth / containerHeight;
     let width;
