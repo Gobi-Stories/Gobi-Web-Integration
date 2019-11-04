@@ -18,8 +18,8 @@ Below follow
 See a demo of this library in action at
 [https://gobiapp.com/external/example-stories](https://gobiapp.com/external/example-stories)
 
-or a demo with module ID (not yet fully supported):
-[https://gobiapp.com/external/example-module](https://gobiapp.com/external/example-module)
+Other example snippets:
+[https://gobistories.co/dev/](https://gobistories.co/dev/)
 
 
 ## What it will look like (screenshots)
