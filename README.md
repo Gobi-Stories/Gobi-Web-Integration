@@ -73,7 +73,7 @@ An outline of what this library does:
 - exports to the global (window) scope on the browser, functions which find a placeholder element and trigger creation of story bubbles
 - the bubbles contain thumbnails for each story, which are automatically generated
 - the appearance of the ring around bubbles and other visual elements can be configured in your Javascript
-- the title of each story (soon-to-be equal to the story name) will appear under each respective bubble
+- the title of each story will appear under each respective bubble
 - the story bubbles, when clicked, will cause a player to load, and play the selected story
 - the story video player will appear either side-by-side with the bubbles, or fullscreen, depending on your configuration choices and on the device screen size
 - the player contains buttons for
