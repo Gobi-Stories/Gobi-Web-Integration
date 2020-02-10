@@ -60,7 +60,7 @@ Once inside the app and logged in with your user, you can
 
 ### Be a paying customer
 
-For the time being you will also need to be a paying customer in order to have permission to publish your stories on the Web – contact us at [Gobitech](http://gobistories.co) for a tailored offer.
+For the time being you will also need to be a paying customer in order to have permission to publish your stories on the Web – contact us at [Gobi Technologies](http://gobistories.co) for a tailored offer.
 
 
 ### Access to your webpage's source
@@ -161,9 +161,9 @@ If you want to reference a specific version, replace
 ```
 with
 ```html
-<script src="https://unpkg.com/@gobistories/gobi-web-integration@3.9.8"></script>
+<script src="https://unpkg.com/@gobistories/gobi-web-integration@5.0.2"></script>
 ```
-where 3.9.8 is the version you require.
+where 5.0.2 is the version you require.
 
 
 ## Using with a bundler
@@ -261,12 +261,10 @@ Function which creates a bubble layout with already embedded player.
           container: document.getElementById('container'),
           stories: [{
                 id: 'story-key',
-                title: 'Some Title',
-                description: 'Some Description'
+                title: 'Some Title'
             }, {
                 id: 'another-story-key',
-                title: 'Some Another Title',
-                description: 'Some Another Description'
+                title: 'Some Another Title'
             }],
         });
   </script>
@@ -288,10 +286,9 @@ playerOptions.shadow              |  `true`  | Boolean. Remove or add shadow to 
 **stories**                       |          | **Required.** Array. Data of stories.
 stories[0...n].id                 |          | **Required.** String. Identifire of story.
 stories[0...n].title              |    ``    | String. Change title text of specific story.
-stories[0...n].description        |    ``    | String. Change description text of specific story.
 stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific story.
-stories[0...n].titleColor         |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story title text.
-stories[0...n].descriptionColor   |    ``    | Any valid css color value (#000, rgb(...), rgba(...)). Set color of specific story description text.
+
+
 
 ## Player Constructor
 
