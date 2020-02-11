@@ -285,6 +285,7 @@ wrap                              |  `false` | Boolean. Add styles which allow s
 **playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
 playerOptions.roundedCorners      |  `true`  | Boolean. Remove or add rounded corners to player element.
 playerOptions.shadow              |  `true`  | Boolean. Remove or add shadow to player element.
+playerOptions.autoStart           |  `false` | Boolean. Auto starts video muted.
 **stories**                       |          | **Required.** Array. Data of stories.
 stories[0...n].id                 |          | **Required.** String. Identifire of story.
 stories[0...n].title              |    ``    | String. Change title text of specific story.
