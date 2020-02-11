@@ -278,6 +278,8 @@ container                         |          | **Required.** HTMLElement. Contai
 title                             |    ``    | String. Module title.
 color                             |`#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of story circle.
 avatarSize                        |    ``    | Valid css size value, except % (10px, 10vw...). The size of avatar circle.
+isFullHeightMobile                |  `false` | Boolean. Increase player size for mobile.
+animateThumbnails                 |  `false` | Boolean. Display animated thumbnails.
 verticalOrientation               |  `false` | Boolean. Displays a list of stories vertically.
 wrap                              |  `false` | Boolean. Add styles which allow stories wrap to a new line on small screen sizes.
 **playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
