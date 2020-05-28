@@ -113,9 +113,9 @@ If you want to reference a specific version, replace
 ```
 with
 ```html
-<script src="https://unpkg.com/@gobistories/gobi-web-integration@6.6.5"></script>
+<script src="https://unpkg.com/@gobistories/gobi-web-integration@^6.6.5"></script>
 ```
-where 6.6.5 is the version you require.
+where ^6.6.5 is the version you require.
 
 
 ## Using with a bundler
