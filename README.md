@@ -18,9 +18,6 @@ Below follow
 See a demo of this library in action at
 [https://gobiapp.com/external/example-stories](https://gobiapp.com/external/example-stories)
 
-Other example snippets:
-[https://gobistories.co/dev/](https://gobistories.co/dev/)
-
 
 ## What it will look like (screenshots)
 
@@ -60,7 +57,7 @@ Once inside the app and logged in with your user, you can
 
 ### Be a paying customer
 
-For the time being you will also need to be a paying customer in order to have permission to publish your stories on the Web – contact us at [Gobi Technologies](http://gobistories.co) for a tailored offer.
+For the time being you will also need to be a paying customer in order to have permission to publish your stories on the Web – contact us at [Gobitech](http://gobistories.co) for a tailored offer.
 
 
 ### Access to your webpage's source
@@ -96,7 +93,7 @@ Details:
   
   ```<div id="container"></div>```
   
-  This placeholder is any simple div, and can have a class name instead of an ID. The important thing is that you are able to refer to it in your script code (below).
+  This placeholder is any simple ```div```, and can have a class name instead of an ```ID```. The important thing is that you are able to refer to it in your script code (below).
   
 - Include the library Javascript and the library CSS in your HTML page. This can be done in two ways:
   - by downloading ( for instance using ```npm``` (advanced)) and serving the files yourself.  To install using npm, do
@@ -106,12 +103,12 @@ Details:
   - by reference the up‐to‐date version on npm CDN, as in the example below.
 
   If you don't know what this means, just follow the example below. 
-- Implement your custom code in a <script> tag, which should at least call the `gobi.Bubbles` function, to get the placeholder replaced and the stories running.
+- Implement your custom code in a ```<script>``` tag, which should at least call the `gobi.Bubbles` function, to get the placeholder replaced and the stories running.
 
   ```html
     <script>
         new gobi.Bubbles({
-          container: document.getElementById('container'),
+          container: '#container',
           stories: [{...}, {...}],
         });
     </script>
@@ -119,29 +116,30 @@ Details:
 
   Specify each story from story ID. Example:
   
-  ```
+  ```javascript
   new gobi.Bubbles({
     stories: [
-      {id: '37Njb1', title: 'Summer', avatarSrc: 'https://...'}, { ... }
+      {id: '37Njb1', title: 'Summer', bubbleSrc: 'https://...'}, 
+      { ... }
+    ]
+  });
   ```
 
-  avatarSrc and title are optional – the avatar (thumbnail or picture in the bubble) will be fetched
-  automatically from the story video, but set avatarSrc if you wish to override it with your own.
+  bubbleSrc and title are optional – the avatar (thumbnail or picture in the bubble) will be fetched
+  automatically from the story video, but set bubbleSrc if you wish to override it with your own.
 
 Full example:
 
 ```html
 <html>
 <head>
-  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css"
-        rel="stylesheet">
   <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
 </head>
 <body>
   <div id="gobi-container"></div>
   <script>
     new gobi.Bubbles({
-      container: document.getElementById('gobi-container'),
+      container: '#gobi-container',
       stories: [
         {id: "fhG6eY"},
         {id: "8tazBc"},
@@ -161,40 +159,42 @@ If you want to reference a specific version, replace
 ```
 with
 ```html
-<script src="https://unpkg.com/@gobistories/gobi-web-integration@5.0.2"></script>
+<script src="https://unpkg.com/@gobistories/gobi-web-integration@3.9.8"></script>
 ```
-where 5.0.2 is the version you require.
+where 3.9.8 is the version you require.
 
 
 ## Using with a bundler
 
-If you’re using a bundler like [webpack](https://webpack.js.org), the exported object will be the Player and Module
-constructor (unlike the browser where it is attached to `window.gobi`):
+If you’re using a bundler like [webpack](https://webpack.js.org), the exported object will be the Player and Module constructor (unlike the browser where it is attached to `window.gobi`):
 
 ```js
 import { Bubbles } from 'gobi-web-integration';
 
 new Bubbles({
-    container: document.getElementById('container'),
+    container: '#container',
         stories: [
-        {id: "fhG6eY"},
-        {id: "8tazBc"},
-        {id: "9uIOKd"}
+          {id: "fhG6eY"},
+          {id: "8tazBc"},
+          {id: "9uIOKd"}
       ]
-});
+    });
 ```
 
 ```js
 import { Player } from 'gobi-web-integration';
 
-const player = new Player({
-    container: document.getElementById('container'),
+new Player({
+    container: '#container',
     storyName: 'story-id',
-    width: 640
-});
-
-player.on('play', function() {
-    console.log('played the video!');
+    width: 640,
+    playerOptions: {
+    	on: {
+    		'videoPlay': function(){
+                console.log('played the video!')
+            },
+    	}
+    }
 });
 ```
 
@@ -219,7 +219,7 @@ The library will work in IE 11+, Chrome, Firefox, Safari, and Opera.
 
 Run:
 
-  `npm run-script build`
+  `npm run build`
 
 This populates the dist/ folder which will be used when publishing. Note, that this folder doesn't
 get committed.
@@ -246,19 +246,18 @@ npm publish
 
 ## Bubbles Constructor
 
-Function which creates a bubble layout with already embedded player.
+Function which creates a bubble layout with an already embedded player.
 
 ### Create
 ```html
 <head>
-  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
   <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
 </head>
 <body>
   <div id="container"></div>
   <script>
         new gobi.Bubbles({
-          container: document.getElementById('container'),
+          container: '#container',
           stories: [{
                 id: 'story-key',
                 title: 'Some Title'
@@ -272,148 +271,110 @@ Function which creates a bubble layout with already embedded player.
 ```
 ### Options
 
-option                            | default  | description
-----------------------------------| -------- | -----------
-container                         |          | **Required.** HTMLElement. Container where the module will be embed.
-title                             |    ``    | String. Module title.
-color                             |`#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of border of story circle.
-avatarSize                        |    ``    | Valid css size value, except % (10px, 10vw...). The size of avatar circle.
-isFullHeightMobile                |  `false` | Boolean. Increase player size for mobile.
-animateThumbnails                 |  `false` | Boolean. Display animated thumbnails.
-verticalOrientation               |  `false` | Boolean. Displays a list of stories vertically.
-wrap                              |  `false` | Boolean. Add styles which allow stories wrap to a new line on small screen sizes.
-**playerOptions**                 |   `{}`   | Object. Provides interface for customization of player view.
-playerOptions.roundedCorners      |  `true`  | Boolean. Remove or add rounded corners to player element.
-playerOptions.shadow              |  `true`  | Boolean. Remove or add shadow to player element.
-playerOptions.autoStart           |  `false` | Boolean. Auto starts video muted.
-**stories**                       |          | **Required.** Array. Data of stories.
-stories[0...n].id                 |          | **Required.** String. Identifire of story.
-stories[0...n].title              |    ``    | String. Change title text of specific story.
-stories[0...n].avatarSrc          |    ``    | String. Avatar URL of specific story.
-
+option                            | default    | description
+----------------------------------| ---------- | -----------
+container                         |`#gobi-here`| **Required.** String. Query Selector for HTMLElement. Container where the module will be embed.
+color                             |  `#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of the border around the story bubble.
+bubbleSize                        |   `96px`   | Valid css size value, except % (10px, 10vw...). The size of the avatar aka bubble.
+animatedBubble                    |   `false`  | Boolean. Makes the bubbles as gif animation.
+verticalOrientation               |   `false`  | Boolean. Makes the bubbles appear vertically.
+wrap                              |   `false`  | Boolean. Add styles which allow a horizontal series of bubbles to wrap to new lines, when the screen is narrow.
+isFullHeightMobile                |   `true`  | Boolean. Add styles which allow making a full-screen popup. It's work only on mobile phone
+showPlayIcon                      |   `false`  | Boolean. Add Play icon inside the bubbles
+align                             |  `center`  | String. Valid values 'left', 'right', 'end', 'start', 'center' . It sets alignment for bubbles horizontally
+autoSegue                         |   `false`  | Boolean. Enable or disable the transition to next story in the end
+on.loaded                         |  `()=>{}`  | Function. Called when all Bubbles have loaded.
+**stories**                       |    `[]`    | **Required.** Array. Data of stories.
+stories[0...n].id                 |    ``      | **Required.** String. Identifire of story.
+stories[0...n].title              |    ``      | String. Change title text of specific story.
+stories[0...n].bubbleSrc          |    ``      | String. Avatar URL of specific story.
+**playerOptions**                 |    `{}`    | Object. Provides an interface for customization of the player.
+playerOptions.container           |   ``       | Query Selector for HTMLElement. Container where the player will be inserted.
+playerOptions.autoStart           |  `false`   | Boolean. Add `autoplay` attributes to the video.
+playerOptions.loop                |  `false`   | Boolean. Add `loop` function to video.
+playerOptions.roundedCorners      |   `true`   | Boolean. Enable or disable rounded corners to player element.
+playerOptions.shadow              |   `true`   | Boolean. Enable or disable shadow on the player element.
+playerOptions.width               |   `612`    | Number. Set player width. If height option is not defined it will calculate automaticaly depending on aspect ration 16:9.
+playerOptions.height              |   `1088`   | Number. Set player height. If width option is not defined it will calculate automaticaly depending on aspect ration 16:9.
+playerOptions.checkViewPort       |   `true`   | Boolean. Enable functionality which pause player if it outside of screen view area.
+playerOptions.enableHls           |   `true`   | Boolean. Enable or disable a HLS (HTTP Live Streaming).
+playerOptions.playButton          |   `true`   | Boolean. Enable or disable play button
+playerOptions.logo                |   `true`   | Boolean. Enable or disable Gobi logo. It ignores if autoSegue set to true
+playerOptions.savePosition        |   `true`   | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user
+**playerOptions.on**              |   `[]`     | Array. Data of event listener
+playerOptions.on.videoPlay        |  `()=>{}`  | Function. The callback for the play event
+playerOptions.on.videoPause       |  `()=>{}`  | Function. The callback for the pause event
+playerOptions.on.videoComplete    |  `()=>{}`  | Function. The callback for the complete event
+playerOptions.on.clipChange       |  `()=>{}`  | Function. The callback for the change chunk event
+playerOptions.on.clickPrevious    |  `()=>{}`  | Function. The callback for the change to previous chunk event
+playerOptions.on.chunkProgress    |  `()=>{}`  | Function. The callback for the update chunk progress event
+playerOptions.on.clickNext        |  `()=>{}`  | Function. The callback for the change to nuxt chunk event
+playerOptions.on.newIteration     |  `()=>{}`  | Function. The callback for the new iteration event
+playerOptions.on.error            |  `()=>{}`  | Function. The callback for the error event
+playerOptions.on.loaded           |  `()=>{}`  | Function. The callback for the loaded event
 
 
 ## Player Constructor
 
-Function which create and return interface for managing and listening to events of Player.
+Creates a Player and returns an interface for managing it, and for listening to its events.
 
-### Create
+### Example
+
 ```html
 <head>
-  <link href="https://unpkg.com/@gobistories/gobi-web-integration/dist/gobi-web-integration.css" rel="stylesheet">
   <script src="https://unpkg.com/@gobistories/gobi-web-integration"></script>
 </head>
 <body>
   <div id="player-container"></div>
   <script>
-        var player = new gobi.Player({
-          container: document.getElementById('player-container'),
-          id: 'story-key'
-        });
-        player.on('play', function() {
-            console.log('played the video!');
+        new gobi.Player({
+          container: '#player-container',
+          storyId: 'story-key',
+          on: {
+            'videoPlay': function(){
+              console.log('played the video!')
+            },
+          }
         });
   </script>
 </body>
 ```
 
 ### Options
-option             | default | description
--------------------| ------- | -----------
-id                 |         | **Required.** String. The key of the story.
-container          |         | HTMLElement. Container where the player will be embed.
-autoStart          | `false` | Boolean. Add `autoplay` and `mute` attributes to video.
-loop               | `false` | Boolean. Add `loop` attributes to video.
-hideOverlay        | `false` | Boolean. Hide play button and gobi logo.
-roundedCorners     |  `true` | Boolean. Remove or add rounded corners to player element.
-shadow             |  `true` | Boolean. Remove or add rounded corners to player element.
-width              |  `612`  | Number. Set player width. If height option is not defined it will calculate automaticaly depending on aspect ration 16:9.
+option             | default  | description
+-------------------| -------- | -----------
+container          |   ``     | Query Selector for HTMLElement. Container where the player will be inserted.
+storyId            |   ``     | **Required.** String. The key of the story.
+autoStart          | `false`  | Boolean. Add `autoplay` attributes to the video.
+loop               | `false`  | Boolean. Add `loop` function to video.
+roundedCorners     |  `true`  | Boolean. Enable or disable rounded corners to player element.
+shadow             |  `true`  | Boolean. Enable or disable shadow on the player element.
+width              |  `612`   | Number. Set player width. If height option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 height             |  `1088`  | Number. Set player height. If width option is not defined it will calculate automaticaly depending on aspect ration 16:9.
-checkViewPort      | `true`  | Boolean. Enable functionality which pause player if it outside of screen view area.
+checkViewPort      |  `true`  | Boolean. Enable functionality which pause player if it outside of screen view area.
+enableHls          |  `true`  | Boolean. Enable or disable a HLS (HTTP Live Streaming).
+playButton         |  `true`  | Boolean. Enable or disable play button
+logo               |  `true`  | Boolean. Enable or disable Gobi logo.
+savePosition       |  `true`  | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user
+**on**             |  `[]`    | Array. Data of event listener
+on.videoPlay       | `()=>{}` | Function. The callback for the play event
+on.videoPause      | `()=>{}` | Function. The callback for the pause event
+on.videoComplete   | `()=>{}` | Function. The callback for the complete event
+on.chunkProgress   | `()=>{}` | Function. The callback for the update chunk progress event
+on.clickPrevious   | `()=>{}` | Function. The callback for the change to previous chunk event
+on.clickNext       | `()=>{}` | Function. The callback for the change to nuxt chunk event
+on.clipChange      | `()=>{}` | Function. The callback for the change chunk event
+on.newIteration    | `()=>{}` | Function. The callback for the new iteration event
+on.error           | `()=>{}` | Function. The callback for the error event
+on.loaded          | `()=>{}` | Function. The callback for the loaded event
 
-### Methods
-You can call methods on the player by calling the function on the Player object:
-```js
-player.play();
-```
-#### play():void
-Play the video if it’s paused. **Note:** In new browsers, there is an autoplay policy that does not allow play video with sound without user interaction.
-```js
-player.play();
-```
-#### pause():void
-Pause the video if it’s playing.
-```js
- player.pause();
-```
-#### reload():void
-Reload player video.
-```js
- player.reload();
-```
-#### setMute(flag:boolean):void
-Enable or disable mute.
-```js
- player.setMute(true); 
- //or
- player.setMute(false);
-```
-#### isInViewport():boolean
-Return `true` if player is inside of screen view area.
-```js
- if (player.isInViewport()) {
-     alert('player is visible')
- }
- else {
-     alert('player is outside of screen')
- }
-```
-#### on(event:string, callback:(data:any) => void):void
-Add an event listener for the specified event. Will call the callback with a single parameter, `data`, that contains the data for that event.
-```js
-var onPlay = function(data) {
-    // data is an object containing properties specific to that event
-};
-player.on('play', onPlay);
-```
-#### off(event?:string, callback?:() => void): void
-Remove an event listener for the specified event. Will remove all listeners for that event if a `callback` isn’t passed or only that specific callback if it is passed or all listeners from all events if any of params aren't passed.
-```js
-var onPlay = function(data) {
-    // data is an object containing properties specific to that event
-};
-player.on('play', onPlay);
-// If later on you decide that you don’t need to listen for play anymore.
-player.off('play', onPlay);
-// `off` can be called with just the event name to remove all listeners.
-player.off('play');
-// remove all listeners from all events.
-player.off();
-```
-### Events
-You can listen for events in the player by attaching a callback using .on():
-```js
-player.on('eventName', function(data) {
-    // data is an object containing properties specific to that event
-});
-```
-
-The events are equivalent to the HTML5 video events (except for `cuechange`,
-which is slightly different).
-
-To remove a listener, call `.off()` with the callback function:
-
-```js
-var callback = function() {};
-
-player.off('eventName', callback);
-```
 #### loaded
 Occurs when meta data for the video has been loaded. The player gets the size and begins to occupy space on the page.
 callback data:
 ```js
 chunInd:0...n
 ```
+
 #### play
 Sent when the playback state is no longer paused, as a result of the `play` method, or the `autoStart` option
 Play the video if it’s paused. Note: on iOS and some other mobile devices, you cannot programmatically trigger play. Once the viewer has tapped on the play button in the player, however, you will be able to use this function.
@@ -421,98 +382,69 @@ callback data:
 ```js
 chunInd:0...n
 ```
+
 #### pause
 Sent when the playback state is changed to paused.
 callback data:
 ```js
 chunInd:0...n
 ```
+
 #### ended
 Triggered any time the video playback reaches the end. Note: when `loop` is turned on, the ended event will not fire.
 callback data:
 ```js
-undefined
+chunInd:0...n
 ```
+
 #### error
 Triggered when video error is generated in the player.
 callback data:
 ```js
 error:MediaError
 ```
-#### backToChunk
+
+#### clickPrevious
 Triggered when user tap on back button.
 callback data:
 ```js
 chunInd:0...n
 ```
-#### skipChunk
+
+#### clickNext
 Triggered when user skipped some video of current story by tap on player.
 callback data:
 ```js
 chunInd:0...n
 ```
-#### chunkChange
-Triggered each time when one of story videos was changed to another. Does not metter, by user tapping on back or skip buttons or automaticaly .
+
+#### clipChange
+Triggered each time when one of story videos was changed to another. Either by the user tapping for back or forward, or automatically.
 callback data:
 ```js
 chunInd:0...n
 ```
+
 #### newIteration
-Triggered when `loop` flag is set and story start to play one more time
+Triggered when the `loop` flag is set and the story starts to play again.
 ```js
-undefined
+chunInd:0...n
 ```
 
-## Examples
+### Methods
+You can call methods on the Player object, eg.:
 
-### Responsive player 
-Provides a class to resize the player according it parent element.
-```html
-<body>
-  <style>
-    .responsive-player {
-        position: relative;
-        display: block;
-        width: 100%;
-    }
-    .responsive-player:before {
-        content: '';
-        display: block;
-        width: 100%;
-        /* 177.7777% = 16/9 * 100%;  The ratio of height to width of the video. Video aspect ratio always 9:16*/
-        padding-top: 177.7777%;
-    }
-    .responsive-player iframe {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-     }
-  </style>
-  <div style="max-width: 350px"> 
-    <div id="player-container" class="responsive-player"></div>
-  <div>
-  
-  <script>
-        var player = new gobi.Player({
-          container: document.getElementById('player-container'),
-          storyName: 'story-id'
-        });
-        player.on('play', function() {
-            console.log('played the video!');
-        });
-  </script>
-</body>
+```js
+  var player = new gobi.Player({
+     container: '#player-container',
+     storyId: 'story-key',
+  });
+
+  player.destroy();
 ```
 
-Also by adding a rule to the main class, you can guarantee that the height of the player will always be no more than the height of the screen.
-```css
-    .responsive-player {
-        position: relative;
-        display: block;
-        width: 100%;
-        /* 56.25vh = 100vh / (16 / 19) */
-        max-width: 56.25vh;
-    }
+#### Destroy
+You can destroy player in a valid way 
+```js
+  player.destroy()
 ```
