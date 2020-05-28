@@ -1,14 +1,14 @@
 # Gobi Web Integration
 
-Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site.
+Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site. If you don't have any Gobi Stories yet, contact us at contact@gobistories.co to get access to our production tools.
 
 Below follow
 
-- What it will look like (screenshots)
+- What it will look like
 - Requirements & prerequisites
 - Functionality breakdown
 - Implementation steps
-- Advanced configuration (eg. vertically oriented layout)
+- Advanced configuration
 - Troubleshooting
 - Browser Support
 - Development (how to build and publish)
@@ -17,52 +17,6 @@ Below follow
 
 See a demo of this library in action at
 [https://gobiapp.com/external/example-stories](https://gobiapp.com/external/example-stories)
-
-
-## What it will look like (screenshots)
-
-### Bubbles (initially)
-
-<img src="https://eu1media.gobitech.no/bubbles-initial.png" width="550px">
-
-### Bubbles (while hovering)
-
-<img src="https://eu1media.gobitech.no/bubbles-hover.png" width="550px">
-
-### Player opened after clicking bubble
-
-<img src="https://eu1media.gobitech.no/click-player-small.png" width="400px">
-
-
-
-
-## Requirements & prerequisites
-
-For this library to work for you, you need to have 
-- an account with Gobi
-- stories already made (or make them as you go)
-- be a paying customer
-- access to editing the source of your own webpage (and ample technical insight)
-
-### Making an account
-
-An account with Gobi can be made easily and for free by anyone. Install the Gobi app on your phone. [iOS](https://itunes.apple.com/us/app/gobi-send-snaps-in-groups/id1025344825?utm_source=gobiapp.com&utm_medium=website), [Android](https://play.google.com/store/apps/details?id=no.gobiapp.gobi&utm_source=gobiapp.com&utm_medium=website)
-  Follow the instructions in the app to make an account.
-
-### Making stories
-
-Once inside the app and logged in with your user, you can
-- create a story and give it a name,
-- record a series of videos and photos, and add these to your story. Your story will then contain all of your content, and will play them in succession to anyone who views the story.
-
-### Be a paying customer
-
-For the time being you will also need to be a paying customer in order to have permission to publish your stories on the Web – contact us at [Gobitech](http://gobistories.co) for a tailored offer.
-
-
-### Access to your webpage's source
-
-You will need access to edit the source HTML and the ability to add script and link tags, in your own webpage or the webpage where you want the Gobi stories to show up.
 
 ## Functionality breakdown
 
@@ -159,9 +113,9 @@ If you want to reference a specific version, replace
 ```
 with
 ```html
-<script src="https://unpkg.com/@gobistories/gobi-web-integration@3.9.8"></script>
+<script src="https://unpkg.com/@gobistories/gobi-web-integration@6.6.5"></script>
 ```
-where 3.9.8 is the version you require.
+where 6.6.5 is the version you require.
 
 
 ## Using with a bundler
