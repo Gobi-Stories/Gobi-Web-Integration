@@ -161,8 +161,7 @@ new Player({
 
   See the console. Can you spot any errors? Try to understand them. If there seems to be a bug in the library, please email us.
 
-
-
+- If you have a website where the server uses the Content-Security-Policy HTTP header, it must include "blob:" in default-src or media-src.
 
 ## Browser Support
 
