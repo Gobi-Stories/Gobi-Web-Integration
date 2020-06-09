@@ -216,7 +216,6 @@ Function which creates a bubble layout with an already embedded player.
                 title: 'Some Title'
             }, {
                 id: 'another-story-key',
-                title: 'Some Another Title'
             }],
         });
   </script>
