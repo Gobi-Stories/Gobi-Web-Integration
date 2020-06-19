@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/%40gobistories%2Fgobi-web-integration.svg)](https://badge.fury.io/js/%40gobistories%2Fgobi-web-integration)
+
 # Gobi Web Integration
 
 Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site. If you don't have any Gobi Stories yet, contact us at contact@gobistories.co to get access to our production tools.
@@ -12,6 +14,14 @@ Below follow
 - Troubleshooting
 - Browser Support
 - Development (how to build and publish)
+
+## Installation
+
+```bash
+npm install --save @gobistories/gobi-web-integration
+```
+
+See [Implementation steps](#implementation-steps) for more details.
 
 ## What it will look like (demo)
 
