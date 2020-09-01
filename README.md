@@ -27,6 +27,7 @@ See [Implementation steps](#implementation-steps) for more details.
 
 See a demo of this library in action at
 [https://gobiapp.com/external/example-stories](https://gobiapp.com/external/example-stories)
+
 Check the demo source for a full code example using most common options at
 [https://gist.github.com/andreaog/2dabbe392ef1b51339bc8c7a0e6d3917](https://gist.github.com/andreaog/2dabbe392ef1b51339bc8c7a0e6d3917)
 
