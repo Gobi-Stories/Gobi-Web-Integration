@@ -245,13 +245,13 @@ bubbleSize                        |   `96px`   | Valid css size value, except % 
 animatedBubble                    |   `false`  | Boolean. Makes the bubbles as gif animation.
 verticalOrientation               |   `false`  | Boolean. Makes the bubbles appear vertically.
 wrap                              |   `false`  | Boolean. Add styles which allow a horizontal series of bubbles to wrap to new lines, when the screen is narrow.
-isFullHeightMobile                |   `true`  | Boolean. Add styles which allow making a full-screen popup. It's work only on mobile phone
+isFullHeightMobile                |   `true`   | Boolean. Add styles which allow making a full-screen popup. Only works on mobile phones
 showPlayIcon                      |   `false`  | Boolean. Add Play icon inside the bubbles
 align                             |  `center`  | String. Valid values 'left', 'right', 'end', 'start', 'center' . It sets alignment for bubbles horizontally
 autoSegue                         |   `false`  | Boolean. Enable or disable the transition to next story in the end
 on.loaded                         |  `()=>{}`  | Function. Called when all Bubbles have loaded.
 **stories**                       |    `[]`    | **Required.** Array. Data of stories.
-stories[0...n].id                 |    ``      | **Required.** String. Identifire of story.
+stories[0...n].id                 |    ``      | **Required.** String. Identifier of story.
 stories[0...n].title              |    ``      | String. Change title text of specific story.
 stories[0...n].bubbleSrc          |    ``      | String. Avatar URL of specific story.
 **playerOptions**                 |    `{}`    | Object. Provides an interface for customization of the player.
