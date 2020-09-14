@@ -2,7 +2,7 @@
 
 # Gobi Web Integration
 
-Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site. If you don't have any Gobi Stories yet, contact us at contact@gobistories.co to get access to our production tools.
+Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site. If you don't have any Gobi Stories yet, contact us at contact@gobistories.com to get access to our production tools.
 
 Below follow
 
