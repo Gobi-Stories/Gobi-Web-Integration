@@ -245,10 +245,10 @@ bubbleSize                        |   `96px`   | Valid css size value, except % 
 animatedBubble                    |   `false`  | Boolean. Makes the bubbles as gif animation.
 verticalOrientation               |   `false`  | Boolean. Makes the bubbles appear vertically.
 wrap                              |   `false`  | Boolean. Add styles which allow a horizontal series of bubbles to wrap to new lines, when the screen is narrow.
-isFullHeightMobile                |   `true`   | Boolean. Add styles which allow making a full-screen popup. Only works on mobile phones
-showPlayIcon                      |   `false`  | Boolean. Add Play icon inside the bubbles
-align                             |  `center`  | String. Valid values 'left', 'right', 'end', 'start', 'center' . It sets alignment for bubbles horizontally
-autoSegue                         |   `false`  | Boolean. Enable or disable the transition to next story in the end
+isFullHeightMobile                |   `true`   | Boolean. Add styles which allow making a full-screen popup. Only works on mobile phones.
+showPlayIcon                      |   `false`  | Boolean. Add Play icon inside the bubbles.
+align                             |  `center`  | String. Valid values 'left', 'right', 'end', 'start', 'center' . It sets alignment for bubbles horizontally.
+autoSegue                         |   `false`  | Boolean. Enable or disable the transition to next story in the end.
 on.loaded                         |  `()=>{}`  | Function. Called when all Bubbles have loaded.
 **stories**                       |    `[]`    | **Required.** Array. Data of stories.
 stories[0...n].id                 |    ``      | **Required.** String. Identifier of story.
@@ -264,20 +264,20 @@ playerOptions.width               |   `612`    | Number. Set player width. If he
 playerOptions.height              |   `1088`   | Number. Set player height. If width option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 playerOptions.checkViewPort       |   `true`   | Boolean. Enable functionality which pause player if it outside of screen view area.
 playerOptions.enableHls           |   `true`   | Boolean. Enable or disable a HLS (HTTP Live Streaming).
-playerOptions.playButton          |   `true`   | Boolean. Enable or disable play button
-playerOptions.logo                |   `true`   | Boolean. Enable or disable Gobi logo. It ignores if autoSegue set to true
-playerOptions.savePosition        |   `true`   | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user
-**playerOptions.on**              |   `[]`     | Array. Data of event listener
-playerOptions.on.videoPlay        |  `()=>{}`  | Function. The callback for the play event
-playerOptions.on.videoPause       |  `()=>{}`  | Function. The callback for the pause event
-playerOptions.on.videoComplete    |  `()=>{}`  | Function. The callback for the complete event
-playerOptions.on.clipChange       |  `()=>{}`  | Function. The callback for the change chunk event
-playerOptions.on.clickPrevious    |  `()=>{}`  | Function. The callback for the change to previous chunk event
-playerOptions.on.chunkProgress    |  `()=>{}`  | Function. The callback for the update chunk progress event
-playerOptions.on.clickNext        |  `()=>{}`  | Function. The callback for the change to nuxt chunk event
-playerOptions.on.newIteration     |  `()=>{}`  | Function. The callback for the new iteration event
-playerOptions.on.error            |  `()=>{}`  | Function. The callback for the error event
-playerOptions.on.loaded           |  `()=>{}`  | Function. The callback for the loaded event
+playerOptions.playButton          |   `true`   | Boolean. Enable or disable play button.
+playerOptions.logo                |   `true`   | Boolean. Enable or disable Gobi logo. It ignores if autoSegue set to true.
+playerOptions.savePosition        |   `true`   | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user.
+**playerOptions.on**              |   `[]`     | Array. Data of event listener.
+playerOptions.on.videoPlay        |  `()=>{}`  | Function. The callback for the play event.
+playerOptions.on.videoPause       |  `()=>{}`  | Function. The callback for the pause event.
+playerOptions.on.videoComplete    |  `()=>{}`  | Function. The callback for the complete event.
+playerOptions.on.clipChange       |  `()=>{}`  | Function. The callback for the change chunk event.
+playerOptions.on.clickPrevious    |  `()=>{}`  | Function. The callback for the change to previous chunk event.
+playerOptions.on.chunkProgress    |  `()=>{}`  | Function. The callback for the update chunk progress event.
+playerOptions.on.clickNext        |  `()=>{}`  | Function. The callback for the change to next chunk event.
+playerOptions.on.newIteration     |  `()=>{}`  | Function. The callback for the new iteration event.
+playerOptions.on.error            |  `()=>{}`  | Function. The callback for the error event.
+playerOptions.on.loaded           |  `()=>{}`  | Function. The callback for the loaded event.
 
 
 ## Player Constructor
@@ -319,20 +319,20 @@ width              |  `612`   | Number. Set player width. If height option is no
 height             |  `1088`  | Number. Set player height. If width option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 checkViewPort      |  `true`  | Boolean. Enable functionality which pause player if it outside of screen view area.
 enableHls          |  `true`  | Boolean. Enable or disable a HLS (HTTP Live Streaming).
-playButton         |  `true`  | Boolean. Enable or disable play button
+playButton         |  `true`  | Boolean. Enable or disable play button.
 logo               |  `true`  | Boolean. Enable or disable Gobi logo.
-savePosition       |  `true`  | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user
-**on**             |  `[]`    | Array. Data of event listener
-on.videoPlay       | `()=>{}` | Function. The callback for the play event
-on.videoPause      | `()=>{}` | Function. The callback for the pause event
-on.videoComplete   | `()=>{}` | Function. The callback for the complete event
-on.chunkProgress   | `()=>{}` | Function. The callback for the update chunk progress event
-on.clickPrevious   | `()=>{}` | Function. The callback for the change to previous chunk event
-on.clickNext       | `()=>{}` | Function. The callback for the change to nuxt chunk event
-on.clipChange      | `()=>{}` | Function. The callback for the change chunk event
-on.newIteration    | `()=>{}` | Function. The callback for the new iteration event
-on.error           | `()=>{}` | Function. The callback for the error event
-on.loaded          | `()=>{}` | Function. The callback for the loaded event
+savePosition       |  `true`  | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user.
+**on**             |  `[]`    | Array. Data of event listener.
+on.videoPlay       | `()=>{}` | Function. The callback for the play event.
+on.videoPause      | `()=>{}` | Function. The callback for the pause event.
+on.videoComplete   | `()=>{}` | Function. The callback for the complete event.
+on.chunkProgress   | `()=>{}` | Function. The callback for the update chunk progress event.
+on.clickPrevious   | `()=>{}` | Function. The callback for the change to previous chunk event.
+on.clickNext       | `()=>{}` | Function. The callback for the change to nuxt chunk event.
+on.clipChange      | `()=>{}` | Function. The callback for the change chunk event.
+on.newIteration    | `()=>{}` | Function. The callback for the new iteration event.
+on.error           | `()=>{}` | Function. The callback for the error event.
+on.loaded          | `()=>{}` | Function. The callback for the loaded event.
 
 #### loaded
 Occurs when meta data for the video has been loaded. The player gets the size and begins to occupy space on the page.
