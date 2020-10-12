@@ -87,7 +87,7 @@ Details:
   ```javascript
   new gobi.Bubbles({
     stories: [
-      {id: '37Njb1', title: 'Summer', bubbleSrc: 'https://...'}, 
+      {id: 'zt4kt', title: 'Summer', bubbleSrc: 'https://...'}, 
       { ... }
     ]
   });
@@ -109,9 +109,9 @@ Full example:
     new gobi.Bubbles({
       container: '#gobi-container',
       stories: [
-        {id: "fhG6eY"},
-        {id: "8tazBc"},
-        {id: "9uIOKd"}
+        {id: "zt4kt"},
+        {id: "k85k5"},
+        {id: "pz2pm"}
       ]
     });
   </script>
@@ -142,9 +142,9 @@ import { Bubbles } from 'gobi-web-integration';
 new Bubbles({
     container: '#container',
         stories: [
-          {id: "fhG6eY"},
-          {id: "8tazBc"},
-          {id: "9uIOKd"}
+          {id: "zt4kt"},
+          {id: "k85k5"},
+          {id: "pz2pm"}
       ]
     });
 ```
