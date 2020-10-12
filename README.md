@@ -169,7 +169,7 @@ new Player({
 ----
 
 
-## Troubleshooting
+## Troubleshooting & FAQ
 
 - No bubbles show
 
@@ -177,9 +177,15 @@ new Player({
 
 - If you have a website where the server uses the Content-Security-Policy HTTP header, it must include "blob:" in default-src or media-src.
 
+- If your page scrolls to the top when opening a story, this is usually caused by the height styling for the HTML tag of your page. Removing or replaceing this by "min-height" usally solves the problem. 
+
+- If you want to hide the text under the Bubble, you could set title: " "; 
+
+- If you want to style the text under the Bubbles, you could do this by CSS. Check this code example: [https://gist.github.com/andreaog/2dabbe392ef1b51339bc8c7a0e6d3917](https://gist.github.com/andreaog/2dabbe392ef1b51339bc8c7a0e6d3917)
+
 ## Browser Support
 
-The library will work in IE 11+, Chrome, Firefox, Safari, and Opera.
+The library will work in IE 11+, Edge, Chrome, Firefox, Safari, and Opera.
 
 
 ## Development (how to build and publish)
