@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Gobi – Example Stories IDs (no module)</title>
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration@^6.7.0" async onload="displayBubbles()"></script>
+  <style>
+    body {
+  background-color: #f7f7f7;
+  font-family: "Helvetica Neue",sans-serif;
+    }
+
+  /*Style text displayed under the Bubbles*/
+  #gobi-module-container > div > div > div > div > span {
+    font-size:1.0rem;
+    color: #333333;
+  }
+    
+  </style>
+</head>
+<body>
+  <h1>Example stories:</h1>
+  <div id="gobi-module-container" style="min-height: 160px;"></div>
+  <script>
+      function displayBubbles() {
+      new gobi.Bubbles({
+        container: '#gobi-module-container',
+        color: '#2CA6FC',
+        bubbleSize: '110px',
+        animatedBubble: true,
+        isFullHeightMobile: true,
+        showPlayIcon: true,
+        autoSegue: true,
+        playerOptions: {
+          autoStart: false,
+        },
+        stories: [
+          //replace with your stories
+          {id: 'zt4kt'},
+          {id: 'k85k5'},
+          {id: 'pz2pm', title: 'Lasse i Bookis', bubbleSrc: 'https://bookis.com/images/svg/logo-full.svg'},
+        ],
+    })
+    }
+  </script>
+</body>
+</html>
