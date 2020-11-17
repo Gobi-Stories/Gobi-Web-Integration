@@ -271,7 +271,6 @@ playerOptions.height              |   `1088`   | Number. Set player height. If w
 playerOptions.checkViewPort       |   `true`   | Boolean. Enable functionality which pause player if it outside of screen view area.
 playerOptions.enableHls           |   `true`   | Boolean. Enable or disable a HLS (HTTP Live Streaming).
 playerOptions.playButton          |   `true`   | Boolean. Enable or disable play button.
-playerOptions.logo                |   `true`   | Boolean. Enable or disable Gobi logo. It ignores if autoSegue set to true.
 playerOptions.savePosition        |   `true`   | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user.
 **playerOptions.on**              |   `[]`     | Array. Data of event listener.
 playerOptions.on.videoPlay        |  `()=>{}`  | Function. The callback for the play event.
@@ -326,7 +325,6 @@ height             |  `1088`  | Number. Set player height. If width option is no
 checkViewPort      |  `true`  | Boolean. Enable functionality which pause player if it outside of screen view area.
 enableHls          |  `true`  | Boolean. Enable or disable a HLS (HTTP Live Streaming).
 playButton         |  `true`  | Boolean. Enable or disable play button.
-logo               |  `true`  | Boolean. Enable or disable Gobi logo.
 savePosition       |  `true`  | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user.
 **on**             |  `[]`    | Array. Data of event listener.
 on.videoPlay       | `()=>{}` | Function. The callback for the play event.
