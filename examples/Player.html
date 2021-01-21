@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Gobi – Player Example</title>
+  <script src="https://unpkg.com/@gobistories/gobi-web-integration@^6.9.16"></script>
+  <style>
+    body {
+  background-color: #f7f7f7;
+  font-family: "Helvetica Neue",sans-serif;
+    }
+
+    #spacing {
+      height: 500px;
+    }
+
+  </style>
+
+  </style>
+</head>
+<body>
+  <h1>Example stories:</h1>
+  <div id="player-container-1" style="width:320px; height: 570px"></div>
+  <div id=spacing></div>
+  <div id="player-container-2" style="width:320px; height: 570px"></div>
+  <script>
+        var player = new gobi.Player({
+          container: '#player-container-1',
+          storyId: 'zt4kt',
+          checkViewPort: true,
+          autoStart: false,
+        });
+        var player = new gobi.Player({
+          container: '#player-container-2',
+          storyId: 'k85k5',
+          checkViewPort: true,
+          autoStart: true,
+        });
+  </script>
+  </script>
+</body>
+</html>
