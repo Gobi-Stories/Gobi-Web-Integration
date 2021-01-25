@@ -1,0 +1,43 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://unpkg.com/@gobistories/gobi-web-integration@^6.7.10"></script>
+</head>
+<body>
+  <div id="gobi-module-container"></div>
+  <script>
+    new gobi.Bubbles({
+      container: '#gobi-module-container',
+      bubbleSize: '120px',
+      color: '#BD00FE',
+      animatedBubble: true,
+      playerOptions: {
+        on: {
+  			  'videoPlay': function(){
+  				  console.log(arguments, 'event-play') },
+  			  'videoPause': function(){
+  				  console.log(arguments, 'event-pause') },
+  			  'videoComplete': function(){
+  				  console.log(arguments, 'event-ended') },
+          'chunkProgres': function() {
+            console.log(arguments, 'chunkProgress') },
+  			  'clickPrevious': function(){
+  				  console.log(arguments, 'event-backToChunk') },
+  			  'clickNext': function(){
+  				  console.log(arguments, 'event-skipChunk') },
+  			  'clipChange': function(){
+  				  console.log(arguments, 'event-chunkChange') },
+          'loaded': function(){
+            console.log('event-loaded')},
+  			  'error': function(){
+            console.log('event-error')},
+  			  'newIteration': function(){
+            console.log('event-newIteration')},
+  		  }
+      },
+      stories: [ 
+        //replace with your stories
+        {id: 'c3c987b4'},
+        {id: 'a813f334'},
+       ]})   
+  </script>  
+</body>
