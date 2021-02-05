@@ -262,7 +262,8 @@ stories[0...n].title              |    ``      | String. Change title text of sp
 stories[0...n].bubbleSrc          |    ``      | String. Avatar URL of specific story.
 **playerOptions**                 |    `{}`    | Object. Provides an interface for customization of the player.
 playerOptions.container           |   ``       | Query Selector for HTMLElement. Container where the player will be inserted.
-playerOptions.autoStart           |  `false`   | Boolean. Add `autoplay` attributes to the video.
+playerOptions.autoStart           |  `false`   | Boolean. Add `autoplay` attributes to the video. Mute enabled.
+playerOptions.autoStartWithSound  |  `false`   | Boolean. Add `autoplay` attributes to the video. Mute disabled.
 playerOptions.loop                |  `false`   | Boolean. Add `loop` function to video.
 playerOptions.roundedCorners      |   `true`   | Boolean. Enable or disable rounded corners to player element.
 playerOptions.shadow              |   `true`   | Boolean. Enable or disable shadow on the player element.
