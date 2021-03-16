@@ -270,7 +270,6 @@ playerOptions.shadow              |   `true`   | Boolean. Enable or disable shad
 playerOptions.width               |   `612`    | Number. Set player width. If height option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 playerOptions.height              |   `1088`   | Number. Set player height. If width option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 playerOptions.checkViewPort       |   `true`   | Boolean. Enable functionality which pause player if it outside of screen view area.
-playerOptions.enableHls           |   `true`   | Boolean. Enable or disable a HLS (HTTP Live Streaming).
 playerOptions.playButton          |   `true`   | Boolean. Enable or disable play button.
 playerOptions.savePosition        |   `true`   | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user.
 **playerOptions.on**              |   `[]`     | Array. Data of event listener.
@@ -324,7 +323,6 @@ shadow             |  `true`  | Boolean. Enable or disable shadow on the player 
 width              |  `612`   | Number. Set player width. If height option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 height             |  `1088`  | Number. Set player height. If width option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 checkViewPort      |  `true`  | Boolean. Enable functionality which pause player if it outside of screen view area.
-enableHls          |  `true`  | Boolean. Enable or disable a HLS (HTTP Live Streaming).
 playButton         |  `true`  | Boolean. Enable or disable play button.
 savePosition       |  `true`  | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user.
 **on**             |  `[]`    | Array. Data of event listener.
