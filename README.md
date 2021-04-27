@@ -248,6 +248,7 @@ option                            | default    | description
 container                         |`#gobi-here`| **Required.** String. Query Selector for HTMLElement. Container where the module will be embed.
 color                             |  `#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of the border around the story bubble.
 bubbleSize                        |   `96px`   | Valid css size value, except % (10px, 10vw...). The size of the avatar aka bubble.
+hideTitle                         |   `false`  | Boolean. Hides the story titles.
 animatedBubble                    |   `false`  | Boolean. Makes the bubbles as gif animation.
 verticalOrientation               |   `false`  | Boolean. Makes the bubbles appear vertically.
 wrap                              |   `false`  | Boolean. Add styles which allow a horizontal series of bubbles to wrap to new lines, when the screen is narrow.
