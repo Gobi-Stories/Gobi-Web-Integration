@@ -249,6 +249,10 @@ container                         |`#gobi-here`| **Required.** String. Query Sel
 color                             |  `#15d6ea` | Any valid css color value (#000, rgb(...), rgba(...)). The color of the border around the story bubble.
 bubbleSize                        |   `96px`   | Valid css size value, except % (10px, 10vw...). The size of the avatar aka bubble.
 hideTitle                         |   `false`  | Boolean. Hides the story titles.
+titleFontSize                     |   `11px`   | Valid css size value. The font size of the story title.
+titleFontColor                    |   `black`  | Valid css color value. The font color of the story title.
+titleFontFamily                   |  `default` | Valid css font value. The font family of the story title.
+titleFontWeight                   |  `noramal` | Valid css font weight value. The font weight of the story title.
 animatedBubble                    |   `false`  | Boolean. Makes the bubbles as gif animation.
 verticalOrientation               |   `false`  | Boolean. Makes the bubbles appear vertically.
 wrap                              |   `false`  | Boolean. Add styles which allow a horizontal series of bubbles to wrap to new lines, when the screen is narrow.
