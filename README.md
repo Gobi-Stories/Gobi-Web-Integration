@@ -252,7 +252,7 @@ hideTitle                         |   `false`  | Boolean. Hides the story titles
 titleFontSize                     |   `11px`   | Valid css size value. The font size of the story title.
 titleFontColor                    |   `black`  | Valid css color value. The font color of the story title.
 titleFontFamily                   |  `default` | Valid css font value. The font family of the story title.
-titleFontWeight                   |  `noramal` | Valid css font weight value. The font weight of the story title.
+titleFontWeight                   |   `normal` | Valid css font weight value. The font weight of the story title.
 animatedBubble                    |   `false`  | Boolean. Makes the bubbles as gif animation.
 verticalOrientation               |   `false`  | Boolean. Makes the bubbles appear vertically.
 wrap                              |   `false`  | Boolean. Add styles which allow a horizontal series of bubbles to wrap to new lines, when the screen is narrow.
