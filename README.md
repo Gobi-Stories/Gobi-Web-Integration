@@ -260,6 +260,7 @@ isFullHeightMobile                |   `true`   | Boolean. Add styles which allow
 showPlayIcon                      |   `false`  | Boolean. Add Play icon inside the bubbles.
 align                             |  `center`  | String. Valid values 'left', 'right', 'end', 'start', 'center' . It sets alignment for bubbles horizontally.
 autoSegue                         |   `false`  | Boolean. Enable or disable the transition to next story in the end.
+disableShadowDom                  |   `true`   | Boolean. Enable or disable shdowDom           
 on.loaded                         |  `()=>{}`  | Function. Called when all Bubbles have loaded.
 **stories**                       |    `[]`    | **Required.** Array. Data of stories.
 stories[0...n].id                 |    ``      | **Required.** String. Identifier of story.
