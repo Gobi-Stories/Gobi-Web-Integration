@@ -277,7 +277,7 @@ playerOptions.width               |   `612`    | Number. Set player width. If he
 playerOptions.height              |   `1088`   | Number. Set player height. If width option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 playerOptions.checkViewPort       |   `true`   | Boolean. Enable functionality which pause player if it outside of screen view area.
 playerOptions.playButton          |   `true`   | Boolean. Enable or disable play button.
-playerOptions.savePosition        |   `true`   | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user.
+playerOptions.useMediaProxy       |  `false`   | Boolean. Enable the use of a reverse proxy hosted by Gobi for media content.
 **playerOptions.on**              |   `[]`     | Array. Data of event listener.
 playerOptions.on.videoPlay        |  `()=>{}`  | Function. The callback for the play event.
 playerOptions.on.videoPause       |  `()=>{}`  | Function. The callback for the pause event.
@@ -330,7 +330,7 @@ width              |  `612`   | Number. Set player width. If height option is no
 height             |  `1088`  | Number. Set player height. If width option is not defined it will calculate automaticaly depending on aspect ration 16:9.
 checkViewPort      |  `true`  | Boolean. Enable functionality which pause player if it outside of screen view area.
 playButton         |  `true`  | Boolean. Enable or disable play button.
-savePosition       |  `true`  | Boolean. Enable or disable save last watched chapter. It needs to confirm policy by user.
+useMediaProxy      | `false`  | Boolean. Enable the use of a reverse proxy hosted by Gobi for media content.
 **on**             |  `[]`    | Array. Data of event listener.
 on.videoPlay       | `()=>{}` | Function. The callback for the play event.
 on.videoPause      | `()=>{}` | Function. The callback for the pause event.
