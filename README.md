@@ -2,14 +2,14 @@
 
 # Gobi Web Integration
 
-Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site. If you don't have any Gobi Stories yet, sign up in our [Story Manager] (https://manage.gobistories.com/) to get access to our production tools.
+Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site. If you don't have any Gobi Stories yet, sign up in our [Story Manager}(https://manage.gobistories.com/) to get access to our production tools.
 
 ## What it will look like (demo)
 
 See a demo of this library in action at
 [https://www.gobistories.com/developers](https://www.gobistories.com/developers)
 
-To easily test the most used options, go to the code snippet editor in our [Story Manager] (https://manage.gobistories.com/).
+To easily test the most used options, go to the code snippet editor in our [Story Manager](https://manage.gobistories.com/).
 
 ## Troubleshooting & FAQ
 
@@ -45,7 +45,7 @@ Function which discover story div tags added to your page and creates a bubble l
 ```
 
 ## Story div tags
-Story div tags require a Story ID, but it's also possible to use most of our option in this code style by appending a kebab cased option to data-gobi-. Users can create these div tags within or [Story Manager] (https://manage.gobistories.com/).
+Story div tags require a Story ID, but it's also possible to use most of our option in this code style by appending a kebab cased option to data-gobi-. Users can create these div tags within or [Story Manager](https://manage.gobistories.com/).
 
 ```html
 <div class="gobi-stories"
