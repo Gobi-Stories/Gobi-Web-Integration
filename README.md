@@ -2,7 +2,7 @@
 
 # Gobi Web Integration
 
-Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site. If you don't have any Gobi Stories yet, sign up in our [Story Manager}(https://manage.gobistories.com/) to get access to our production tools.
+Welcome to Gobi Web Integration. This library will let you put your Gobi stories on your site. If you don't have any Gobi Stories yet, sign up in our [Story Manager](https://manage.gobistories.com/) to get access to our production tools.
 
 ## What it will look like (demo)
 
