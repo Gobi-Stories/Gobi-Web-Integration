@@ -82,7 +82,7 @@ Another way to add Gobi stories to your page is by using inline javascript.
   </script>
 </body>
 ```
-## Options
+### Options
 
 option                            | default    | description
 ----------------------------------| ---------- | -----------
