@@ -34,6 +34,8 @@ The library will work well in Chrome, Firefox, Safari, and Opera. The library le
 npm install --save @gobistories/gobi-web-integration
 ```
 
+## Story Bubbles
+
 ## Gobi.discover()
 
 Function which discover story div tags added to your page and creates a bubble layout with an already embedded player. 
@@ -80,7 +82,7 @@ Another way to add Gobi stories to your page is by using inline javascript.
   </script>
 </body>
 ```
-### Options
+## Options
 
 option                            | default    | description
 ----------------------------------| ---------- | -----------
@@ -227,6 +229,33 @@ Triggered when video error is generated in the player.
 callback data:
 ```js
 error:MediaError
+```
+
+#### clickPrevious
+Triggered when user tap on back button.
+callback data:
+```js
+chunInd:0...n
+```
+
+#### clickNext
+Triggered when user skipped some video of current story by tap on player.
+callback data:
+```js
+chunInd:0...n
+```
+
+#### clipChange
+Triggered each time when one of story videos was changed to another. Either by the user tapping for back or forward, or automatically.
+callback data:
+```js
+chunInd:0...n
+```
+
+#### newIteration
+Triggered when the `loop` flag is set and the story starts to play again.
+```js
+chunInd:0...n
 ```
 
 ### Methods
