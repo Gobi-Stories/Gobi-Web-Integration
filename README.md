@@ -36,7 +36,7 @@ npm install --save @gobistories/gobi-web-integration
 
 ## Story Bubbles
 
-## Gobi.discover()
+### Gobi.discover()
 
 Function which discover story div tags added to your page and creates a bubble layout with an already embedded player. 
 
@@ -46,7 +46,7 @@ Function which discover story div tags added to your page and creates a bubble l
 </head>
 ```
 
-## Story div tags
+### Story div tags
 Story div tags require a Story ID, but it's also possible to use most of our option in this code style by appending a kebab cased option to data-gobi-. Users can create these div tags within or [Story Manager](https://manage.gobistories.com/).
 
 ```html
@@ -59,7 +59,7 @@ Story div tags require a Story ID, but it's also possible to use most of our opt
 ```
 
 
-## Inline Script
+### Inline Script
 Another way to add Gobi stories to your page is by using inline javascript. 
 
 ```html
@@ -275,5 +275,6 @@ You can destroy player in a valid way
 ```js
   player.destroy()
 ```
+
 
 
